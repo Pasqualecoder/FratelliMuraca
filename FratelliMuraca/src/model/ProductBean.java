@@ -1,5 +1,6 @@
 package model;
 import java.io.Serializable;
+import java.util.List;
 
 public class ProductBean implements Serializable {
 
@@ -12,9 +13,10 @@ public class ProductBean implements Serializable {
 	private int quantita;
 	private String dimensione;
 	private boolean tipo; // 0: olio, 1: cosmetico
-	private String categoria;
+	private ProductCategorie categoria;
 	private String anno;
 	private String ingredienti;
+	private String image;
 
 	// Getter e setter per ogni attributo
 
@@ -74,11 +76,11 @@ public class ProductBean implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public String getCategoria() {
+	public ProductCategorie getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(ProductCategorie categoria) {
 		this.categoria = categoria;
 	}
 
@@ -98,9 +100,18 @@ public class ProductBean implements Serializable {
 		this.ingredienti = ingredienti;
 	}
 
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getImage() {
+		return image;
+	}
+	
+
 	// Costruttore con tutti i parametri
 	public ProductBean(int id, String nome, String descrizione, float prezzo, int quantita, String dimensione,
-			boolean tipo, String categoria, String anno, String ingredienti) {
+			boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image) {
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
@@ -111,19 +122,20 @@ public class ProductBean implements Serializable {
 		this.categoria = categoria;
 		this.anno = anno;
 		this.ingredienti = ingredienti;
+		this.image = image;
 	}
+
 
 	// Costruttore vuoto
 	public ProductBean() {
 	}
 
-	// Override del metodo toString()
 	@Override
 	public String toString() {
-		return "Prodotto{" + "id=" + id + ", nome='" + nome + '\'' + ", descrizione='" + descrizione + '\''
-				+ ", prezzo=" + prezzo + ", quantita=" + quantita + ", dimensione='" + dimensione + '\'' + ", tipo="
-				+ tipo + ", categoria='" + categoria + '\'' + ", anno='" + anno + '\'' + ", ingredienti='" + ingredienti
-				+ '\'' + '}';
+		return "ProductBean [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", prezzo=" + prezzo
+				+ ", quantita=" + quantita + ", dimensione=" + dimensione + ", tipo=" + tipo + ", categoria="
+				+ categoria + ", anno=" + anno + ", ingredienti=" + ingredienti + ", image=" + image + "]";
 	}
+
 
 }
