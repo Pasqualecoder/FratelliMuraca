@@ -7,7 +7,7 @@
 <meta charset="ISO-8859-1">
 <title><%= request.getAttribute("title") %></title>
 </head>
-<bodys>
+<body>
 <h1 style="text-align: center;">Fratelli Muraca</h1>
 
 <h2>Products</h2>
@@ -18,7 +18,7 @@
       <span>Price:</span> ${product.getPrice()} <br>
       <span>Description:</span> ${product.getDescription()} <br>
       <a href="/product/${product.getId()}">Detailed Description</a>
-      <img src="images/${product.getImage()}" alt="${product.getName()}" width="300" height="300"><br>
+      <img src="media/${product.getImage()}" alt="${product.getName()}" width="300" height="300"><br>
       <button type="button">Aggiungi al carrello</button>
     </li>
   </c:forEach>
