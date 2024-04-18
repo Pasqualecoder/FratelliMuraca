@@ -54,8 +54,6 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement.setString(9, product.getIngredienti());
 			preparedStatement.setString(10, product.getImage());
 			
-			System.out.println(preparedStatement.toString());
-			
 			preparedStatement.executeUpdate();
 
 			connection.commit();
