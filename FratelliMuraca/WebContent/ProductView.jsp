@@ -1,3 +1,4 @@
+<%@page import="model.ProductCategorie"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -29,6 +30,7 @@
 	<table border="1">
 		<tr>
 			<th>id <a href="product?sort=id">Sort</a></th>
+			<th>img</th>
 			<th>nome<a href="product?sort=nome">Sort</a></th>
 			<th>descrizione<a href="product?sort=descrizione">Sort</a></th>
 			<th>Action</th>
@@ -41,6 +43,7 @@
 		%>
 		<tr>
 			<td><%=bean.getId()%></td>
+			<td><img alt="<%=bean.getNome()%>" src="media/<%=bean.getImage()%>"></td>
 			<td><%=bean.getNome()%></td>
 			<td><%=bean.getDescrizione()%></td>
 			<td><%=bean.getDescrizione()%></td>
@@ -88,17 +91,43 @@
 	<form action="product" method="post">
 		<input type="hidden" name="action" value="insert"> 
 		
-		<label for="name">Name:</label><br> 
-		<input name="name" type="text" maxlength="20" required placeholder="enter name"><br> 
+		<label for="nome">Nome:</label><br> 
+		<input name="nome" type="text" maxlength="20" required placeholder="inserisci il nome"><br> 
 		
-		<label for="description">Description:</label><br>
-		<textarea name="description" maxlength="100" rows="3" required placeholder="enter description"></textarea><br>
+		<label for="descrizione">Descrizione:</label><br>
+		<textarea name="descrizione" maxlength="100" rows="3" required placeholder="inserisci la descrizione"></textarea><br>
 		
-		<label for="price">Price:</label><br> 
-		<input name="price" type="number" min="0" value="0" required><br>
+		<label for="prezzo">Prezzo:</label><br> 
+		<input name="prezzo" type="number" min="0" value="0" required><br>
 
-		<label for="quantity">Quantity:</label><br> 
-		<input name="quantity" type="number" min="1" value="1" required><br>
+		<label for="quantita">Quantità:</label><br> 
+		<input name="quantita" type="number" min="1" value="1" required><br>
+
+		<label for="dimensione">Dimensione:</label><br> 
+		<input name="dimensione" type="text" maxlength="20" required placeholder="inserisci la dimensione (specificare l'unità di misura)"><br>
+		
+		<label for="tipo">Tipo:</label><br>
+		<input name="tipo" type="radio" required value="olio"><label for="olio">Olio</label><br>
+		<input name="tipo" type="radio" required value="cosmetico"><label for="cosmetico">Cosmetico</label><br>
+		
+		<label for="categoria">Categoria:</label>
+		<select name="categoria" for="categoria">
+			<%
+				for (ProductCategorie cat : ProductCategorie.values()) { %>
+					<option value="<%=cat%>"><%=cat%></option>
+				<% }
+			%>
+		</select><br>
+		
+		<label for="anno">Anno di Produzione:</label><br> 
+		<input name="anno" type="number" min="0" value="0" required><br>
+		
+		<label for="ingredienti">Ingredienti:</label><br>
+		<textarea name="ingredienti" maxlength="200" rows="3" required placeholder="inserisci gli ingredienti"></textarea><br>
+		
+		<label for="image">Path immagine:</label><br>
+		<input name="image" type="text" maxlength="20" required placeholder="path image"><br> 
+		
 
 		<input type="submit" value="Add"><input type="reset" value="Reset">
 	</form>

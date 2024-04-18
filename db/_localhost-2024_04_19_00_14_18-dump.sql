@@ -82,9 +82,10 @@ CREATE TABLE `prodotti` (
   `tipo` tinyint(1) NOT NULL COMMENT 'booleano 0:olio 1:cosmetico',
   `categoria` enum('classici','aromatizzati') NOT NULL COMMENT 'classici, aromatizzati, categorie per i cosmetici...',
   `anno` char(4) DEFAULT NULL,
-  `ingredienti` varchar(80) DEFAULT NULL,
+  `ingredienti` varchar(200) DEFAULT NULL,
+  `image` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='generalizzazione di oli e cosmetici';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='generalizzazione di oli e cosmetici';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +94,7 @@ CREATE TABLE `prodotti` (
 
 LOCK TABLES `prodotti` WRITE;
 /*!40000 ALTER TABLE `prodotti` DISABLE KEYS */;
-INSERT INTO `prodotti` VALUES (1,'Olio Extravergine d\'Oliva','Lorem ipsum',15,3,'5L',0,'classici','2023',NULL);
+INSERT INTO `prodotti` VALUES (1,'Olio Extravergine d\'Oliva','Lorem ipsum',15,3,'5L',0,'classici','2023',NULL,'placeholder.png'),(3,'salvatore','fdaibsch',345,6,'asud',0,'classici','1234','dhsvbb','placeholder.png');
 /*!40000 ALTER TABLE `prodotti` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,13 +105,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `prodotti_images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `prodotti_images` 
-(
+CREATE TABLE `prodotti_images` (
   `id_prodotto` int NOT NULL,
   `id_image` int NOT NULL,
   PRIMARY KEY (`id_prodotto`,`id_image`),
-  FOREIGN KEY(id_prodotto) REFERENCES prodotti(id),
-  FOREIGN KEY(id_image) REFERENCES images(id)
+  KEY `id_image` (`id_image`),
+  CONSTRAINT `prodotti_images_ibfk_1` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotti` (`id`),
+  CONSTRAINT `prodotti_images_ibfk_2` FOREIGN KEY (`id_image`) REFERENCES `images` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -120,7 +121,6 @@ CREATE TABLE `prodotti_images`
 
 LOCK TABLES `prodotti_images` WRITE;
 /*!40000 ALTER TABLE `prodotti_images` DISABLE KEYS */;
-INSERT INTO `prodotti_images` VALUES (3,5);
 /*!40000 ALTER TABLE `prodotti_images` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -133,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-16 11:34:00
+-- Dump completed on 2024-04-19  0:14:18

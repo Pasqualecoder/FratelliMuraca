@@ -1,6 +1,7 @@
 package model;
 
 public enum ProductCategorie {
+	none,
 	classici,
 	aromatizzati;
 	
@@ -11,6 +12,6 @@ public enum ProductCategorie {
                 return enumValue;
             }
         }
-        throw new IllegalArgumentException("No constant with text " + text + " found in enum MyEnum");
+        throw new IllegalArgumentException("No constant with text " + text + " found in enum ProductCategorie");
     }
 }

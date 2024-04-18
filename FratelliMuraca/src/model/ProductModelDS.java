@@ -37,7 +37,8 @@ public class ProductModelDS implements ProductModel {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductModelDS.TABLE_NAME
-				+ " (NAME, DESCRIPTION, PRICE, QUANTITY) VALUES (?, ?, ?, ?)";
+				+ " (nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -46,7 +47,15 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement.setString(2, product.getDescrizione());
 			preparedStatement.setFloat(3, product.getPrezzo());
 			preparedStatement.setInt(4, product.getQuantita());
-
+			preparedStatement.setString(5, product.getDimensione());
+			preparedStatement.setBoolean(6, product.getTipo());
+			preparedStatement.setString(7, product.getCategoria().toString());
+			preparedStatement.setString(8, product.getAnno());
+			preparedStatement.setString(9, product.getIngredienti());
+			preparedStatement.setString(10, product.getImage());
+			
+			System.out.println(preparedStatement.toString());
+			
 			preparedStatement.executeUpdate();
 
 			connection.commit();
@@ -66,7 +75,7 @@ public class ProductModelDS implements ProductModel {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		ProductBean bean = new ProductBean();
+		ProductBean bean = null;
 
 		String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE id = ?";
 
@@ -78,11 +87,19 @@ public class ProductModelDS implements ProductModel {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setId(rs.getInt("id"));
-				bean.setNome(rs.getString("nome"));
-				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzo(rs.getFloat("prezzo"));
-				bean.setQuantita(rs.getInt("quantita"));
+				String nome = rs.getString("nome");
+				String descrizione = rs.getString("descrizione");
+				float prezzo = rs.getFloat("prezzo");
+				int quantita = rs.getInt("quantita");
+				String dimensione = rs.getString("dimensione");
+				boolean tipo = rs.getBoolean("tipo");
+				ProductCategorie categoria = ProductCategorie.fromString(rs.getString("categoria"));
+				String anno = rs.getString("anno");
+				String ingredienti = rs.getString("ingredienti");
+				String image = rs.getString("image");
+				
+				bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
+				
 			}
 
 		} finally {
@@ -94,6 +111,8 @@ public class ProductModelDS implements ProductModel {
 					connection.close();
 			}
 		}
+		
+		if (bean == null) return new ProductBean();
 		return bean;
 	}
 
@@ -145,13 +164,20 @@ public class ProductModelDS implements ProductModel {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				ProductBean bean = new ProductBean();
-
-				bean.setId(rs.getInt("id"));
-				bean.setNome(rs.getString("nome"));
-				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setPrezzo(rs.getInt("prezzo"));
-				bean.setQuantita(rs.getInt("quantita"));
+				
+				int id = rs.getInt("id");
+				String nome = rs.getString("nome");
+				String descrizione = rs.getString("descrizione");
+				float prezzo = rs.getFloat("prezzo");
+				int quantita = rs.getInt("quantita");
+				String dimensione = rs.getString("dimensione");
+				boolean tipo = rs.getBoolean("tipo");
+				ProductCategorie categoria = ProductCategorie.fromString(rs.getString("categoria"));
+				String anno = rs.getString("anno");
+				String ingredienti = rs.getString("ingredienti");
+				String image = rs.getString("image");
+				
+				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
 				products.add(bean);
 			}
 

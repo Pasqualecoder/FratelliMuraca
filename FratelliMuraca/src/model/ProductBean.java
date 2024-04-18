@@ -68,7 +68,7 @@ public class ProductBean implements Serializable {
 		this.dimensione = dimensione;
 	}
 
-	public boolean isTipo() {
+	public boolean getTipo() {
 		return tipo;
 	}
 
@@ -124,6 +124,22 @@ public class ProductBean implements Serializable {
 		this.ingredienti = ingredienti;
 		this.image = image;
 	}
+	
+	// Costruttore senza id
+		public ProductBean(String nome, String descrizione, float prezzo, int quantita, String dimensione,
+				boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image) {
+			this.id = -1;
+			this.nome = nome;
+			this.descrizione = descrizione;
+			this.prezzo = prezzo;
+			this.quantita = quantita;
+			this.dimensione = dimensione;
+			this.tipo = tipo;
+			this.categoria = categoria;
+			this.anno = anno;
+			this.ingredienti = ingredienti;
+			this.image = image;
+		}
 
 
 	// Costruttore vuoto

@@ -52,20 +52,33 @@ public class ProductControl extends HttpServlet {
 
 		try {
 			if (action != null) {
+				// ADD TO CART
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.addProduct(model.doRetrieveByKey(id));
-				} else if (action.equalsIgnoreCase("deleteC")) {
+				} 
+				
+				// REMOVE FROM CART
+				else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.deleteProduct(model.doRetrieveByKey(id));
-				} else if (action.equalsIgnoreCase("read")) {
+				}
+				
+				// DETAILS
+				else if (action.equalsIgnoreCase("read")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("product");
 					request.setAttribute("product", model.doRetrieveByKey(id));
-				} else if (action.equalsIgnoreCase("delete")) {
+				} 
+				
+				// DELETE FROM DB
+				else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					model.doDelete(id);
-				} else if (action.equalsIgnoreCase("insert")) {
+				} 
+				
+				// INSERT INTO DB
+				else if (action.equalsIgnoreCase("insert")) {
 					String nome = request.getParameter("nome");
 					String descrizione = request.getParameter("descrizione");
 					float prezzo = Float.parseFloat(request.getParameter("prezzo"));
@@ -77,18 +90,7 @@ public class ProductControl extends HttpServlet {
 					String ingredienti = request.getParameter("ingredienti");
 					String image = request.getParameter("image");
 					
-					ProductBean bean = new ProductBean();
-					bean.setNome(nome);
-					bean.setDescrizione(descrizione);
-					bean.setPrezzo(prezzo);
-					bean.setQuantita(quantita);
-					bean.setDimensione(dimensione);
-					bean.setTipo(tipo);
-					bean.setCategoria(categoria);
-					bean.setAnno(anno);
-					bean.setIngredienti(ingredienti);
-					bean.setImage(image);
-					
+					ProductBean bean = new ProductBean(nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
 					model.doSave(bean);
 				}
 			}			
