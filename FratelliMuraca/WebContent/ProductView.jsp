@@ -21,18 +21,18 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
-	<title>Storage DS/BF</title>
+	<title>Store - Fratelli Muraca</title>
 </head>
 
 <body>
-	<h2>Products</h2>
+	<h2>Prodotti</h2>
 	<a href="product">List</a>
 	<table border="1">
 		<tr>
 			<th>id <a href="product?sort=id">Sort</a></th>
 			<th>img</th>
-			<th>nome<a href="product?sort=nome">Sort</a></th>
-			<th>descrizione<a href="product?sort=descrizione">Sort</a></th>
+			<th>nome <a href="product?sort=nome">Sort</a></th>
+			<th>descrizione <a href="product?sort=descrizione">Sort</a></th>
 			<th>Action</th>
 		</tr>
 		<%
@@ -45,7 +45,6 @@
 			<td><%=bean.getId()%></td>
 			<td><img alt="<%=bean.getNome()%>" src="media/<%=bean.getImage()%>"></td>
 			<td><%=bean.getNome()%></td>
-			<td><%=bean.getDescrizione()%></td>
 			<td><%=bean.getDescrizione()%></td>
 			<td><a href="product?action=delete&id=<%=bean.getId()%>">Delete</a><br>
 				<a href="product?action=read&id=<%=bean.getId()%>">Details</a><br>
@@ -111,7 +110,7 @@
 		<input name="tipo" type="radio" required value="cosmetico"><label for="cosmetico">Cosmetico</label><br>
 		
 		<label for="categoria">Categoria:</label>
-		<select name="categoria" for="categoria">
+		<select name="categoria">
 			<%
 				for (ProductCategorie cat : ProductCategorie.values()) { %>
 					<option value="<%=cat%>"><%=cat%></option>
