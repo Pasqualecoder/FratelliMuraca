@@ -1,5 +1,6 @@
 package model;
 import java.io.Serializable;
+import java.util.LinkedList;
 
 public class ProductBean implements Serializable {
 
@@ -16,6 +17,7 @@ public class ProductBean implements Serializable {
 	private String anno;
 	private String ingredienti;
 	private String image;
+	private LinkedList<Immagine> immagini;
 
 	// Getter e setter per ogni attributo
 
@@ -107,10 +109,19 @@ public class ProductBean implements Serializable {
 		return image;
 	}
 	
+	public void setImmagini(LinkedList<Immagine> immagini) {
+		this.immagini = immagini;
+	}
+	
+	public LinkedList<Immagine> getImmagini() {
+		return immagini;
+	}
+	
+	
 
 	// Costruttore con tutti i parametri
 	public ProductBean(int id, String nome, String descrizione, float prezzo, int quantita, String dimensione,
-			boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image) {
+			boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image, LinkedList<Immagine> immagini) {
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
@@ -122,11 +133,12 @@ public class ProductBean implements Serializable {
 		this.anno = anno;
 		this.ingredienti = ingredienti;
 		this.image = image;
+		this.immagini = immagini;
 	}
 	
 	// Costruttore senza id
 		public ProductBean(String nome, String descrizione, float prezzo, int quantita, String dimensione,
-				boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image) {
+				boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image, LinkedList<Immagine> immagini) {
 			this.id = -1;
 			this.nome = nome;
 			this.descrizione = descrizione;
@@ -138,6 +150,7 @@ public class ProductBean implements Serializable {
 			this.anno = anno;
 			this.ingredienti = ingredienti;
 			this.image = image;
+			this.immagini = immagini;
 		}
 
 

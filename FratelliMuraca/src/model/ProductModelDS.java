@@ -95,9 +95,9 @@ public class ProductModelDS implements ProductModel {
 				String anno = rs.getString("anno");
 				String ingredienti = rs.getString("ingredienti");
 				String image = rs.getString("image");
-				
-				bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
-				
+				LinkedList<Immagine> immagini = doRetrieveImages(id);
+
+				bean = new ProductBean(nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image, immagini);
 			}
 
 		} finally {
@@ -174,8 +174,9 @@ public class ProductModelDS implements ProductModel {
 				String anno = rs.getString("anno");
 				String ingredienti = rs.getString("ingredienti");
 				String image = rs.getString("image");
+				LinkedList<Immagine> immagini = doRetrieveImages(id);
 				
-				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
+				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image, immagini);
 				products.add(bean);
 			}
 
@@ -191,4 +192,35 @@ public class ProductModelDS implements ProductModel {
 		return products;
 	}
 
+	
+	public synchronized LinkedList<Immagine> doRetrieveImages(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		LinkedList<Immagine> lista = new LinkedList<Immagine>();
+
+		String selectSQL = "SELECT * FROM " + "images" + " WHERE prod_fk = " + id;
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				byte[] buffer = rs.getBytes("imageblob");
+				lista.add(new Immagine(buffer));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return lista;
+	}
 }

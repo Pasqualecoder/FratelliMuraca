@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 
 <%
+// 
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
 	if(products == null) {
 		response.sendRedirect("./product");	
@@ -16,7 +17,7 @@
 
 <!DOCTYPE html>
 <html>
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean,model.Cart"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean,model.Cart,model.*"%>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,6 +26,11 @@
 </head>
 
 <body>
+<%
+Iterator ite = products.iterator();
+ProductBean pr = (ProductBean) ite.next();
+
+%>
 	<h2>Prodotti</h2>
 	<a href="product">List</a>
 	<table border="1">
@@ -43,7 +49,14 @@
 		%>
 		<tr>
 			<td><%=bean.getId()%></td>
-			<td><img alt="<%=bean.getNome()%>" src="media/<%=bean.getImage()%>"></td>
+			<td>
+				<%
+				for (Immagine im : bean.getImmagini()) { %>
+					<img src="data:image/jpeg;base64,<%= new String(Base64.getEncoder().encode(im.getDati())) %>" alt="Immagine Prodotto" width="50">
+				<% }
+				%>
+			</td>
+			
 			<td><%=bean.getNome()%></td>
 			<td><%=bean.getDescrizione()%></td>
 			<td><a href="product?action=delete&id=<%=bean.getId()%>">Delete</a><br>
