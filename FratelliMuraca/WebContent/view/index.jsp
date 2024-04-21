@@ -9,6 +9,7 @@
 </head>
 <body>
 <h1 style="text-align: center;">Fratelli Muraca</h1>
+<a href="login.html">Entra nell'area riservata</a>
 
 <h2>Products</h2>
 <ul>
