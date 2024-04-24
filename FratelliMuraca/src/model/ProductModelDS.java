@@ -37,7 +37,7 @@ public class ProductModelDS implements ProductModel {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductModelDS.TABLE_NAME
-				+ " (nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image) "
+				+ " (nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
@@ -52,7 +52,8 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement.setString(7, product.getCategoria().toString());
 			preparedStatement.setString(8, product.getAnno());
 			preparedStatement.setString(9, product.getIngredienti());
-			preparedStatement.setString(10, product.getImage());
+			
+			// TODO: save images
 			
 			preparedStatement.executeUpdate();
 
@@ -94,10 +95,9 @@ public class ProductModelDS implements ProductModel {
 				ProductCategorie categoria = ProductCategorie.fromString(rs.getString("categoria"));
 				String anno = rs.getString("anno");
 				String ingredienti = rs.getString("ingredienti");
-				String image = rs.getString("image");
 				LinkedList<Immagine> immagini = doRetrieveImages(id);
 
-				bean = new ProductBean(nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image, immagini);
+				bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
 			}
 
 		} finally {
@@ -173,10 +173,9 @@ public class ProductModelDS implements ProductModel {
 				ProductCategorie categoria = ProductCategorie.fromString(rs.getString("categoria"));
 				String anno = rs.getString("anno");
 				String ingredienti = rs.getString("ingredienti");
-				String image = rs.getString("image");
 				LinkedList<Immagine> immagini = doRetrieveImages(id);
 				
-				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image, immagini);
+				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
 				products.add(bean);
 			}
 
@@ -199,12 +198,12 @@ public class ProductModelDS implements ProductModel {
 
 		LinkedList<Immagine> lista = new LinkedList<Immagine>();
 
-		String selectSQL = "SELECT * FROM " + "images" + " WHERE prod_fk = " + id;
+		String selectSQL = "SELECT * FROM " + "images" + " WHERE prod_fk = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			preparedStatement.setInt(1, id);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -223,4 +222,38 @@ public class ProductModelDS implements ProductModel {
 		
 		return lista;
 	}
+	
+	//TODO: save images
+	/*
+	public synchronized LinkedList<Immagine> doSaveImages(LinkedList<Immagine> immagini) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		LinkedList<Immagine> lista = new LinkedList<Immagine>();
+
+		String selectSQL = "SELECT * FROM " + "images" + " WHERE prod_fk = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				byte[] buffer = rs.getBytes("imageblob");
+				lista.add(new Immagine(buffer));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return lista;
+	}
+	*/
 }

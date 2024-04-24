@@ -1,0 +1,2 @@
+- aggiungere nel form l'inserimento delle immagini -> salvare le immagini nel db
+- spostare le funzionalità da admin nella sua pagina

@@ -16,7 +16,6 @@ public class ProductBean implements Serializable {
 	private ProductCategorie categoria;
 	private String anno;
 	private String ingredienti;
-	private String image;
 	private LinkedList<Immagine> immagini;
 
 	// Getter e setter per ogni attributo
@@ -100,14 +99,6 @@ public class ProductBean implements Serializable {
 	public void setIngredienti(String ingredienti) {
 		this.ingredienti = ingredienti;
 	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public String getImage() {
-		return image;
-	}
 	
 	public void setImmagini(LinkedList<Immagine> immagini) {
 		this.immagini = immagini;
@@ -121,7 +112,7 @@ public class ProductBean implements Serializable {
 
 	// Costruttore con tutti i parametri
 	public ProductBean(int id, String nome, String descrizione, float prezzo, int quantita, String dimensione,
-			boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image, LinkedList<Immagine> immagini) {
+			boolean tipo, ProductCategorie categoria, String anno, String ingredienti, LinkedList<Immagine> immagini) {
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
@@ -132,13 +123,12 @@ public class ProductBean implements Serializable {
 		this.categoria = categoria;
 		this.anno = anno;
 		this.ingredienti = ingredienti;
-		this.image = image;
 		this.immagini = immagini;
 	}
 	
 	// Costruttore senza id
 		public ProductBean(String nome, String descrizione, float prezzo, int quantita, String dimensione,
-				boolean tipo, ProductCategorie categoria, String anno, String ingredienti, String image, LinkedList<Immagine> immagini) {
+				boolean tipo, ProductCategorie categoria, String anno, String ingredienti, LinkedList<Immagine> immagini) {
 			this.id = -1;
 			this.nome = nome;
 			this.descrizione = descrizione;
@@ -149,7 +139,6 @@ public class ProductBean implements Serializable {
 			this.categoria = categoria;
 			this.anno = anno;
 			this.ingredienti = ingredienti;
-			this.image = image;
 			this.immagini = immagini;
 		}
 
@@ -162,7 +151,7 @@ public class ProductBean implements Serializable {
 	public String toString() {
 		return "ProductBean [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", prezzo=" + prezzo
 				+ ", quantita=" + quantita + ", dimensione=" + dimensione + ", tipo=" + tipo + ", categoria="
-				+ categoria + ", anno=" + anno + ", ingredienti=" + ingredienti + ", image=" + image + "]";
+				+ categoria + ", anno=" + anno + ", ingredienti=" + ingredienti + ", n_immagini=" + immagini.size() + "]";
 	}
 
 

@@ -2,8 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ include file="parts/header.jsp" %>
+
 <%
-// 
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
 	if(products == null) {
 		response.sendRedirect("./product");	
@@ -21,7 +22,9 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
+	
+	<!-- FIXME: cache-busting: normalmente (almeno sul browser Brave) il file css rimane in cache e se subisce modifiche non viene riscaricato dal client. appendendo una stringa al ? per il get, che cambia sempre si forza il client a riscaricare il file css dal server poiché risulta un indirizzo diverso -->
+	<link href="ProductStyle.css?<%= System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
 	<title>Store - Fratelli Muraca</title>
 </head>
 
@@ -52,7 +55,7 @@ ProductBean pr = (ProductBean) ite.next();
 			<td>
 				<%
 				for (Immagine im : bean.getImmagini()) { %>
-					<img src="data:image/jpeg;base64,<%= new String(Base64.getEncoder().encode(im.getDati())) %>" alt="Immagine Prodotto" width="50">
+					<img src="data:image/jpeg;base64,<%= new String(Base64.getEncoder().encode(im.getDati())) %>" alt="Immagine Prodotto" width="100">
 				<% }
 				%>
 			</td>
@@ -83,23 +86,41 @@ ProductBean pr = (ProductBean) ite.next();
 	<table border="1">
 		<tr>
 			<th>id</th>
+			<th>img</th>
 			<th>nome</th>
 			<th>descrizione</th>
 			<th>prezzo</th>
 			<th>quantita</th>
+			<th>dimensione</th>
+			<th>categoria</th>
+			<th>anno di produzione</th>
+			<th>ingredienti</th>
 		</tr>
 		<tr>
 			<td><%=product.getId()%></td>
+			<td>
+			<%
+				for (Immagine im : product.getImmagini()) { %>
+					<img src="data:image/jpeg;base64,<%= new String(Base64.getEncoder().encode(im.getDati())) %>" alt="Immagine Prodotto" width="100">
+				<% }
+			%>
+			</td>
 			<td><%=product.getNome()%></td>
 			<td><%=product.getDescrizione()%></td>
-			<td><%=product.getPrezzo()%></td>
+			<td>&euro;<%=product.getPrezzo()%></td>
 			<td><%=product.getQuantita()%></td>
+			<td><%=product.getDimensione()%></td>
+			<td><%=product.getCategoria()%></td>
+			<td><%=product.getAnno()%></td>
+			<td><%=product.getIngredienti()%></td>
 		</tr>
 	</table>
 	<%
 		}
 	%>
-	<h2>Insert</h2>
+	
+
+	<h2>TODO: da portare nel lato admin <br> Insert</h2>
 	<form action="product" method="post">
 		<input type="hidden" name="action" value="insert"> 
 		
@@ -137,8 +158,9 @@ ProductBean pr = (ProductBean) ite.next();
 		<label for="ingredienti">Ingredienti:</label><br>
 		<textarea name="ingredienti" maxlength="200" rows="3" required placeholder="inserisci gli ingredienti"></textarea><br>
 		
-		<label for="image">Path immagine:</label><br>
-		<input name="image" type="text" maxlength="20" required placeholder="path image"><br> 
+		
+		<label for="image">TODO: carica immagini:</label><br>
+		<input name="image" type="text" maxlength="20" required placeholder="asdf"><br> 
 		
 
 		<input type="submit" value="Add"><input type="reset" value="Reset">
@@ -160,5 +182,9 @@ ProductBean pr = (ProductBean) ite.next();
 		<%} %>
 	</table>		
 	<% } %>	
+	
+<br><br><br><br>
+	
+<%@ include file="parts/footer.jsp" %>	
 </body>
 </html>
