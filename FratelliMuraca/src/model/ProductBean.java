@@ -1,5 +1,6 @@
 package model;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.LinkedList;
 
 public class ProductBean implements Serializable {
@@ -146,7 +147,31 @@ public class ProductBean implements Serializable {
 	// Costruttore vuoto
 	public ProductBean() {
 	}
+	
 
+	/**
+	 * due prodotti sono uguali se hanno lo stesso id
+	 * utile ai fini del carrello
+	 */
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	        return true;
+	    }
+	    if (obj == null || getClass() != obj.getClass()) {
+	        return false;
+	    }
+	    ProductBean other = (ProductBean) obj;
+	    return id == other.id;
+	}
+
+	@Override
+	public int hashCode() {
+	    return Objects.hash(id);
+	}
+
+	
+	
 	@Override
 	public String toString() {
 		return "ProductBean [id=" + id + ", nome=" + nome + ", descrizione=" + descrizione + ", prezzo=" + prezzo

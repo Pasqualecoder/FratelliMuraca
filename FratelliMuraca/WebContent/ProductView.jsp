@@ -273,14 +273,16 @@ ProductBean pr = (ProductBean) ite.next();
 		<h2>Cart</h2>
 		<table border="1">
 		<tr>
+			<th>quantità</th>
 			<th>Name</th>
 			<th>Action</th>
 		</tr>
-		<% List<ProductBean> prodcart = cart.getProducts(); 	
-		   for(ProductBean beancart: prodcart) {
+		<% Map<ProductBean, Integer> prodcart = cart.getProducts(); 	
+		   for(ProductBean beancart: prodcart.keySet()) { // keySet prende l'insieme delle chiavi in modo tale che si possa iterare attraverso
 		%>
 		<tr>
-			<td><%=beancart.getNome()%></td>
+			<td><%= prodcart.get(beancart) %></td>
+			<td><%= beancart.getNome()%></td>
 			<td><a href="product?action=deleteC&id=<%=beancart.getId()%>">Delete from cart</a></td>
 		</tr>
 		<%} %>
