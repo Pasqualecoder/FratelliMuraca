@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -95,7 +96,7 @@ public class ProductModelDS implements ProductModel {
 				ProductCategorie categoria = ProductCategorie.fromString(rs.getString("categoria"));
 				String anno = rs.getString("anno");
 				String ingredienti = rs.getString("ingredienti");
-				LinkedList<Immagine> immagini = doRetrieveImages(id);
+				LinkedList<Integer> immagini = (LinkedList<Integer>) doRetrieveImagesKey(id);
 
 				bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
 			}
@@ -173,7 +174,7 @@ public class ProductModelDS implements ProductModel {
 				ProductCategorie categoria = ProductCategorie.fromString(rs.getString("categoria"));
 				String anno = rs.getString("anno");
 				String ingredienti = rs.getString("ingredienti");
-				LinkedList<Immagine> immagini = doRetrieveImages(id);
+				LinkedList<Integer> immagini = (LinkedList<Integer>) doRetrieveImagesKey(id);
 				
 				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
 				products.add(bean);
@@ -191,6 +192,41 @@ public class ProductModelDS implements ProductModel {
 		return products;
 	}
 
+	/**
+	 * restituisce una SINGOLA immagine, deve essere usato da ImageServlet
+	 * @param imgId
+	 * @return
+	 * @throws SQLException
+	 */
+	public synchronized byte[] doRetrieveImage(int imgId) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		byte[] imageData = null;
+
+		String selectSQL = "SELECT * FROM " + "images" + " WHERE id = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, imgId);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				// Recupera l'immagine dal risultato della query
+                imageData = rs.getBytes("imageblob");
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return imageData;
+	}
 	
 	public synchronized LinkedList<Immagine> doRetrieveImages(int id) throws SQLException {
 		Connection connection = null;
@@ -209,6 +245,43 @@ public class ProductModelDS implements ProductModel {
 			while (rs.next()) {
 				byte[] buffer = rs.getBytes("imageblob");
 				lista.add(new Immagine(buffer));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return lista;
+	}
+	
+	/**
+	 * restituisce una lista di chiavi di immagini di un prodotto. Serviranno poi per il ImageServlet.java
+	 * @param id del prodotto del quale si vogliono sapere le chiavi delle foto
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Integer> doRetrieveImagesKey(int idProd) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		List<Integer> lista = new LinkedList<Integer>();
+
+		String selectSQL = "SELECT id FROM " + "images" + " WHERE prod_fk = ?";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, idProd);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int chiave = rs.getInt("id");
+				lista.add(chiave);
 			}
 		} finally {
 			try {

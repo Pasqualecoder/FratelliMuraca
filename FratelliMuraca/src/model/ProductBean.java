@@ -17,7 +17,7 @@ public class ProductBean implements Serializable {
 	private ProductCategorie categoria;
 	private String anno;
 	private String ingredienti;
-	private LinkedList<Immagine> immagini;
+	private LinkedList<Integer> immagini;
 
 	// Getter e setter per ogni attributo
 
@@ -101,11 +101,11 @@ public class ProductBean implements Serializable {
 		this.ingredienti = ingredienti;
 	}
 	
-	public void setImmagini(LinkedList<Immagine> immagini) {
+	public void setImmagini(LinkedList<Integer> immagini) {
 		this.immagini = immagini;
 	}
 	
-	public LinkedList<Immagine> getImmagini() {
+	public LinkedList<Integer> getImmagini() {
 		return immagini;
 	}
 	
@@ -113,7 +113,7 @@ public class ProductBean implements Serializable {
 
 	// Costruttore con tutti i parametri
 	public ProductBean(int id, String nome, String descrizione, float prezzo, int quantita, String dimensione,
-			boolean tipo, ProductCategorie categoria, String anno, String ingredienti, LinkedList<Immagine> immagini) {
+			boolean tipo, ProductCategorie categoria, String anno, String ingredienti, LinkedList<Integer> immagini) {
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
@@ -129,7 +129,7 @@ public class ProductBean implements Serializable {
 	
 	// Costruttore senza id
 		public ProductBean(String nome, String descrizione, float prezzo, int quantita, String dimensione,
-				boolean tipo, ProductCategorie categoria, String anno, String ingredienti, LinkedList<Immagine> immagini) {
+				boolean tipo, ProductCategorie categoria, String anno, String ingredienti, LinkedList<Integer> immagini) {
 			this.id = -1;
 			this.nome = nome;
 			this.descrizione = descrizione;

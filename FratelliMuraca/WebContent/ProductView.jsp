@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
 	pageEncoding="UTF-8"%>
 
+
 <%@ include  file="init/cartinit.jsp"%>
+<!-- new String(Base64.getEncoder().encode(im.getDati())) -->
 
 <%
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
@@ -104,7 +106,7 @@ ProductBean pr = (ProductBean) ite.next();
 		    <!-- Sale badge-->
 		    <!--  <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>  -->
 		    <!-- Product image-->
-		    <img src="data:image/jpeg;base64,<%= new String(Base64.getEncoder().encode(bean.getImmagini().getFirst().getDati())) %>" alt="<%= bean.getNome()%>" width="100">
+		    <img src="imageServlet?img=<%= bean.getImmagini().getFirst() %>" alt="<%= bean.getNome() %>" width="100">
 		    <!-- Product details-->
 		    <div class="card-body p-4">
 		        <div class="text-center">
@@ -158,8 +160,9 @@ ProductBean pr = (ProductBean) ite.next();
 			<td><%=bean.getId()%></td>
 			<td>
 				<%
-				for (Immagine im : bean.getImmagini()) { %>
-					<img src="data:image/jpeg;base64,<%= new String(Base64.getEncoder().encode(im.getDati())) %>" alt="Immagine Prodotto" width="100">
+				for (Integer im : bean.getImmagini()) { %>
+				<!-- TODO: -->
+					<img src="" alt="<%= im.toString() %>" width="100">
 				<% }
 				%>
 			</td>
@@ -204,9 +207,8 @@ ProductBean pr = (ProductBean) ite.next();
 			<td><%=product.getId()%></td>
 			<td>
 			<%
-				for (Immagine im : product.getImmagini()) { %>
-					<img src="data:image/jpeg;base64,<%= new String(Base64.getEncoder().encode(im.getDati())) %>" alt="Immagine Prodotto" width="100">
-				<% }
+				for (Integer im : product.getImmagini()) { %>
+					<% }
 			%>
 			</td>
 			<td><%=product.getNome()%></td>

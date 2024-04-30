@@ -90,7 +90,7 @@ public class ProductControl extends HttpServlet {
 					String ingredienti = request.getParameter("ingredienti");
 					String image = request.getParameter("image");
 					
-					//TODO: save images
+					// TODO: save images
 					ProductBean bean = null; // new ProductBean(nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
 					model.doSave(bean);
 				}
