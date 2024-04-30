@@ -24,6 +24,10 @@ public class Cart {
 		}
  	}
 	
+	public int getSize() {
+		return products.size();
+	}
+	
 	public List<ProductBean> getProducts() {
 		return products;
 	}
