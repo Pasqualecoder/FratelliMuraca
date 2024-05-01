@@ -65,11 +65,13 @@ public class ProductControl extends HttpServlet {
 				}
 				
 				// DETAILS
+				/*
 				else if (action.equalsIgnoreCase("read")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("product");
 					request.setAttribute("product", model.doRetrieveByKey(id));
 				} 
+				*/
 				
 				// DELETE FROM DB
 				else if (action.equalsIgnoreCase("delete")) {
