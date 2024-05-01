@@ -31,6 +31,8 @@ public class ProductModelDS implements ProductModel {
 
 	private static final String TABLE_NAME = "prodotti";
 
+	public synchronized void doSave(ProductBean product) throws SQLException {/* TODO */}
+	/*
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
 
@@ -69,6 +71,7 @@ public class ProductModelDS implements ProductModel {
 			}
 		}
 	}
+	*/
 
 	@Override
 	public synchronized ProductBean doRetrieveByKey(int id) throws SQLException {
@@ -90,6 +93,8 @@ public class ProductModelDS implements ProductModel {
 				String nome = rs.getString("nome");
 				String descrizione = rs.getString("descrizione");
 				float prezzo = rs.getFloat("prezzo");
+				int salePerc = rs.getInt("sale_perc");
+				int ivaPerc = rs.getInt("iva_perc");
 				int quantita = rs.getInt("quantita");
 				String dimensione = rs.getString("dimensione");
 				boolean tipo = rs.getBoolean("tipo");
@@ -98,7 +103,7 @@ public class ProductModelDS implements ProductModel {
 				String ingredienti = rs.getString("ingredienti");
 				LinkedList<Integer> immagini = (LinkedList<Integer>) doRetrieveImagesKey(id);
 
-				bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
+				bean = new ProductBean(id, nome, descrizione, prezzo, ivaPerc, salePerc, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
 			}
 
 		} finally {
@@ -111,7 +116,6 @@ public class ProductModelDS implements ProductModel {
 			}
 		}
 		
-		if (bean == null) return new ProductBean();
 		return bean;
 	}
 
@@ -163,11 +167,12 @@ public class ProductModelDS implements ProductModel {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				
 				int id = rs.getInt("id");
 				String nome = rs.getString("nome");
 				String descrizione = rs.getString("descrizione");
 				float prezzo = rs.getFloat("prezzo");
+				int salePerc = rs.getInt("sale_perc");
+				int ivaPerc = rs.getInt("iva_perc");
 				int quantita = rs.getInt("quantita");
 				String dimensione = rs.getString("dimensione");
 				boolean tipo = rs.getBoolean("tipo");
@@ -175,8 +180,8 @@ public class ProductModelDS implements ProductModel {
 				String anno = rs.getString("anno");
 				String ingredienti = rs.getString("ingredienti");
 				LinkedList<Integer> immagini = (LinkedList<Integer>) doRetrieveImagesKey(id);
-				
-				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
+
+				ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, ivaPerc, salePerc, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
 				products.add(bean);
 			}
 

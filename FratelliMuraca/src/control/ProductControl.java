@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException; 
 import java.sql.SQLException;
+import java.util.Enumeration;
+import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,8 +43,8 @@ public class ProductControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Cart cart = (Cart)request.getSession().getAttribute("cart");
+		
+		Cart cart = (Cart) request.getSession().getAttribute("cart");
 		if(cart == null) {
 			cart = new Cart();
 			request.getSession().setAttribute("cart", cart);
@@ -59,6 +61,7 @@ public class ProductControl extends HttpServlet {
 				} 
 				
 				// REMOVE FROM CART
+				
 				else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.deleteProduct(model.doRetrieveByKey(id));
@@ -74,12 +77,15 @@ public class ProductControl extends HttpServlet {
 				*/
 				
 				// DELETE FROM DB
+				/*
 				else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					model.doDelete(id);
 				} 
+				*/
 				
 				// INSERT INTO DB
+				/*
 				else if (action.equalsIgnoreCase("insert")) {
 					String nome = request.getParameter("nome");
 					String descrizione = request.getParameter("descrizione");
@@ -96,6 +102,7 @@ public class ProductControl extends HttpServlet {
 					ProductBean bean = null; // new ProductBean(nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
 					model.doSave(bean);
 				}
+				*/
 			}			
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
@@ -110,6 +117,7 @@ public class ProductControl extends HttpServlet {
 		try {
 			request.removeAttribute("products");
 			request.setAttribute("products", model.doRetrieveAll(sort));
+			
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}

@@ -16,4 +16,6 @@
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="css/styles.css" rel="stylesheet" />
 	
+	<!-- card animation -->
+	<link href="css/card-animation.css" rel="stylesheet" />
 </head>
