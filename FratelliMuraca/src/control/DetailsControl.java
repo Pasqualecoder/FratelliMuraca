@@ -69,9 +69,17 @@ public class DetailsControl extends HttpServlet {
 		String action = request.getParameter("action");
 		try {
 			if (action != null) {
+				// ADD TO CART
 				if (action.equalsIgnoreCase("addC")) {
-					cart.addProduct(model.doRetrieveByKey(id));
-				}
+					int quantity = 1;
+					try {
+						quantity = Integer.parseInt(request.getParameter("quantity"));						
+					} catch (NumberFormatException e) {}
+					
+					
+					for (int i = 0; i < quantity; i++)
+						cart.addProduct(model.doRetrieveByKey(id));
+				} 
 			}
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());

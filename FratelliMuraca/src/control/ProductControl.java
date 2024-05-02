@@ -57,7 +57,14 @@ public class ProductControl extends HttpServlet {
 				// ADD TO CART
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.addProduct(model.doRetrieveByKey(id));
+					int quantity = 1;
+					try {
+						quantity = Integer.parseInt(request.getParameter("quantity"));						
+					} catch (NumberFormatException e) {}
+					
+					
+					for (int i = 0; i < quantity; i++)
+						cart.addProduct(model.doRetrieveByKey(id));
 				} 
 				
 				// REMOVE FROM CART
