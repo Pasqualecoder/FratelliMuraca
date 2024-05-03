@@ -110,8 +110,13 @@ public class ProductControl extends HttpServlet {
 					model.doSave(bean);
 				}
 				*/
-			}			
-		} catch (SQLException e) {
+			}		
+		} catch (NumberFormatException e) { // errore nella conversione dell'id (l'utente ha provato a manomettere l'url)
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error-pages/404.jsp");
+			dispatcher.forward(request, response);
+		}
+		catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
 

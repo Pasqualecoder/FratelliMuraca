@@ -58,6 +58,7 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
     </div>
     <div class="col-md-6">
       <h2><%= prodotto.getNome() %></h2>
+      <h3 class="text-muted font-italic"><%= prodotto.getCategoria() %></h3>
       <h3 class="text-uppercase font-italic"><%= prodotto.getDimensione() %></h3>
       
       <!-- Product price-->
@@ -83,8 +84,24 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
         <button type="submit" class="btn btn-success">Add to Cart</button>
       </form>
     </div>
+    
+    <!-- Riquadro per ulteriori informazioni -->
+    <div class="col-md-12 mt-5">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-muted">Ulteriori Informazioni</h4>
+          <!-- Qui inserisci ulteriori informazioni sul prodotto -->
+          <p>Anno di produzione: <%= prodotto.getAnno() %></p>
+          <% if (prodotto.getIngredienti() != null) {%>
+          	<p>Ingredienti: <%= prodotto.getIngredienti() %></p>
+          <%} %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<br>
 
 <%= prodotto %>
 
