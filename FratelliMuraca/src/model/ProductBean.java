@@ -25,7 +25,7 @@ public class ProductBean implements Serializable {
 	private LinkedList<Integer> immagini;
 	
 
-	private static float arrotondaDueDecimali(double numero) {
+	public static float arrotondaDueDecimali(double numero) {
         return Math.round(numero * 100) / 100.0f;
     }
 	

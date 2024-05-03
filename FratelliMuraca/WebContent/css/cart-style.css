@@ -1,0 +1,8 @@
+.carrello {
+  text-align: center;
+}
+
+.carrello th,
+.carrello td {
+  vertical-align: middle;
+}

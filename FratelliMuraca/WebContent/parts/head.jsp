@@ -18,4 +18,7 @@
 	
 	<!-- card animation -->
 	<link href="css/card-animation.css" rel="stylesheet" />
+	<!-- cart css -->
+	<link href="css/cart-style.css" rel="stylesheet" />
+	
 </head>

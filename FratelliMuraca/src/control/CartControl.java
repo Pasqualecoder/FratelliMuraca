@@ -77,6 +77,10 @@ public class CartControl extends HttpServlet {
 					cart.deleteProduct(model.doRetrieveByKey(id));
 				}
 				
+				else if(action.equalsIgnoreCase("svuotaC")) {
+					cart = new Cart();
+				}
+				
 				// DETAILS
 				/*
 				else if (action.equalsIgnoreCase("read")) {
