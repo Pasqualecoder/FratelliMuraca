@@ -20,5 +20,6 @@
 	<link href="css/card-animation.css" rel="stylesheet" />
 	<!-- cart css -->
 	<link href="css/cart-style.css" rel="stylesheet" />
-	
+	<!-- nav style and animation -->
+	<link href="css/nav-style.css" rel="stylesheet" />
 </head>
