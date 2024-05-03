@@ -60,6 +60,7 @@
 		</tbody>
 	</table>
 	<%} // end else%>
+	<script src="https://www.paypal.com/sdk/js?client-id=AYKDPEjOisMEpeQpBTm_FBdNu8Kly9n4Fp1xbLZAmFZ3FdKQCgtYHJMiQTDsnmyRnO7V70Z4NmNhfeFf"></script>
 </div>
 
 <!-- Includi jQuery e Bootstrap JS -->
