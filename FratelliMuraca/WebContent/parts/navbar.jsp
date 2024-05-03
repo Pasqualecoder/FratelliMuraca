@@ -1,6 +1,6 @@
 <header>
 <ul>
-<li><a href="product">Home</a></li>
+<li><a href="/FratelliMuraca">Home</a></li>
 <li><a href="product">Prodotti</a></li>
 <li><a href="#">Chi Siamo</a></li>
 <li><a href="#">Contattaci</a></li>
@@ -13,7 +13,7 @@
 </a>
 
 </header>
-<section class="banner"><img src="./media/logo.png"></img></section>
+<section class="banner"><a href="/FratelliMuraca"><img src="./media/logo.png"></a></img></section>
 <script type="text/javascript">
 window.addEventListener("scroll", function(){
 var header = document.querySelector("header");
