@@ -1,5 +1,6 @@
 package model;
 
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.mysql.cj.jdbc.Blob;
 
 public class ProductModelDS implements ProductModel {
 
@@ -270,7 +273,7 @@ public class ProductModelDS implements ProductModel {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<Integer> doRetrieveImagesKey(int idProd) throws SQLException {
+	public synchronized List<Integer> doRetrieveImagesKey(int idProd) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -334,4 +337,51 @@ public class ProductModelDS implements ProductModel {
 		return lista;
 	}
 	*/
+	
+	public synchronized void doSaveOrder(int userId, Cart cart) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		byte[] cartSer = null;
+		
+		try {
+			cartSer = cart.serialize();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+        /*
+		String filename = "C:\\Users\\Pasquale\\Desktop\\FratelliMuraca\\FratelliMuraca\\WebContent\\outputSerialized.txt";
+        try (OutputStream os = new FileOutputStream(filename)) {
+            byte[] bytes = cartSer;
+            os.write(bytes);
+            System.out.println("Dati scritti correttamente su " + filename);
+        } catch (IOException e) {
+            System.err.println("Errore durante la scrittura del file " + filename);
+            e.printStackTrace();
+        }
+		*/
+		String insertSQL = "INSERT INTO " + "ordini" 
+				+ " (id_cliente, prodotti) "
+				+ "VALUES (?, ?)";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setBytes(2, cartSer);
+			preparedStatement.executeUpdate();
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+
+	
 }

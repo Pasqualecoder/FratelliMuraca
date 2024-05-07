@@ -12,6 +12,7 @@
 
 <div class="container mt-5">
 	<h1>Il tuo carrello</h1>
+	
 	<% if (cart.getSize() == 0)  {%> 
 		<h3 class="text-muted text-italic">Il tuo carrello è attualmente vuoto</h3>
 		<a class="btn btn-success mt-auto" href="product">Visita i nostri prodotti</a><br><br>
@@ -67,9 +68,13 @@
             </tr>
 		</tbody>
 	</table>
-	<%} // end else%>
 	
-	<a class="btn btn-success mt-auto float-right" href="">Procedi all'ordine</a>
+	<form action="order" method="post">
+		<input type="hidden" name="userId" value="1">
+		<!-- <input type="hidden" name="cart"> -->
+		<button type="submit" class="btn btn-success mt-auto float-right">Conferma l'ordine</button>
+	</form>
+	<%} // end else%>
 </div>
 
 <!-- Includi jQuery e Bootstrap JS -->

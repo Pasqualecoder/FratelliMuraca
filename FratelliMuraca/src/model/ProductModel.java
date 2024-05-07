@@ -7,6 +7,8 @@ import java.util.LinkedList;
 public interface ProductModel {
 	public void doSave(ProductBean product) throws SQLException;
 
+	public void doSaveOrder(int userId, Cart cart) throws SQLException;
+
 	public boolean doDelete(int code) throws SQLException;
 
 	public ProductBean doRetrieveByKey(int code) throws SQLException;

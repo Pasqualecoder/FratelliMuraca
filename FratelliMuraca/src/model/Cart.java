@@ -1,10 +1,14 @@
 package model;
 
+import java.io.*;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Cart {
-
+public class Cart implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	
 	// mappa dei prodotti, integer è il numero di quei prodotti nel carrello
 	private Map<ProductBean, Integer> products;
 	
@@ -55,4 +59,38 @@ public class Cart {
         // Restituisce la mappa che rappresenta i prodotti nel carrello
         return products;
     }
+	
+	
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		for (Map.Entry<ProductBean, Integer> entry : products.entrySet()) {
+		    ProductBean key = entry.getKey(); // Ottieni la chiave
+		    Integer value = entry.getValue(); // Ottieni il valore
+		    // Esegui le operazioni su ogni coppia chiave-valore
+		    str.append("Chiave: " + key.toString() + ", Valore: " + value + "\n");
+		}
+		return str.toString();
+	}
+	
+	
+	public byte[] serialize() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(this);
+        oos.close();
+        return baos.toByteArray();
+    }
+
+    public static Cart deserialize(byte[] serializedCart) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(serializedCart);
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        Cart cart = (Cart) ois.readObject();
+        ois.close();
+        return cart;
+    }
+
+
+    
+
 }

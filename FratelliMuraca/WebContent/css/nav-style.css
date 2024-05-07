@@ -41,7 +41,9 @@ header ul li
 {
 position: relative;
 List-style: none;
+padding-right: 50px;
 }
+
 header ul li a
 {
 

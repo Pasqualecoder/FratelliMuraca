@@ -60,9 +60,8 @@ public class DetailsControl extends HttpServlet {
 			id = Integer.parseInt(request.getParameter("id"));
 		} catch (NumberFormatException e) {
 			// Determina che la risorsa richiesta non è stata trovata
-		    response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error-pages/404.jsp");
-			dispatcher.forward(request, response);
+			response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404
+		    response.sendRedirect("error.jsp");
 		}
 
 		
