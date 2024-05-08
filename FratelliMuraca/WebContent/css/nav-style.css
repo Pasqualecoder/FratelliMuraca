@@ -68,8 +68,8 @@ text-align: center;
 }
 
 header ul li a:hover{
-
-	border-bottom: 2px solid white;
+	color: white;
+	border-bottom: 2px solid black;
 	transition: 0.3s;
 }
 	

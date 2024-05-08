@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -371,7 +372,7 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement.setInt(1, userId);
 			preparedStatement.setBytes(2, cartSer);
 			preparedStatement.executeUpdate();
-			connection.commit();
+			//connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -383,5 +384,91 @@ public class ProductModelDS implements ProductModel {
 		}
 	}
 
+	
+	/**
+	 * Solo per l'admin
+	 */
+	public synchronized Collection<Order> doRetrieveAllOrders() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Order> ordini = new LinkedList<Order>();
+
+		String selectSQL = "SELECT * FROM " + "ordini" + "ORDER BY " + "datetime" + "DESC";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int idCliente = rs.getInt("id_cliente");
+				Cart prodotti = Cart.deserialize(rs.getBytes("prodotti"));
+				Timestamp datetime = rs.getTimestamp("datetime");
+				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
+
+				Order ordine = new Order(id, idCliente, prodotti, datetime, stato);
+				ordini.add(ordine);
+			}
+
+		} catch (IOException | ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return ordini;
+	}
+
+	@Override
+	public synchronized Collection<Order> doRetrieveOrders(int userOwner) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Order> ordini = new LinkedList<Order>();
+
+		String selectSQL = "SELECT * FROM " + "ordini" + " WHERE id_cliente = ? ORDER BY " + "datetime " + "DESC";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, userOwner);
+			System.out.println(preparedStatement.toString());
+			
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int idCliente = rs.getInt("id_cliente");
+				Cart prodotti = Cart.deserialize(rs.getBytes("prodotti"));
+				Timestamp datetime = rs.getTimestamp("datetime");
+				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
+
+				Order ordine = new Order(id, idCliente, prodotti, datetime, stato);
+				ordini.add(ordine);
+			}
+
+		} catch (IOException | ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return ordini;
+	}
 	
 }

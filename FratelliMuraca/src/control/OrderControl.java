@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import javax.management.RuntimeErrorException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,7 @@ import java.io.*;
  * Servlet implementation class Order
  */
 @WebServlet("/order")
-public class Order extends HttpServlet {
+public class OrderControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	// ProductModelDS usa il DataSource
@@ -43,7 +44,7 @@ public class Order extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Order() {
+    public OrderControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -52,13 +53,37 @@ public class Order extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Metodo non consentito per questa risorsa.");
+		// prendere l'id dell'utente
+		int userId = 1;
+		
+		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		if(cart == null) {
+			cart = new Cart();
+			request.getSession().setAttribute("cart", cart);
+		}
+		
+		request.getSession().setAttribute("cart", cart);
+		request.setAttribute("cart", cart);
+		
+		try {
+			request.removeAttribute("ordini");
+			request.setAttribute("ordini", model.doRetrieveOrders(userId));
+		} catch (SQLException e) {
+			System.out.println("Error:" + e.getMessage());
+		}
+	
+		
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderView.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean opStatus = false;
+		
 		/* TODO:
 		 * verificare che l'utente esista e sia loggato
 		 * creare una copia del carrello identica del carrello ma con i dati presi dal db per evitare manomissioni
@@ -88,31 +113,19 @@ public class Order extends HttpServlet {
 		// salvataggio nel db
 		try {
 			model.doSaveOrder(idUtente, cart);
+			opStatus = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		request.setAttribute("opStatus", opStatus);
 		
-		
-		/*
-		try {
-			byte[] buff = request.getParameter("cart").getBytes();
-			carrello = Cart.deserialize(buff);
-			if (carrello == null) {
-				throw new IOException("carrello passato nullo");
-			}
-		} catch (IOException | ClassNotFoundException e) {
-			System.out.println("la conversione ha dato un errore");
-			System.out.println(request.getParameter("cart"));
-			e.printStackTrace();
-			throw new RuntimeException();
+		if (opStatus) {
+			request.setAttribute("cart", new Cart());	
 		}
+	
 		
-		String nome = request.getParameter("user");
-		System.out.println(nome);
-		System.out.println(carrello);
-		*/
-
+		doGet(request, response);
 	}
 	
 	/**
