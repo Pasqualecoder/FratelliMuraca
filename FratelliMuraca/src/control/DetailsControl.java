@@ -81,7 +81,7 @@ public class DetailsControl extends HttpServlet {
 				} 
 			}
 		} catch (SQLException e) {
-			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 		
 		request.getSession().setAttribute("cart", cart);
@@ -102,7 +102,7 @@ public class DetailsControl extends HttpServlet {
 			request.setAttribute("prodotto", prodotto);
 			
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.printStackTrace();
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DetailsView.jsp");

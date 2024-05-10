@@ -29,7 +29,7 @@ public class ProductModelDS implements ProductModel {
 			ds = (DataSource) envCtx.lookup("jdbc/fratellimuracadb");
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -351,17 +351,6 @@ public class ProductModelDS implements ProductModel {
 			e.printStackTrace();
 		}
 		
-        /*
-		String filename = "C:\\Users\\Pasquale\\Desktop\\FratelliMuraca\\FratelliMuraca\\WebContent\\outputSerialized.txt";
-        try (OutputStream os = new FileOutputStream(filename)) {
-            byte[] bytes = cartSer;
-            os.write(bytes);
-            System.out.println("Dati scritti correttamente su " + filename);
-        } catch (IOException e) {
-            System.err.println("Errore durante la scrittura del file " + filename);
-            e.printStackTrace();
-        }
-		*/
 		String insertSQL = "INSERT INTO " + "ordini" 
 				+ " (id_cliente, prodotti) "
 				+ "VALUES (?, ?)";
@@ -441,6 +430,8 @@ public class ProductModelDS implements ProductModel {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, userOwner);
+			
+			// FIXME: toglimi
 			System.out.println(preparedStatement.toString());
 			
 			ResultSet rs = preparedStatement.executeQuery();

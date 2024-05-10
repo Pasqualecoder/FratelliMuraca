@@ -69,7 +69,7 @@ public class OrderControl extends HttpServlet {
 			request.removeAttribute("ordini");
 			request.setAttribute("ordini", model.doRetrieveOrders(userId));
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.printStackTrace();
 		}
 	
 		

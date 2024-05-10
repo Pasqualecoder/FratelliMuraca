@@ -117,7 +117,7 @@ public class ProductControl extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.printStackTrace();
 		}
 
 		request.getSession().setAttribute("cart", cart);
@@ -131,7 +131,7 @@ public class ProductControl extends HttpServlet {
 			request.setAttribute("products", model.doRetrieveAll(sort));
 			
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.printStackTrace();
 		}
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");

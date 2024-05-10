@@ -69,7 +69,8 @@ text-align: center;
 
 header ul li a:hover{
 	color: white;
-	border-bottom: 2px solid black;
+	font-weight: bold;
+	border-bottom: 2px solid white;
 	transition: 0.3s;
 }
 	
