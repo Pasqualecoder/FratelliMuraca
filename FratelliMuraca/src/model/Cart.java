@@ -16,6 +16,10 @@ public class Cart implements Serializable {
 		products = new HashMap<>();
 	}
 	
+	public boolean isEmpty() {
+		return products.size() == 0;
+	}
+	
 	public void addProduct(ProductBean nuovo) {
 		
         // Se il prodotto è già presente nel carrello, incrementa la sua quantità

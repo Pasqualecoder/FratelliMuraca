@@ -99,33 +99,35 @@ public class OrderControl extends HttpServlet {
 		// Verifica dell correttezza del carrello
 		Cart copia = null;
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			// errore
+		if(cart == null || cart.isEmpty()) {
+			doGet(request, response);
 		}
-		try {
-			copia = copyValidateCart(cart);
-		} catch (IOException | SQLException e) {
-			e.printStackTrace();
-		}
-		cart = copia;
-
-		
-		// salvataggio nel db
-		try {
-			model.doSaveOrder(idUtente, cart);
-			opStatus = true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("opStatus", opStatus);
-		
-		if (opStatus) {
-			request.setAttribute("cart", new Cart());	
-		}
+		else {
+			try {
+				copia = copyValidateCart(cart);
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
+			cart = copia;
 	
+			
+			// salvataggio nel db
+			try {
+				model.doSaveOrder(idUtente, cart);
+				opStatus = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("opStatus", opStatus);
+			
+			if (opStatus) {
+				request.getSession().setAttribute("cart", new Cart());
+			}
 		
-		doGet(request, response);
+			
+			doGet(request, response);
+		}
 	}
 	
 	/**

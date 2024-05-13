@@ -72,7 +72,7 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
       <p><%= prodotto.getDescrizione() %></p>
       
       
-      <form method="get" action="details">
+      <form method="get" action="cart">
       	<input type="hidden" id="action" name="action" value="addC">
       	<input type="hidden" id="id" name="id" value="<%= prodotto.getId() %>">
       	

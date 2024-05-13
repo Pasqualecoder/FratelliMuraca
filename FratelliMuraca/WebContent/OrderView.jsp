@@ -10,6 +10,24 @@
 <%@ include file="parts/navbar.jsp" %>
 
 <%
+Boolean opStatus = (Boolean) request.getAttribute("opStatus");
+
+// NESSUNA OPERAZIONE EFFETTUATA
+if (opStatus == null) {%>
+	<h1>ultimi ordini</h1>
+<%}
+
+// OPERAZIONE ANDATA A BUON FINE
+else if (opStatus) {%>
+	<div class="p-3 mb-2 bg-success text-white">Operazione completata con successo</div>
+<%}
+
+else {%>
+	<div class="p-3 mb-2 bg-danger text-white">Errore durante l'acquisto, attendi qualche minuto e riprova</div>
+<%}
+%>
+
+<%
 Collection<Order> ordini = (Collection<Order>) request.getAttribute("ordini");
 for (Order or : ordini) {%>
 	<p><%= or %></p>
