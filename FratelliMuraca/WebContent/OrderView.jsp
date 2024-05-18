@@ -37,6 +37,10 @@ if (ordini == null || ordini.size() <= 0) {%>
 else {
 	for (Order or : ordini) {%>
 		<h4>Ordine #<%= or.getId() %></h4>
+		<lable for="destinatario">Destinatario:</lable> Mario Rossi <br>
+		<lable for="destinazione">Indirizzo destinazione:</lable> Via Roma 19 <br>
+		<lable for="metodo">Metodo di Pagamento</lable> PayPal <br>
+		
 		<table class="table mt-4">
 			<thead>
 			<tr>
@@ -70,7 +74,7 @@ else {
 			</tr>
 			</tbody>
 		</table>
-	<%}
+<%}
    }
 }
 %>
