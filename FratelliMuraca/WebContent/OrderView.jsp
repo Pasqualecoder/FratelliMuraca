@@ -58,12 +58,13 @@ else {
 			float prezzoTotale = 0f;
 			Cart prodotti = or.getProdotti();
 			// per ogni elemento all'interno dell'ordine
-			for (Map.Entry<ProductBean, Integer> entry : cart.getProducts().entrySet()) {
+			for (Map.Entry<ProductBean, Integer> entry : prodotti.getProducts().entrySet()) {
 				ProductBean prodotto = entry.getKey();
 				int quantity = entry.getValue();
 				prezzoTotale += prodotto.getPrezzoScontato() * quantity;
 				prezzoTotale = ProductBean.arrotondaDueDecimali(prezzoTotale);
 			%>
+			
 			<tr>
 				<td><%= prodotto.getNome() %></td>
 				<td>&euro;<%= prodotto.getPrezzoNetto() %></td>
@@ -72,13 +73,13 @@ else {
 				<td>x<%= quantity %></td>
 				<td>&euro;<%= ProductBean.arrotondaDueDecimali(prodotto.getPrezzoScontato() * quantity) %></td>
 			</tr>
+			<%
+		}%>
+		
 			</tbody>
 		</table>
 <%}
-   }
-}
-%>
-
+	} %>
 <%@ include file="parts/footer.jsp" %>
 </body>
 </html>

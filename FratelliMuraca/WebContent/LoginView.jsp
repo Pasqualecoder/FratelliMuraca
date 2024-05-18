@@ -11,7 +11,7 @@
 <body>
     <form class="col-sm-2 mx-auto mt-4" method="POST" action="/login">
         <div class="mb-3">
-            <a href="/register">Non Ancora Registrato?</a>
+            <a href="register">Non Ancora Registrato?</a>
         </div>
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4">

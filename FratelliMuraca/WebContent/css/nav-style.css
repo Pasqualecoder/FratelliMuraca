@@ -1,81 +1,48 @@
 
-header
-{
-position: fixed;
-top: 0;
-Left: 0;
-width: 100%;
-display: flex;
-justify-content: space-between;
-align-items: center;
-transition: 0.6s;
-padding:40px 100px;
-height: 10px;
-background: #607244;
-z-index: 1;
-font-family: sans-serif;
-
+#navbar {
+  overflow: hidden;
+  background-color: #6;
+  z-index: 1;
 }
 
-header .logo
-{
-position: relative;
-font-weight: 700;
-color: #fff;
-text-decoration: none;
-font-size: 2em;
-text-transform: uppercase;
-letter-spacing: 2px;
-transition: 0.6s
+/* Navbar links */
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  padding: 14px;
+  text-decoration: none;
 }
 
-header ul
-{
-position: relative;
-display: flex;
-justify-content: center;
-align-items: center;
+/* Page content */
+.content {
+  padding: 16px;
 }
 
-header ul li
-{
-position: relative;
-List-style: none;
-padding-right: 50px;
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
-header ul li a
-{
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+} 
 
-text-decoration: none;
-color: white;
-border-bottom: 2px solid transparent;
-transition: 0.3s;
-}
-
-.banner
-{
-position: relative;
-width: 100%;
-height: 25%;
-background: #607244;
-background-size: 100%;
-text-align: center;
-}
-
-.banner img{
-	height: 25%;
-}
-
-header ul li a:hover{
-	color: white;
-	font-weight: bold;
-	border-bottom: 2px solid white;
-	transition: 0.3s;
-}
+.nav-right {
+	float: right !important;
+	margin-right: 2%;
 	
+}
 
+.nav-left {
+	text-align: left;
+}
 
-
+.cart-button{
+	margin-top: 3.5%;
+}
 
 
