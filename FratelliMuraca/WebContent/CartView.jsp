@@ -31,8 +31,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<!-- Itera attraverso i prodotti nel carrello -->
 			<% 
+			// Itera attraverso i prodotti nel carrello
 			float prezzoTotale = 0f;
 			// per ogni elemento all'interno del carrello (entrySet sarebbe l'insieme delle coppie del dizionario)
 			for (Map.Entry<ProductBean, Integer> entry : cart.getProducts().entrySet()) {
