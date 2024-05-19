@@ -1,48 +1,115 @@
+/* nav-style.css */
+body {
+  margin: 0;
+}
 
-#navbar {
+nav {
+  background-color: #676127;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  background-color: #6;
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
   z-index: 1;
 }
 
-/* Navbar links */
-#navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  padding: 14px;
+nav ul {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  height: 50px;
+}
+
+
+nav a {
+  height: 100%;
+  padding: 0 30px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: white;
 }
 
-/* Page content */
-.content {
-  padding: 16px;
+.desktop-nav {  /* New styles for desktop links */
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
+.desktop-nav li {  /* Adjust margin for spacing between links */
+  margin: 0 10px;
+}
+
+nav a:hover {
+    color: white;
+    text-decoration: none;
+    border-bottom: 2px solid white;
+     transition: width .3s;
+}
+
+
+.sidebar {
   position: fixed;
   top: 0;
+  right: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: #676127;
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.sidebar li {
   width: 100%;
 }
 
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.sticky + .content {
-  padding-top: 60px;
-} 
-
-.nav-right {
-	float: right !important;
-	margin-right: 2%;
-	
+.align-right{
+	margin-left: auto;
 }
 
-.nav-left {
-	text-align: left;
+.sidebar a {
+  width: 100%;
+  color: white;
 }
 
-.cart-button{
-	margin-top: 3.5%;
+.menu-button {
+  display: none;
 }
 
 
+@media (max-width: 800px) {
+  .hideOnMobile {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .cart {
+    order: -1;
+    margin-right: auto;
+  }
+
+  .menu-button {
+    margin-left: auto;
+  }
+
+  nav ul {
+    justify-content: flex-start;
+  }
+}
