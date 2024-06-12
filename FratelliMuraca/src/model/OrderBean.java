@@ -3,7 +3,7 @@ package model;
 import java.io.*;
 import java.sql.Timestamp;
 
-public class Order implements Serializable {
+public class OrderBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
@@ -12,9 +12,9 @@ public class Order implements Serializable {
 	private Timestamp datetime;
 	private StatoOrdine stato;
 	
-	public Order() {}
+	public OrderBean() {}
 	
-	public Order(int id, int id_cliente, Cart prodotti, Timestamp datetime, StatoOrdine stato) {
+	public OrderBean(int id, int id_cliente, Cart prodotti, Timestamp datetime, StatoOrdine stato) {
 		this.id = id;
 		this.id_cliente = id_cliente;
 		this.prodotti = prodotti;

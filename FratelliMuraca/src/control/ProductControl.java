@@ -129,6 +129,7 @@ public class ProductControl extends HttpServlet {
 		try {
 			request.removeAttribute("products");
 			request.setAttribute("products", model.doRetrieveAll(sort));
+			System.out.println(model.doRetrieveAll(""));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

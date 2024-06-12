@@ -28,14 +28,17 @@ else {%>
 %>
 
 <%
-Collection<Order> ordini = (Collection<Order>) request.getAttribute("ordini");
-if (ordini == null || ordini.size() <= 0) {%>
+	Collection<OrderBean> ordini = (Collection<OrderBean>) request.getAttribute("ordini");
+if (ordini == null || ordini.size() <= 0) {
+%>
 	<h5>Nessun ordine effettuato</h5>
 	<a class="btn btn-success mt-auto" href="product">Visita i nostri prodotti</a><br><br>		
-<%}
+<%
+			}
 
-else {
-	for (Order or : ordini) {%>
+		else {
+			for (OrderBean or : ordini) {
+		%>
 		<h4>Ordine #<%= or.getId() %></h4>
 		<lable for="destinatario">Destinatario:</lable> Mario Rossi <br>
 		<lable for="destinazione">Indirizzo destinazione:</lable> Via Roma 19 <br>

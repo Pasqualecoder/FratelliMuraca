@@ -377,11 +377,11 @@ public class ProductModelDS implements ProductModel {
 	/**
 	 * Solo per l'admin
 	 */
-	public synchronized Collection<Order> doRetrieveAllOrders() throws SQLException {
+	public synchronized Collection<OrderBean> doRetrieveAllOrders() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<Order> ordini = new LinkedList<Order>();
+		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
 
 		String selectSQL = "SELECT * FROM " + "ordini" + "ORDER BY " + "datetime" + "DESC";
 
@@ -398,7 +398,7 @@ public class ProductModelDS implements ProductModel {
 				Timestamp datetime = rs.getTimestamp("datetime");
 				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
 
-				Order ordine = new Order(id, idCliente, prodotti, datetime, stato);
+				OrderBean ordine = new OrderBean(id, idCliente, prodotti, datetime, stato);
 				ordini.add(ordine);
 			}
 
@@ -418,11 +418,11 @@ public class ProductModelDS implements ProductModel {
 	}
 
 	@Override
-	public synchronized Collection<Order> doRetrieveOrders(int userOwner) throws SQLException {
+	public synchronized Collection<OrderBean> doRetrieveOrders(int userOwner) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<Order> ordini = new LinkedList<Order>();
+		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
 
 		String selectSQL = "SELECT * FROM " + "ordini" + " WHERE id_cliente = ? ORDER BY " + "datetime " + "DESC";
 
@@ -443,7 +443,7 @@ public class ProductModelDS implements ProductModel {
 				Timestamp datetime = rs.getTimestamp("datetime");
 				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
 
-				Order ordine = new Order(id, idCliente, prodotti, datetime, stato);
+				OrderBean ordine = new OrderBean(id, idCliente, prodotti, datetime, stato);
 				ordini.add(ordine);
 			}
 
@@ -461,5 +461,39 @@ public class ProductModelDS implements ProductModel {
 		}
 		return ordini;
 	}
+	
+	
+	
+	public synchronized void doSaveUser(UserBean user) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "INSERT INTO " + "utenti"
+				+ " (email, password, nome, cognome, ddn, phone) " 
+				+ "VALUES (?, ?, ?, ?, ?, ?)";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.setString(2, user.getPassword());
+			preparedStatement.setString(3, user.getNome());
+			preparedStatement.setString(4, user.getCognome());
+			preparedStatement.setDate(5, user.getDdn());
+			preparedStatement.setString(6, user.getPhone());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+	
 	
 }

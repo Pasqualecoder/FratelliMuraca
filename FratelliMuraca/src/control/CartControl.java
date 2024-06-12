@@ -3,12 +3,16 @@ package control;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import java.io.*;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import model.Cart;
 import model.ProductModel;
@@ -75,6 +79,7 @@ public class CartControl extends HttpServlet {
 				else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.deleteProduct(model.doRetrieveByKey(id));
+					System.out.println(cart);
 				}
 				
 				else if(action.equalsIgnoreCase("svuotaC")) {

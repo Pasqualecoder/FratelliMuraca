@@ -53,20 +53,19 @@ public class ImageServlet extends HttpServlet {
             int imageId = Integer.parseInt(request.getParameter("img"));
             // Recupera l'immagine dal risultato della query
             byte[] imageData = model.doRetrieveImage(imageId);
-            
-            if (imageData != null) {
-            	// Imposta il tipo di contenuto nella risposta
-            	response.setContentType("image/jpeg");
-            	
-            	// Scrivi l'immagine nella risposta
-            	OutputStream oStream = response.getOutputStream();
-            	oStream.write(imageData);
-            	oStream.flush();
-            	oStream.close();       
+            if (imageData == null) {
+            	// se il prodotto non ha immagini nel db carica l'immagine con id 0 che è un placeholder
+            	imageData = model.doRetrieveImage(0);
             }
-            else {
-            	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            }
+        
+        	// Imposta il tipo di contenuto nella risposta
+        	response.setContentType("image/jpeg");
+        	
+        	// Scrivi l'immagine nella risposta
+        	OutputStream oStream = response.getOutputStream();
+        	oStream.write(imageData);
+        	oStream.flush();
+        	oStream.close();       
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
