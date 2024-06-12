@@ -53,7 +53,7 @@
 					<div style="display: inline;"><h6>x<%= quantity %></h6></div>
 					<div style="display: inline;">
 						<a class="btn btn-success mt-auto" href="cart?action=addC&id=<%= prodotto.getId() %>">+</a>
-						<a class="btn btn-danger mt-auto" href="cart?action=removeC&id=<%= prodotto.getId() %>">-</a>
+						<a class="btn btn-danger mt-auto" href="cart?action=deleteC&id=<%= prodotto.getId() %>">-</a>
 					</div>
 					</td>
 				
