@@ -106,7 +106,45 @@
       transform-origin: left;
       transform: scaleX(1);
     }
-   
+    
+    .search-results {
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-top: 140px;
+    padding: 10px;
+    border-radius: 4px; /* Angoli arrotondati per il contenitore dei risultati */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra più pronunciata */
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Nasconde il div di default */
+    position: absolute;
+    z-index: 1;
+    transition: max-height 0.3s ease-in-out; /* Transizione per l'altezza */
+}
+
+.search-results p {
+    margin: 0; /* Rimuove i margini dei paragrafi */
+    padding: 8px 10px; /* Spaziatura interna per i risultati */
+    border-bottom: 1px solid #eee; /* Sottolinea ogni risultato */
+    cursor: pointer; /* Cambia il cursore per i risultati */
+    transition: background-color 0.3s; /* Transizione per il colore di sfondo */
+}
+
+.search-results p:last-child {
+    border-bottom: none; /* Rimuove il bordo per l'ultimo elemento */
+}
+
+.search-results p:hover {
+    background-color: #f0f0f0; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+/* Mostra il div quando ci sono risultati di ricerca */
+.search-results.active {
+    display: block;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -122,9 +160,9 @@
     </a>
     <!-- Search Bar -->
     <form class="form-inline mr-auto">
-        <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
+        <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" onkeyup="searchProducts()">
         <!-- Div for Search Results -->
-        <div id="searchResults" class="search-results"></div>
+        <div id="searchResults" class="search-results"><div>aaaa</div></div>
     </form>
     <!-- User Icon -->
     <a class="nav-link ml-auto" href="cart">
@@ -175,6 +213,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+	
+	
     /* Open the side panel */
     function openCloseNav() {
         console.log("opening")
@@ -186,54 +226,39 @@
         }
     }
 
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    const cartBadge = document.getElementById('cartBadge');
+    function searchProducts() {
+    	
+        var query = document.getElementById('searchInput').value;
+        
+        if (query.length === 0) {
+        	searchResults.classList.remove('active');
+            document.getElementById('searchResults').innerHTML = '';
+            return;
+        }
 
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.trim();
-
-        if (searchTerm !== '') {
-            // Make AJAX request
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `search.php?q=${searchTerm}`, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    // Display search results
-                    displayResults(response);
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'search?query=' + encodeURIComponent(query), true);
+        
+        xhr.onreadystatechange = function () {
+        	
+        	if (xhr.readyState == 4 && xhr.status == 200) {
+        		console.log(JSON.parse(xhr.responseText));
+                var products = JSON.parse(xhr.responseText);
+               
+                var results = document.getElementById('searchResults');
+                results.innerHTML = '';
+                
+                for (var i = 0; i < products.length; i++) {
+                    var product = document.createElement('p');
+                    product.innerText = products[i];
+                    results.appendChild(product);
                 }
-            };
-            xhr.send();
-        } else {
-            // Clear search results
-            searchResults.innerHTML = '';
-        }
-    });
-
-    // Function to display search results
-    function displayResults(results) {
-        if (results.length > 0) {
-            // Clear previous results
-            searchResults.innerHTML = '';
-            // Create a list to hold the results
-            const resultList = document.createElement('ul');
-            // Add a class to the list for styling
-            resultList.classList.add('search-results-list');
-            // Loop through the results and create list items
-            results.forEach(result => {
-                const listItem = document.createElement('li');
-                listItem.textContent = result;
-                // Append each list item to the list
-                resultList.appendChild(listItem);
-            });
-            // Append the list of results to the search results div
-            searchResults.appendChild(resultList);
-        } else {
-            // If no results found, display a message
-            searchResults.innerHTML = '<p>No results found</p>';
-        }
+                searchResults.classList.add('active');
+            }
+        };
+        xhr.send();
     }
+   	
 </script>
 
 </body>
