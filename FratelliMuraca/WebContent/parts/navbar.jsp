@@ -10,8 +10,8 @@
   <style>
   
   	.navbar-nav .nav-link .fa-user {
-  	font-size: 1.2rem; /* Dimensione dell'icona */
-  	color: white; /* Colore dell'icona */
+  	font-size: 1.5rem; /* Increase size */
+  	color: white; /* Color of the icon */
 	}
   	body {
   		padding-top: 56px; /* Adjust this value based on the height of your navbar */
@@ -78,87 +78,163 @@
     	color: white; !important
     	text-decoration: none; !important
     }
+    
+     .nav-link:hover {
+    	color: yellow; !important
+    	text-decoration: none; !important
+    }
+    
+    .nav-item {
+      position: relative;
+    }
+    
+    .nav-item::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      border-radius: 4px;
+      background-color: white;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+    
+    .nav-item:hover::before {
+      transform-origin: left;
+      transform: scaleX(1);
+    }
    
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg fixed-top">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
     <!-- Cart Icon with Badge -->
     <a class="navbar-brand position-relative" href="cart">
-      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="white" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607L1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4a2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4a2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2a1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2a1 1 0 0 1 0-2"/></svg>
-      <span class="badge badge-pill badge-info" style="font-size: 12px;"><%= cart.getSize() %></span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="white" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607L1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4a2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4a2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2a1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2a1 1 0 0 1 0-2"/>
+        </svg>
+        <span id="cartBadge" class="badge badge badge-warning" style="font-size: 12px; color: white;">0</span>
     </a>
-    <form class="form-inline d-none d-lg-block">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    <!-- Toggler Button for Side Panel -->
-    <button class="navbar-toggler" type="button" onclick="openNav()">
-  	<span class="navbar-toggler-icon">
-    	<!-- Add an icon inside the span for custom icon (optional) -->
-    	<!-- Example using Bootstrap's icon -->
-    	<img src="https://img.icons8.com/ios-filled/24/ffffff/menu.png" alt="Menu">
- 	 </span>
-</button>
-    <!-- Navbar links and search bar (hidden on smaller screens) -->
-    <div class="collapse navbar-collapse justify-content-end">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="product">Prodotti</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-         <li class="nav-item">
-      		<a class="nav-link" href="cart">
-        		<i class="fas fa-user"></i> <!-- Icon representing the user -->
-      		</a>
-    	</li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- Side Panel -->
-  <div id="mySidepanel" class="sidepanel">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <!-- User Icon in Sidebar -->
-    <a class="nav-link" href="#">
-      <i class="fas fa-user"></i>
-    </a>
-    <a href="#">Home</a>
-    <a href="#">Features</a>
-    <a href="#">Pricing</a>
-    <a href="#">Contact</a>
-    <!-- Search Bar in Side Panel -->
-    <form class="form-inline">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    <!-- Search Bar -->
+    <form class="form-inline mr-auto">
+        <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
+        <!-- Div for Search Results -->
+        <div id="searchResults" class="search-results"></div>
     </form>
-  </div>
+    <!-- User Icon -->
+    <a class="nav-link ml-auto" href="cart">
+        <i class="fas fa-user"></i>
+    </a>
+    <!-- Toggler Button for Side Panel -->
+    <button class="navbar-toggler" type="button" onclick="openCloseNav()">
+        <span class="navbar-toggler-icon">
+            <!-- Add an icon inside the span for custom icon (optional) -->
+            <!-- Example using Bootstrap's icon -->
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/menu.png" alt="Menu">
+        </span>
+    </button>
+    <!-- Navbar links (hidden on smaller screens) -->
+    <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="product">Prodotti</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-  <!-- Bootstrap JS, Popper.js, and jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
+<!-- Side Panel -->
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="openCloseNav()">&times;</a>
+    <!-- User Icon in Sidebar -->
+  
+    <a class="nav-link" href="#">Home</a>
+    <a class="nav-link" href="#">Features</a>
+    <a class="nav-link" href="#">Pricing</a>
+    <a class="nav-link" href="#">Contact</a>
+    <!-- Search Bar in Side Panel -->
+
+</div>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
     /* Open the side panel */
-    function openNav() {
-      document.getElementById("mySidepanel").style.width = "250px";
+    function openCloseNav() {
+        console.log("opening")
+        if(document.getElementById("mySidepanel").style.width == "250px"){
+            document.getElementById("mySidepanel").style.width = "0px";
+        }
+        else {
+            document.getElementById("mySidepanel").style.width = "250px";
+        }
     }
 
-    /* Close the side panel */
-    function closeNav() {
-      document.getElementById("mySidepanel").style.width = "0";
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const cartBadge = document.getElementById('cartBadge');
+
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.trim();
+
+        if (searchTerm !== '') {
+            // Make AJAX request
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `search.php?q=${searchTerm}`, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    // Display search results
+                    displayResults(response);
+                }
+            };
+            xhr.send();
+        } else {
+            // Clear search results
+            searchResults.innerHTML = '';
+        }
+    });
+
+    // Function to display search results
+    function displayResults(results) {
+        if (results.length > 0) {
+            // Clear previous results
+            searchResults.innerHTML = '';
+            // Create a list to hold the results
+            const resultList = document.createElement('ul');
+            // Add a class to the list for styling
+            resultList.classList.add('search-results-list');
+            // Loop through the results and create list items
+            results.forEach(result => {
+                const listItem = document.createElement('li');
+                listItem.textContent = result;
+                // Append each list item to the list
+                resultList.appendChild(listItem);
+            });
+            // Append the list of results to the search results div
+            searchResults.appendChild(resultList);
+        } else {
+            // If no results found, display a message
+            searchResults.innerHTML = '<p>No results found</p>';
+        }
     }
-  </script>
+</script>
 
 </body>
 </html>

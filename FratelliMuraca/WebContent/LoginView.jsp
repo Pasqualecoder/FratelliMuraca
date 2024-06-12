@@ -42,7 +42,7 @@
         </div>
     
         <!-- Submit button -->
-        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">Sign in</button>
+        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4" style="background-color: #5f720f;" >Log in</button>
     </form>
 
 
