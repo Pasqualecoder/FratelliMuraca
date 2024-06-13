@@ -21,8 +21,6 @@ public interface ProductModel {
 	
 	public byte[] doRetrieveImage(int imgId) throws SQLException;
 
-	public void doSaveUser(UserBean user) throws SQLException;
-	
 	// TODO: aggiungere le interfacce mancanti
 	
 }

@@ -95,8 +95,7 @@ public class UserModelDS implements UserModel {
 				String cognome = rs.getString("cognome");
 				Date ddn = rs.getDate("ddn");
 				String phone = rs.getString("phone");
-				String ingredienti = rs.getString("ingredienti");
-
+				bean = new UserBean(id, emailUser, passwordUser, nome, cognome, ddn, phone);
 			}
 		} finally {
 			try {
@@ -108,6 +107,7 @@ public class UserModelDS implements UserModel {
 			}
 		}
 		
+		return bean;
 	}
 
 	
