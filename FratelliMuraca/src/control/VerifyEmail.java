@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Set;
 
 import model.UserModel;
@@ -34,7 +35,14 @@ public class VerifyEmail extends HttpServlet {
 		String email = request.getParameter("email");
 		boolean emailExists = false;
 		
-		Set<String> emails = model.doRetrieveAllEmail()
+		Set<String> emails = null;
+		try {
+			emails = model.doRetrieveAllEmail();
+			System.out.println(emails);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+		}
 		
 		
 		for(String user_email : emails) {

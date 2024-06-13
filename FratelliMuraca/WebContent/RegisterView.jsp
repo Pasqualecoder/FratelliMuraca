@@ -34,7 +34,7 @@
                     </div> <!-- form-group end.// -->
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" class="form-control" placeholder="" name="email" id="email">
+                        <input type="email" class="form-control" placeholder="" name="email" id="email" onkeyup="checkEmail()">
                         <small id="emailError" class="form-text text-danger"></small>
                         <small class="form-text text-muted">Non condivideremo la tua Email con nessuno</small>
                     </div> <!-- form-group end.// -->
@@ -130,14 +130,14 @@ function validate() {
 
     return valid;
 }
-document.getElementById("emailError").innerText = "Inserisci la tua email.";
+
 function checkEmail() {
 	var email = document.getElementById('email').value;
 	if (email.length === 0) {
         return;
     }
 	
-	var xhr = new XMLHTTPRequest();
+	var xhr = new XMLHttpRequest();
 	xhr.open('GET', 'verify?email=' + encodeURIComponent(email), true)
 	
 	 xhr.onreadystatechange = function () {
