@@ -124,7 +124,7 @@ public class CartControl extends HttpServlet {
 			}		
 		} catch (NumberFormatException e) { // errore nella conversione dell'id (l'utente ha provato a manomettere l'url)
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error-pages/404.jsp");
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
 			dispatcher.forward(request, response);
 		}
 		catch (SQLException e) {

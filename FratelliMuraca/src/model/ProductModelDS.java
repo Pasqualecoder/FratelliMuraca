@@ -464,36 +464,7 @@ public class ProductModelDS implements ProductModel {
 	
 	
 	
-	public synchronized void doSaveUser(UserBean user) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		String insertSQL = "INSERT INTO " + "utenti"
-				+ " (email, password, nome, cognome, ddn, phone) " 
-				+ "VALUES (?, ?, ?, ?, ?, ?)";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, user.getEmail());
-			preparedStatement.setString(2, user.getPassword());
-			preparedStatement.setString(3, user.getNome());
-			preparedStatement.setString(4, user.getCognome());
-			preparedStatement.setDate(5, user.getDdn());
-			preparedStatement.setString(6, user.getPhone());
-			preparedStatement.executeUpdate();
-
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-	}
+	
 	
 	
 }
