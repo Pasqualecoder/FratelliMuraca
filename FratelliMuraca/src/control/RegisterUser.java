@@ -69,7 +69,7 @@ public class RegisterUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String redirectedPage = "/login";
+		String redirectedPage = "/loginPage.jsp";
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
