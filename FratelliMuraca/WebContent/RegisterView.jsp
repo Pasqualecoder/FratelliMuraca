@@ -130,6 +130,27 @@ function validate() {
 
     return valid;
 }
+document.getElementById("emailError").innerText = "Inserisci la tua email.";
+function checkEmail() {
+	var email = document.getElementById('email').value;
+	if (email.length === 0) {
+        return;
+    }
+	
+	var xhr = new XMLHTTPRequest();
+	xhr.open('GET', 'verify?email=' + encodeURIComponent(email), true)
+	
+	 xhr.onreadystatechange = function () {
+
+		if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.exists) {
+            	document.getElementById("emailError").innerText = "Questa email e' gia' stata usata";
+            } 
+        }
+    };
+    xhr.send();
+}
 </script>
 
 
