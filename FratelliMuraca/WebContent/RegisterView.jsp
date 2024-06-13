@@ -34,7 +34,7 @@
                     </div> <!-- form-group end.// -->
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" class="form-control" placeholder="" name="email" id="email" onkeyup="checkEmail()">
+                        <input type="email" class="form-control" placeholder="" name="email" id="email" onfocusout="checkEmail()">
                         <small id="emailError" class="form-text text-danger"></small>
                         <small class="form-text text-muted">Non condivideremo la tua Email con nessuno</small>
                     </div> <!-- form-group end.// -->
@@ -93,7 +93,7 @@ function validate() {
     } else if (!emailRegex.test(email)) {
         document.getElementById("emailError").innerText = "Inserisci un'email valida.";
         valid = false;
-    }
+    } 
 	
     var dob = new Date(document.getElementById("dob").value);
     var today = new Date();
@@ -136,6 +136,7 @@ function checkEmail() {
 	if (email.length === 0) {
         return;
     }
+	console.log(email);
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', 'verify?email=' + encodeURIComponent(email), true)

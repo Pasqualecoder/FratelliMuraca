@@ -1,8 +1,10 @@
 package control;
 
+import java.awt.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Set;
 
 import model.UserModel;
@@ -35,18 +37,21 @@ public class VerifyEmail extends HttpServlet {
 		String email = request.getParameter("email");
 		boolean emailExists = false;
 		
-		Set<String> emails = null;
+		
+		LinkedList<String> emails = new LinkedList<>();
+		
 		try {
 			emails = model.doRetrieveAllEmail();
-			System.out.println(emails);
+			System.out.println("Debug Email in Ajax" + "\n" + emails);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			
+			e.printStackTrace();
 		}
 		
 		
 		for(String user_email : emails) {
-			if(user_email.equalsIgnoreCase(email)) {
+			if(email.startsWith(user_email)) {
 				emailExists = true;
 	            break;
 			}
@@ -58,6 +63,7 @@ public class VerifyEmail extends HttpServlet {
         // Prepare JSON response
         PrintWriter out = response.getWriter();
         out.println("{ \"exists\": " + emailExists + " }");
+        
 	}
 
 	/**

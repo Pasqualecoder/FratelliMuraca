@@ -84,7 +84,7 @@ public class UserModelDS implements UserModel {
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
-			preparedStatement.executeUpdate();
+			
 
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
@@ -121,7 +121,7 @@ public class UserModelDS implements UserModel {
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.executeUpdate();
+			
 
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
