@@ -100,7 +100,7 @@ public class RegisterUser extends HttpServlet {
         
         UserBean user = new UserBean(email, password, nome, cognome, ddn, telefono);
         try {
-        	model.doSaveUser(user);
+        	// model.doSaveUser(user);
         	// Reindirizza alla pagina del profilo utente in caso di successo
             request.setAttribute("user", user);
             request.getRequestDispatcher("/userProfilePage.jsp").forward(request, response);

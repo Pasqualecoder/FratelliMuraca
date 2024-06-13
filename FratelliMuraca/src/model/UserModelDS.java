@@ -112,10 +112,10 @@ public class UserModelDS implements UserModel {
 
 	
 	@Override
-	public synchronized Set<String> doRetrieveAllEmail() throws SQLException {
+	public synchronized LinkedList<String> doRetrieveAllEmail() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Set<String> emails = new HashSet<String>();
+		LinkedList<String> emails = new LinkedList<String>();
 		
 		String insertSQL = "SELECT email FROM " + TABLE_NAME + ";";
 		try {

@@ -1,6 +1,8 @@
 package control;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,7 +55,7 @@ public class LoginUser extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("pwd");
 		
-		//TODO: autenticazione
+		
 		if (email.equals("abc@gmail.com") && password.equals("abc")) {
 		    // Autenticazione riuscita
 		    session.setAttribute("email", email);
@@ -65,5 +67,25 @@ public class LoginUser extends HttpServlet {
 		    response.sendRedirect("login?error=1"); 
 		}
 	}
+	
+	
+	private static String encryptPassword(String psw) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(psw.getBytes());
+
+            // Convert byte array to hex string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+	
 
 }
