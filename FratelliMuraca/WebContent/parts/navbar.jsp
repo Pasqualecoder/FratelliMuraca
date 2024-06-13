@@ -185,7 +185,7 @@
     <div class="nav-link ml-auto">
         <i class="fas fa-user user-icon"></i>
         <div class="user-dropdown">
-            <% if(session.getAttribute("user_id") == null) { %>
+            <% if(session.getAttribute("id") == null) { %>
                 <a href="login">Log In</a>
                 <a href="register">Registrati</a>
             <% } else { %>

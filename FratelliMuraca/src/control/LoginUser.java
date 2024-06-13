@@ -52,7 +52,7 @@ public class LoginUser extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String email = request.getParameter("email");
-		String password = encryptPassword(request.getParameter("pwd"));
+		String password = request.getParameter("pwd");
 		
 		try {
 			UserBean user = model.doRetrieveUser(email, password);
@@ -64,7 +64,7 @@ public class LoginUser extends HttpServlet {
 				session.setAttribute("pwd", user.getPassword());
 				session.setAttribute("id", user.getId());
 				session.setAttribute("phone", user.getPhone());
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/product");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account");
 				dispatcher.forward(request, response); 
 			}
 			else {
