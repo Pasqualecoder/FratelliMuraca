@@ -54,7 +54,15 @@ public class OrderControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// prendere l'id dell'utente
-		int userId = 1;
+		int userId = 0;
+		try {
+			userId = Integer.parseInt((String) request.getSession().getAttribute("user_id"));			
+		} catch (NumberFormatException e) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
+			dispatcher.forward(request, response);
+		}
+		
 		
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
 		if(cart == null) {

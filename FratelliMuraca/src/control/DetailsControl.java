@@ -94,7 +94,7 @@ public class DetailsControl extends HttpServlet {
 			if (prodotto == null) {
 				// Determina che la risorsa richiesta non è stata trovata
 			    response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-			    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error-pages/404.jsp");
+			    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
 				dispatcher.forward(request, response);
 			}
 			
