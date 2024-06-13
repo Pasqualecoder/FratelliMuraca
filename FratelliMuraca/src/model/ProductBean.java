@@ -194,6 +194,13 @@ public class ProductBean implements Serializable {
 		this.categoria = categoria;
 		this.anno = anno;
 		this.ingredienti = ingredienti;
+		
+		// se non sono state trovate immagini per prod_fk si mette l'immagine placeholder che è associata con la prod_fk 0
+		if (immagini == null || immagini.size() == 0) {
+			immagini = new LinkedList<Integer>();
+			immagini.add(1);
+		}
+		
 		this.immagini = immagini;
 	}
 	

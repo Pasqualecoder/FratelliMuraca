@@ -54,8 +54,8 @@ public class ImageServlet extends HttpServlet {
             // Recupera l'immagine dal risultato della query
             byte[] imageData = model.doRetrieveImage(imageId);
             if (imageData == null) {
-            	// se il prodotto non ha immagini nel db carica l'immagine con id 0 che è un placeholder
-            	imageData = model.doRetrieveImage(0);
+            	// se il prodotto non ha immagini nel db carica l'immagine con id 1 che è un placeholder
+            	imageData = model.doRetrieveImage(1);
             }
         
         	// Imposta il tipo di contenuto nella risposta
