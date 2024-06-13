@@ -11,6 +11,7 @@
             flex-direction: column;
             min-height: 100vh;
             position: relative;
+            Removed margin-top: 20%;
         }
 
         .footer {
@@ -28,7 +29,7 @@
 
         .footer a:hover {
             color: #f8f9fa;
-            text-decoration: underline white;
+            text-decoration: underline;
             transition: 0.3s;
         }
 
@@ -38,9 +39,16 @@
             right: 10px;
             width: 75px;
         }
+
+        /* New styling to add space */
+        .content {
+            flex: 1; /* Ensure content takes up remaining space */
+            padding-bottom: 20px; /* Space between content and footer */
+        }
     </style>
 </head>
 <body>
+
 
     <footer class="footer mt-auto">
         <div class="container">
