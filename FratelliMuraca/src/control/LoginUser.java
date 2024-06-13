@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Cart;
 
@@ -47,8 +48,22 @@ public class LoginUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		// Esempio di autenticazione (sostituisci con la tua logica reale)
+		String email = request.getParameter("email");
+		String password = request.getParameter("pwd");
+		
+		//TODO: autenticazione
+		if (email.equals("abc@gmail.com") && password.equals("abc")) {
+		    // Autenticazione riuscita
+		    session.setAttribute("email", email);
+		    
+		    session.setAttribute("user_id", 1);
+		    response.sendRedirect("product"); 
+		} else {
+		    
+		    response.sendRedirect("login?error=1"); 
+		}
 	}
 
 }

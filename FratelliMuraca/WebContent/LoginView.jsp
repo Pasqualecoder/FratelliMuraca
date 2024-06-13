@@ -9,19 +9,19 @@
 <%@ include file="parts/head.jsp" %>
 <%@ include file="parts/navbar.jsp" %>
 <body>
-    <form class="col-sm-2 mx-auto mt-4" method="POST" action="/login">
+    <form class="col-sm-2 mx-auto mt-4" method="POST" action="login">
         <div class="mb-3">
             <a href="register">Non Ancora Registrato?</a>
         </div>
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4">
-            <input type="email" id="form2Example1" class="form-control" />
+            <input name="email" type="email" id="form2Example1" class="form-control" />
             <label class="form-label" for="form2Example1">Indirizzo Email</label>
         </div>
     
         <!-- Password input -->
         <div data-mdb-input-init class="form-outline mb-4">
-            <input type="password" id="form2Example2" class="form-control" />
+            <input name="pwd" type="password" id="form2Example2" class="form-control" />
             <label class="form-label" for="form2Example2">Password</label>
         </div>
     
@@ -42,7 +42,7 @@
         </div>
     
         <!-- Submit button -->
-        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">Sign in</button>
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4"">Log in</button>
     </form>
 
 

@@ -165,9 +165,25 @@
         <div id="searchResults" class="search-results"><div>aaaa</div></div>
     </form>
     <!-- User Icon -->
-    <a class="nav-link ml-auto" href="cart">
-        <i class="fas fa-user"></i>
+    <a class="nav-link ml-auto" href="">
+        	<i class="fas fa-user"></i>
     </a>
+    <% 
+    if(session.getAttribute("user_id") == null) { %>
+    	<!--  <a class="nav-link ml-auto" href="">
+        	<i class="fas fa-user"></i>
+    	</a>-->
+    	<a href="login">Log In</a>
+    	<a href="register">Registrati</a>
+    <% }
+    	else { %>
+    	
+        <a href="account">Account</a>
+    	<a href="ordini">Ordini</a>
+    	<a href="logout">Log Out</a>
+    <% } %> 
+   
+    
     <!-- Toggler Button for Side Panel -->
     <button class="navbar-toggler" type="button" onclick="openCloseNav()">
         <span class="navbar-toggler-icon">
