@@ -62,7 +62,7 @@ static boolean isDataSource = true;
     	catch (Exception e) {
     		
     	}
-    	System.out.println(productsName);
+    	System.out.println("[Search Control.java 65: ]" + productsName);
     	return productsName;
         
     }
