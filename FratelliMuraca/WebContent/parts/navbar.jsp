@@ -143,7 +143,24 @@
     display: block;
 }
 
+.user-dropdown {
+    display: none; /* Initially hide the dropdown */
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
 
+.user-dropdown a {
+    color: #000;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown a:hover {
+    background-color: #f1f1f1;
+}
 
   </style>
 </head>
@@ -165,23 +182,19 @@
         <div id="searchResults" class="search-results"><div>aaaa</div></div>
     </form>
     <!-- User Icon -->
-    <a class="nav-link ml-auto" href="">
-        	<i class="fas fa-user"></i>
-    </a>
-    <% 
-    if(session.getAttribute("user_id") == null) { %>
-    	<!--  <a class="nav-link ml-auto" href="">
-        	<i class="fas fa-user"></i>
-    	</a>-->
-    	<a href="login">Log In</a>
-    	<a href="register">Registrati</a>
-    <% }
-    	else { %>
-    	
-        <a href="account">Account</a>
-    	<a href="ordini">Ordini</a>
-    	<a href="logout">Log Out</a>
-    <% } %> 
+    <div class="nav-link ml-auto">
+        <i class="fas fa-user user-icon"></i>
+        <div class="user-dropdown">
+            <% if(session.getAttribute("user_id") == null) { %>
+                <a href="login">Log In</a>
+                <a href="register">Registrati</a>
+            <% } else { %>
+                <a href="account">Account</a>
+                <a href="ordini">Ordini</a>
+                <a href="logout">Log Out</a>
+            <% } %> 
+        </div>
+    </div>
    
     
     <!-- Toggler Button for Side Panel -->
@@ -229,7 +242,25 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-	
+document.addEventListener("DOMContentLoaded", function() {
+    const userIcon = document.querySelector(".user-icon");
+    const userDropdown = document.querySelector(".user-dropdown");
+
+    if (userIcon && userDropdown) {
+        userIcon.addEventListener("click", function() {
+            userDropdown.style.display = userDropdown.style.display === "block" ? "none" : "block";
+        });
+
+        // Close dropdown if user clicks outside of it
+        document.addEventListener("click", function(event) {
+            if (!userDropdown.contains(event.target) && event.target !== userIcon) {
+                userDropdown.style.display = "none";
+            }
+        });
+    }
+});
+
+
 	
     /* Open the side panel */
     function openCloseNav() {
