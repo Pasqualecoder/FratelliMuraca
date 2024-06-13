@@ -1,8 +1,9 @@
 package control;
-
+import model.*;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,15 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Cart;
-
 /**
  * Servlet implementation class LoginUser
  */
 @WebServlet("/login")
 public class LoginUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	static UserModel model = new UserModelDS();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -51,20 +50,29 @@ public class LoginUser extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		// Esempio di autenticazione (sostituisci con la tua logica reale)
+		
 		String email = request.getParameter("email");
-		String password = request.getParameter("pwd");
+		String password = encryptPassword(request.getParameter("pwd"));
 		
-		
-		if (email.equals("abc@gmail.com") && password.equals("abc")) {
-		    // Autenticazione riuscita
-		    session.setAttribute("email", email);
-		    
-		    session.setAttribute("user_id", 1);
-		    response.sendRedirect("product"); 
-		} else {
-		    
-		    response.sendRedirect("login?error=1"); 
+		try {
+			UserBean user = model.doRetrieveUser(email, password);
+			if(user != null) {
+				session.setAttribute("name", user.getNome());
+				session.setAttribute("surname", user.getCognome());
+				session.setAttribute("email", user.getEmail());
+				session.setAttribute("ddn", user.getDdn());
+				session.setAttribute("pwd", user.getPassword());
+				session.setAttribute("id", user.getId());
+				session.setAttribute("phone", user.getPhone());
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/product");
+				dispatcher.forward(request, response); 
+			}
+			else {
+			    
+			    response.sendRedirect("login?error=1"); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	
