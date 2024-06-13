@@ -2,7 +2,10 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import model.*;
+import java.util.Set;
+
+import model.UserModel;
+import model.UserModelDS;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/verify")
 public class VerifyEmail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    static UserModel model = new UserModelDS();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,7 +34,7 @@ public class VerifyEmail extends HttpServlet {
 		String email = request.getParameter("email");
 		boolean emailExists = false;
 		
-		
+		Set<String> emails = model.doRetrieveAllEmail()
 		
 		
 		for(String user_email : emails) {
