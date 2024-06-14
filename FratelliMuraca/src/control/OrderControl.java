@@ -17,6 +17,7 @@ import model.Cart;
 import model.ProductBean;
 import model.ProductModel;
 import model.ProductModelDS;
+import model.UserBean;
 
 import java.io.*;
 
@@ -54,10 +55,8 @@ public class OrderControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// prendere l'id dell'utente
-		int userId = 0;
-		try {
-			userId = Integer.parseInt((String) request.getSession().getAttribute("user_id"));			
-		} catch (NumberFormatException e) {
+		UserBean user = (UserBean) request.getSession().getAttribute("user_bean");			
+		if (user == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
 			dispatcher.forward(request, response);
@@ -75,7 +74,7 @@ public class OrderControl extends HttpServlet {
 		
 		try {
 			request.removeAttribute("ordini");
-			request.setAttribute("ordini", model.doRetrieveOrders(userId));
+			request.setAttribute("ordini", model.doRetrieveOrders(user));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

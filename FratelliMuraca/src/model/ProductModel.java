@@ -13,7 +13,7 @@ public interface ProductModel {
 
 	public ProductBean doRetrieveByKey(int code) throws SQLException;
 	
-	public Collection<OrderBean> doRetrieveOrders(int userOwner) throws SQLException;
+	public Collection<OrderBean> doRetrieveOrders(UserBean user) throws SQLException;
 
 	public Collection<OrderBean> doRetrieveAllOrders() throws SQLException;
 	

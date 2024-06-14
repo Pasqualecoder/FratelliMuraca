@@ -418,11 +418,12 @@ public class ProductModelDS implements ProductModel {
 	}
 
 	@Override
-	public synchronized Collection<OrderBean> doRetrieveOrders(int userOwner) throws SQLException {
+	public synchronized Collection<OrderBean> doRetrieveOrders(UserBean user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
+		int userOwner = user.getId();
 
 		String selectSQL = "SELECT * FROM " + "ordini" + " WHERE id_cliente = ? ORDER BY " + "datetime " + "DESC";
 
@@ -431,8 +432,6 @@ public class ProductModelDS implements ProductModel {
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, userOwner);
 			
-			// FIXME: toglimi
-			System.out.println(preparedStatement.toString());
 			
 			ResultSet rs = preparedStatement.executeQuery();
 
