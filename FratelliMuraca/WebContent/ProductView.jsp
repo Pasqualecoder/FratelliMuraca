@@ -10,7 +10,7 @@
 
 <body>
 <%@ include file="parts/navbar.jsp" %>
-
+<%= session.getAttribute("name") %>
 
 
 <%

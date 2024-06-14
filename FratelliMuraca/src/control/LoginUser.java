@@ -60,14 +60,9 @@ public class LoginUser extends HttpServlet {
 			UserBean user = model.doRetrieveUser(email, password);
 			if(user != null) {
 				
-				session.setAttribute("name", user.getNome());
-				session.setAttribute("surname", user.getCognome());
-				session.setAttribute("email", user.getEmail());
-				session.setAttribute("ddn", user.getDdn());
-				session.setAttribute("pwd", user.getPassword());
-				session.setAttribute("id", user.getId());
-				session.setAttribute("phone", user.getPhone());
+				session.setAttribute("user", user);
 				
+	
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account");
 				dispatcher.forward(request, response); 
 			}

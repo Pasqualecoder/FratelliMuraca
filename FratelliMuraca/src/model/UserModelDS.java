@@ -141,6 +141,68 @@ public class UserModelDS implements UserModel {
 	}
 	
 	
+	@Override
+	public synchronized void doChangeUser(UserBean userNuovo) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		LinkedList<String> emails = new LinkedList<String>();
+		
+		String insertSQL = "UPDATE " + TABLE_NAME + " SET email = ?, password = SHA256(?), nome = ?, cognome = ?, ddn = ?, phone = ? WHERE id = ?"; 
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, userNuovo.getEmail());
+			preparedStatement.setString(2, userNuovo.getPassword());
+			preparedStatement.setString(3, userNuovo.getNome());
+			preparedStatement.setString(4, userNuovo.getCognome());
+			preparedStatement.setDate(5, userNuovo.getDdn());
+			preparedStatement.setString(6, userNuovo.getPhone());
+			preparedStatement.setInt(7, userNuovo.getId());
+
+			preparedStatement.executeQuery();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+	
+	@Override
+	public synchronized void doChangeUserNoPwd(UserBean userNuovo) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		LinkedList<String> emails = new LinkedList<String>();
+		
+		String insertSQL = "UPDATE " + TABLE_NAME + " SET email = ?, nome = ?, cognome = ?, ddn = ?, phone = ? WHERE id = ?"; 
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, userNuovo.getEmail());
+
+			preparedStatement.setString(2, userNuovo.getNome());
+			preparedStatement.setString(3, userNuovo.getCognome());
+			preparedStatement.setDate(4, userNuovo.getDdn());
+			preparedStatement.setString(5, userNuovo.getPhone());
+			preparedStatement.setInt(6, userNuovo.getId());
+
+			preparedStatement.executeQuery();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+	
 	
 	
 }

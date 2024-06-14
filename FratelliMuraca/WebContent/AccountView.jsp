@@ -3,57 +3,59 @@
 
 <!DOCTYPE html>
 <html>
+<% UserBean user = (UserBean)session.getAttribute("user"); %>
 <%@ include file="parts/head.jsp" %>
 <%@ include file="parts/navbar.jsp" %>
 <body>
-<div class="container mt-5">
+
+<div class="container mt-5 mb-3">
     <div class="card">
         <div class="card-header text-white" style="background-color: #5f720f;">
             <h3>I tuoi dati</h3>
         </div>
         <div class="card-body">
             <form id="userDataForm" action="modificaDati" method="POST" onsubmit="return validate()">
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="name">Nome</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="name" name="name" value="<%= session.getAttribute("name") %>" disabled>
-                        </div>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="nome" name="name" value="<%= user.getNome() %>" disabled>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="surname">Cognome</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="surname" name="surname" value="<%= session.getAttribute("surname") %>" disabled>
-                        </div>
-                    </div>
+                    <small id="nomeError" class="form-text text-danger"></small>
                 </div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="email">Email</label>
-                        <div class="input-group">
-                            <input type="email" class="form-control" id="email" name="email" value="<%= session.getAttribute("email") %>" disabled>
-                        </div>
+                <div class="form-group">
+                    <label for="cognome">Cognome</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="cognome" name="surname" value="<%= user.getCognome() %>" disabled>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="birthdate">Data di Nascita</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control" id="birthdate" name="birthdate" value="<%= session.getAttribute("ddn") %>" disabled>
-                        </div>
-                    </div>
+                    <small id="cognomeError" class="form-text text-danger"></small>
                 </div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-3">
-                        <label for="password">Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="password" name="password" value="<%= session.getAttribute("password") %>" disabled>
-                        </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="email" name="email" value="<%= user.getEmail() %>" disabled>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="phone">Numero di Telefono</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="phone" name="phone" value="<%= session.getAttribute("phone") %>" disabled>
-                        </div>
+                    <small id="emailError" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label for="ddn">Data di Nascita</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" id="ddn" name="birthdate" value="<%= user.getDdn() %>" disabled>
                     </div>
+                    <small id="ageMessage" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="pwd" name="password" value="<%= user.getPassword() %>" disabled>
+                    </div>
+                    <small id="pwdError" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Numero di Telefono</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="phone" name="phone" value="<%= user.getPhone() %>" disabled>
+                    </div>
+                    <small id="phoneError" class="form-text text-danger"></small>
                 </div>
                 <button type="button" id="editBtn" class="btn btn-success mt-3" style="background-color: #5f720f;">Modifica i Dati</button>
                 <button type="submit" id="saveBtn" class="btn btn-primary mt-3" style="display: none;">Salva i Dati</button>
@@ -111,7 +113,7 @@
             valid = false;
         } 
     	
-        var dob = new Date(document.getElementById("dob").value);
+        var dob = new Date(document.getElementById("ddn").value);
         var today = new Date();
         var age = today.getFullYear() - dob.getFullYear();
         var month = today.getMonth() - dob.getMonth();

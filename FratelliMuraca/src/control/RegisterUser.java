@@ -1,5 +1,6 @@
 package control;
 
+import model.*;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,11 +31,13 @@ public class RegisterUser extends HttpServlet {
 	// ProductModelDM usa il DriverManager	
 	static boolean isDataSource = true;
 	
+	static UserModelDS userModel;
 	static ProductModel model;
 	
 	static {
 		if (isDataSource) {
 			model = new ProductModelDS();
+			
 		} else {
 			// model = new ProductModelDM();
 		}
@@ -69,17 +72,17 @@ public class RegisterUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String redirectedPage = "/loginPage.jsp";
+		String redirectedPage = "/LoginView.jsp";
 
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
+		String password = request.getParameter("pwd");
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");
 		Date ddn = Date.valueOf(request.getParameter("ddn"));
 		String telefono = request.getParameter("phone");
 		
 		// Controlla che tutti i parametri obbligatori siano forniti
-		if (email == null || email.isEmpty() ||
+		/*if (email == null || email.isEmpty() ||
 				password == null || password.isEmpty() ||
 				nome == null || nome.isEmpty() ||
 				cognome == null || cognome.isEmpty() || ddn == null) {
@@ -93,21 +96,21 @@ public class RegisterUser extends HttpServlet {
             request.setAttribute("errorMessage", "Devi essere maggiorenne per registrarti.");
             request.getRequestDispatcher("/error").forward(request, response);
             return;
-        }
+        }*/
 		
         password = encryptPassword(password);
 
         
         UserBean user = new UserBean(email, password, nome, cognome, ddn, telefono);
         try {
-        	// model.doSaveUser(user);
+        	userModel.doSaveUser(user);
         	// Reindirizza alla pagina del profilo utente in caso di successo
             request.setAttribute("user", user);
-            request.getRequestDispatcher("/userProfilePage.jsp").forward(request, response);
+            request.getRequestDispatcher("account").forward(request, response);
         } catch (Exception e) {
             // Gestione dell'eccezione in caso di errore durante il salvataggio
-            request.setAttribute("errorMessage", "Si è verificato un errore durante la registrazione. Riprova più tardi.");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            //request.setAttribute("errorMessage", "Si è verificato un errore durante la registrazione. Riprova più tardi.");
+            //request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
         	
 	}

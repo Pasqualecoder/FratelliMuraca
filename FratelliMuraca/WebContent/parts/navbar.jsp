@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Navbar with Side Panel and Cart Badge</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -113,7 +110,7 @@
     margin-top: 140px;
     padding: 10px;
     border-radius: 4px; /* Angoli arrotondati per il contenitore dei risultati */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra più pronunciata */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra piÃ¹ pronunciata */
     max-height: 200px;
     overflow-y: auto;
     display: none; /* Nasconde il div di default */
@@ -164,6 +161,7 @@
 
   </style>
 </head>
+<% UserBean user1 = (UserBean)session.getAttribute("user"); %>
 <body>
 
 <!-- Navbar -->
@@ -185,7 +183,7 @@
     <div class="nav-link ml-auto">
         <i class="fas fa-user user-icon"></i>
         <div class="user-dropdown">
-            <% if(session.getAttribute("id") == null) { %>
+            <% if(user1 == null) { %>
                 <a href="login">Log In</a>
                 <a href="register">Registrati</a>
             <% } else { %>
