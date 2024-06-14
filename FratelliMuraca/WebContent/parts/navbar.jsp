@@ -177,7 +177,7 @@
     <form class="form-inline mr-auto">
         <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" onkeyup="searchProducts()">
         <!-- Div for Search Results -->
-        <div id="searchResults" class="search-results"><div>aaaa</div></div>
+        <div id="searchResults" class="search-results"></div>
     </form>
     <!-- User Icon -->
     <div class="nav-link ml-auto">
@@ -189,6 +189,7 @@
             <% } else { %>
                 <a href="account">Account</a>
                 <a href="ordini">Ordini</a>
+                <a href="preferiti">Preferiti</a>
                 <a href="logout">Log Out</a>
             <% } %> 
         </div>

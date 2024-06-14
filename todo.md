@@ -1,7 +1,7 @@
 - implementare account admin e pagina admin con gestione catalogo, gestione utenti 
 - Copia delle informazioni del cliente da salvare all'interno del database quando si effettua un ordine (indirizzo, nome, cognome, informazioni di pagamento)
 - pagina utente:
-    - implementare modifica dei campi 
+    - fixare modifica dei campi 
 - gestire utente:
     - permettere all'utente di fare una recensione su un prodotto comprato attraverso la pagina dettagli del prodotto(implementare backend recensioni)
     - implementare pagina degli ordini in base all'utente
@@ -12,5 +12,4 @@
     - carrello
     - login
     - register
-- permettere di accedere ai dettagli di un prodotto cliccando sulla card del prodotto
 - aggiungere preferiti 
