@@ -14,7 +14,7 @@
   		padding-top: 56px; /* Adjust this value based on the height of your navbar */
 	}
     .navbar {
-      background-color: #5f720f; /* Green background */
+      background-color: #607244; /* Green background */
     }
       color: white !important; /* White text for links */
     }
