@@ -9,6 +9,19 @@
 <%@ include file="parts/head.jsp" %>
 <%@ include file="parts/navbar.jsp" %>
 <body>
+	<% 
+	// Se la creazione è andata a buon fine l'attributo creationState viene settato a true per far vedere un messaggio di successo
+	Boolean creationState = (Boolean) request.getAttribute("creationState");
+	if(creationState != null) { 
+			if (creationState.booleanValue() == true) {%>
+				<div class="p-3 mb-2 bg-success text-white">Operazione completata con successo. Effettua l'accesso</div>
+				
+			<%}
+			else {%>
+				<div class="p-3 mb-2 bg-danger text-white">Errore durante la creazione dell'account. Riprova più tardi</div>
+	
+			<%}
+	 }%>
     <form class="col-sm-2 mx-auto mt-4" method="POST" action="login">
         <div class="mb-3">
             <a href="register">Non Ancora Registrato?</a>

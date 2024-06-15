@@ -40,7 +40,7 @@ public class AddFavoriteControl extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		UserBean user = (UserBean)session.getAttribute("user");
 		
-		FavoriteBean favorite = new FavoriteBean() // find a way to pass product id
+		//FavoriteBean favorite = new FavoriteBean() // find a way to pass product id
 		
 
 	}

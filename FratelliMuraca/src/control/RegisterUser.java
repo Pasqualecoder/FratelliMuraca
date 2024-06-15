@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -31,12 +32,13 @@ public class RegisterUser extends HttpServlet {
 	// ProductModelDM usa il DriverManager	
 	static boolean isDataSource = true;
 	
-	static UserModelDS userModel;
+	static UserModel userModel;
 	static ProductModel model;
 	
 	static {
 		if (isDataSource) {
 			model = new ProductModelDS();
+			userModel = new UserModelDS();
 			
 		} else {
 			// model = new ProductModelDM();
@@ -72,7 +74,6 @@ public class RegisterUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String redirectedPage = "/LoginView.jsp";
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("pwd");
@@ -82,10 +83,11 @@ public class RegisterUser extends HttpServlet {
 		String telefono = request.getParameter("phone");
 		
 		// Controlla che tutti i parametri obbligatori siano forniti
-		/*if (email == null || email.isEmpty() ||
+		if (email == null || email.isEmpty() ||
 				password == null || password.isEmpty() ||
 				nome == null || nome.isEmpty() ||
-				cognome == null || cognome.isEmpty() || ddn == null) {
+				cognome == null || cognome.isEmpty() || ddn == null ||
+				telefono == null || telefono.isEmpty()) {
 			request.setAttribute("errorMessage", "Tutti i campi obbligatori devono essere compilati.");
 			request.getRequestDispatcher("/error.jsp").forward(request, response);
 			return;
@@ -96,23 +98,21 @@ public class RegisterUser extends HttpServlet {
             request.setAttribute("errorMessage", "Devi essere maggiorenne per registrarti.");
             request.getRequestDispatcher("/error").forward(request, response);
             return;
-        }*/
+        }
 		
-        password = encryptPassword(password);
-
-        
         UserBean user = new UserBean(email, password, nome, cognome, ddn, telefono);
+        System.out.println(user);
         try {
         	userModel.doSaveUser(user);
         	// Reindirizza alla pagina del profilo utente in caso di successo
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("account").forward(request, response);
-        } catch (Exception e) {
-            // Gestione dell'eccezione in caso di errore durante il salvataggio
-            //request.setAttribute("errorMessage", "Si è verificato un errore durante la registrazione. Riprova più tardi.");
-            //request.getRequestDispatcher("/error.jsp").forward(request, response);
+            request.setAttribute("creationState", true);
+        } catch (SQLException e) {
+        	request.setAttribute("creationState", false);
+        	e.printStackTrace();
         }
         	
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginView.jsp");
+        dispatcher.forward(request, response);
 	}
 	
 	private static String encryptPassword(String psw) {

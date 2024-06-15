@@ -46,10 +46,11 @@ public class UserModelDS implements UserModel {
 
 		String insertSQL = "INSERT INTO " + TABLE_NAME
 				+ " (email, password, nome, cognome, ddn, phone) " 
-				+ "VALUES (?, ?, ?, ?, ?, ?)";
+				+ "VALUES (?, SHA2(?, 256), ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, user.getEmail());
 			preparedStatement.setString(2, user.getPassword());

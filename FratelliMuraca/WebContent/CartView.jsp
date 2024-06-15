@@ -69,11 +69,64 @@
 		</tbody>
 	</table>
 	
-	<form action="order" method="post">
-		<input type="hidden" name="userId" value="1">
-		<!-- <input type="hidden" name="cart"> -->
-		<button type="submit" class="btn btn-success mt-auto float-right">Conferma l'ordine</button>
-	</form>
+	<% if (session.getAttribute("user") == null) {%>
+		<h6>Devi essere loggato per effettuare l'ordine</h6>
+		<a class="btn btn-success mt-auto" href="login">Entra subito</a><br><br>
+	<%}
+	else {%>
+		<div class="container mt-5">
+        <form action="order" method="post">
+            <!-- Nome del Destinatario -->
+            <div class="form-group">
+                <label for="nomeDes">Nome del Destinatario:</label>
+                <input type="text" class="form-control" id="nomeDes" name="nomeDes" value="<%= user1.getFullName()%>" required>
+            </div>
+
+            <!-- Indirizzo -->
+            <div class="form-group">
+                <label for="indirizzo">Indirizzo:</label>
+                <input type="text" class="form-control" id="indirizzo" name="indirizzo" placeholder="Via e numero civico" required>
+            </div>
+
+            <!-- Codice Postale -->
+			<div class="form-group">
+			    <label for="CAP">CAP o ZIP Code:</label>
+			    <input type="text" class="form-control" id="codicePostale" name="CAP" 
+			           placeholder="00000">
+			    <small id="postalCodeHelp" class="form-text text-muted">Inserisci il codice postale nel formato corretto per il tuo paese.</small>
+			</div>
+            
+            <!-- Città -->
+            <div class="form-group">
+                <label for="citta">Città:</label>
+                <input type="text" class="form-control" id="citta" name="citta" placeholder="Milano" required>
+            </div>
+
+            <!-- Paese -->
+            <div class="form-group">
+                <label for="paese">Paese:</label>
+                <input type="text" class="form-control" id="paese" name="paese" placeholder="Italia" required>
+            </div>
+
+			
+			INSERIRE METODO DI PAGAMENTO
+			
+			carta:
+			owner
+			card number
+			cvv
+			scadenza
+
+			sandbox
+
+
+            <!-- Bottone di Submit -->
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-success">Conferma l'ordine</button>
+            </div>
+        </form>
+    </div>
+	<%} %>	
 	<%} // end else%>
 </div>
 

@@ -42,14 +42,14 @@ public class EditUserControl extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserModelDS model = new UserModelDS();
 		
-		
+		/*
 		try {
 			model.doChangeUser(user);
 			session.setAttribute("user", user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		*/
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
 			dispatcher.forward(request, response);
 		

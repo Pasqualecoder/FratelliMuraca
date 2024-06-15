@@ -10,7 +10,7 @@
 
 <body>
 <%@ include file="parts/navbar.jsp" %>
-<%= session.getAttribute("name") %>
+<%= "ProductView.jsp row13 " + session.getAttribute("user") %>
 
 
 <%
@@ -29,7 +29,7 @@ if (products == null || products.size() == 0) {%>
 				<!-- CARD -->			
 				<div class="col mb-5">
 					<a href="details?id=<%=prodotto.getId()%>">
-					<div class="card h-100" ">
+					<div class="card h-100">
 					
 				<% 
 				// se il prodotto è in sconto applica il bollino
@@ -41,7 +41,7 @@ if (products == null || products.size() == 0) {%>
 				
 				
 				<!-- Product image-->
-				<img src="imageServlet?img=<%= prodotto.getImmagini().getFirst() %>" alt="<%= prodotto.getNome() %>">
+				<img src="imageServlet?img=<%= prodotto.getImmagini().getFirst() %>" alt="<%= prodotto.getNome() %>" width="100%">
 				
 				
 				

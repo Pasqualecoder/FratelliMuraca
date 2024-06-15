@@ -77,6 +77,10 @@ public class UserBean implements Serializable {
 		this.cognome = cognome;
 	}
 
+	public String getFullName() {
+		return nome + " " + cognome;
+	}
+	
 	public Date getDdn() {
 		return ddn;
 	}
