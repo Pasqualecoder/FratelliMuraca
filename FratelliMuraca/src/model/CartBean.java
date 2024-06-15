@@ -94,7 +94,4 @@ public class CartBean implements Serializable {
         return cart;
     }
 
-
-    
-
 }

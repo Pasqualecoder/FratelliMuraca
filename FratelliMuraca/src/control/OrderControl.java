@@ -13,11 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.CartBean;
-import model.ProductBean;
-import model.ProductModel;
-import model.ProductModelDS;
-import model.UserBean;
+import model.*;
 
 import java.io.*;
 
@@ -28,19 +24,8 @@ import java.io.*;
 public class OrderControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	// ProductModelDS usa il DataSource
-	// ProductModelDM usa il DriverManager	
-	static boolean isDataSource = true;
-	
-	static ProductModel model;
-	
-	static {
-		if (isDataSource) {
-			model = new ProductModelDS();
-		} else {
-			// model = new ProductModelDM();
-		}
-	}
+	static ProductModel productModel = new ProductModelDS();
+	static OrderModel orderModel = new OrderModelDS();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -74,7 +59,7 @@ public class OrderControl extends HttpServlet {
 		
 		try {
 			request.removeAttribute("ordini");
-			request.setAttribute("ordini", model.doRetrieveOrders(user));
+			request.setAttribute("ordini", orderModel.doRetrieveOrders(user));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -120,7 +105,7 @@ public class OrderControl extends HttpServlet {
 			
 			// salvataggio nel db
 			try {
-				model.doSaveOrder(idUtente, cart);
+				orderModel.doSaveOrder(idUtente, cart);
 				opStatus = true;
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -142,7 +127,7 @@ public class OrderControl extends HttpServlet {
 	 * @param vecchio: carrello inviato dal post dell'utente non convalidato
 	 * @return nuovo: carrello convalidato
 	 */
-	private CartBean copyValidateCart(CartBean vecchio) throws IOException, SQLException {
+	private static CartBean copyValidateCart(CartBean vecchio) throws IOException, SQLException {
 		CartBean nuovo = new CartBean();
 		for (Map.Entry<ProductBean, Integer> entry : vecchio.getProducts().entrySet()) {
 			ProductBean toCheck = entry.getKey();
@@ -152,7 +137,7 @@ public class OrderControl extends HttpServlet {
 			}
 			
 
-			ProductBean equivalent = model.doRetrieveProductByKey(toCheck.getId());
+			ProductBean equivalent = productModel.doRetrieveProductByKey(toCheck.getId());
 			for (int i = 0; i < quantita; i++) {
 				nuovo.addProduct(equivalent);
 			}

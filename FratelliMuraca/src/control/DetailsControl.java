@@ -23,19 +23,7 @@ import model.ProductModelDS;
 public class DetailsControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	// ProductModelDS usa il DataSource
-	// ProductModelDM usa il DriverManager	
-	static boolean isDataSource = true;
-	
-	static ProductModel model;
-	
-	static {
-		if (isDataSource) {
-			model = new ProductModelDS();
-		} else {
-			// model = new ProductModelDM();
-		}
-	}
+	static ProductModel productModel = new ProductModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -77,7 +65,7 @@ public class DetailsControl extends HttpServlet {
 					
 					
 					for (int i = 0; i < quantity; i++)
-						cart.addProduct(model.doRetrieveProductByKey(id));
+						cart.addProduct(productModel.doRetrieveProductByKey(id));
 				} 
 			}
 		} catch (SQLException e) {
@@ -90,7 +78,7 @@ public class DetailsControl extends HttpServlet {
 		
 		// IMPORTANTE
 		try {
-			ProductBean prodotto = model.doRetrieveProductByKey(id);
+			ProductBean prodotto = productModel.doRetrieveProductByKey(id);
 			if (prodotto == null) {
 				// Determina che la risorsa richiesta non è stata trovata
 			    response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404

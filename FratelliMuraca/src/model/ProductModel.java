@@ -31,8 +31,9 @@ public interface ProductModel {
 
 	
 	
-	
 	public byte[] doRetrieveImage(int imgId) throws SQLException;
+	
+	//TODO: 	public synchronized LinkedList<Immagine> doSaveImages(LinkedList<Immagine> immagini) throws SQLException {
 
 	
 }

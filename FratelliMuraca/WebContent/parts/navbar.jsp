@@ -188,7 +188,7 @@
                 <a href="register">Registrati</a>
             <% } else { %>
                 <a href="account">Account</a>
-                <a href="ordini">Ordini</a>
+                <a href="order">Ordini</a>
                 <a href="preferiti">Preferiti</a>
                 <a href="logout">Log Out</a>
             <% } %> 
