@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Cart;
+import model.CartBean;
 import model.ProductModel;
 import model.ProductModelDS;
 import model.ProductBean;
@@ -44,9 +44,9 @@ public class ProductControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
-			cart = new Cart();
+			cart = new CartBean();
 			request.getSession().setAttribute("cart", cart);
 		}
 		
@@ -64,14 +64,14 @@ public class ProductControl extends HttpServlet {
 					
 					
 					for (int i = 0; i < quantity; i++)
-						cart.addProduct(model.doRetrieveByKey(id));
+						cart.addProduct(model.doRetrieveProductByKey(id));
 				} 
 				
 				// REMOVE FROM CART
 				
 				else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(model.doRetrieveByKey(id));
+					cart.deleteProduct(model.doRetrieveProductByKey(id));
 				}
 				
 				// DETAILS
@@ -128,7 +128,7 @@ public class ProductControl extends HttpServlet {
 
 		try {
 			request.removeAttribute("products");
-			request.setAttribute("products", model.doRetrieveAll(sort));
+			request.setAttribute("products", model.doRetrieveAllProducts(sort));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -11,20 +11,26 @@
 
 <h1>Ultimi ordini</h1>
 <%
-Boolean opStatus = (Boolean) request.getAttribute("opStatus");
+	Boolean opStatus = (Boolean) request.getAttribute("opStatus");
 
 // NESSUNA OPERAZIONE EFFETTUATA
-if (opStatus == null) {%>
-<%}
+if (opStatus == null) {
+%>
+<%
+	}
 
 // OPERAZIONE ANDATA A BUON FINE
-else if (opStatus) {%>
+else if (opStatus) {
+%>
 	<div class="p-3 mb-2 bg-success text-white">Operazione completata con successo</div>
-<%}
+<%
+	}
 
-else {%>
+else {
+%>
 	<div class="p-3 mb-2 bg-danger text-white">Errore durante l'acquisto, attendi qualche minuto e riprova</div>
-<%}
+<%
+	}
 %>
 
 <%
@@ -36,10 +42,10 @@ if (ordini == null || ordini.size() <= 0) {
 <%
 			}
 
-		else {
+				else {
 			for (OrderBean or : ordini) {
 		%>
-		<h4>Ordine #<%= or.getId() %></h4>
+		<h4>Ordine #<%=or.getId()%></h4>
 		<lable for="destinatario">Destinatario:</lable> Mario Rossi <br>
 		<lable for="destinazione">Indirizzo destinazione:</lable> Via Roma 19 <br>
 		<lable for="metodo">Metodo di Pagamento</lable> PayPal <br>
@@ -57,15 +63,15 @@ if (ordini == null || ordini.size() <= 0) {
 			</thead>
 			<tbody>
 			<%
-			// Itera attraverso i prodotti nel carrello
-			float prezzoTotale = 0f;
-			Cart prodotti = or.getProdotti();
-			// per ogni elemento all'interno dell'ordine
-			for (Map.Entry<ProductBean, Integer> entry : prodotti.getProducts().entrySet()) {
-				ProductBean prodotto = entry.getKey();
-				int quantity = entry.getValue();
-				prezzoTotale += prodotto.getPrezzoScontato() * quantity;
-				prezzoTotale = ProductBean.arrotondaDueDecimali(prezzoTotale);
+				// Itera attraverso i prodotti nel carrello
+				float prezzoTotale = 0f;
+				CartBean prodotti = or.getProdotti();
+				// per ogni elemento all'interno dell'ordine
+				for (Map.Entry<ProductBean, Integer> entry : prodotti.getProducts().entrySet()) {
+					ProductBean prodotto = entry.getKey();
+					int quantity = entry.getValue();
+					prezzoTotale += prodotto.getPrezzoScontato() * quantity;
+					prezzoTotale = ProductBean.arrotondaDueDecimali(prezzoTotale);
 			%>
 			
 			<tr>

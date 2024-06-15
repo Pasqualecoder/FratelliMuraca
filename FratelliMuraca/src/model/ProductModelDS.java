@@ -35,7 +35,7 @@ public class ProductModelDS implements ProductModel {
 
 	private static final String TABLE_NAME = "prodotti";
 
-	public synchronized void doSave(ProductBean product) throws SQLException {/* TODO */}
+	// public synchronized void doSave(ProductBean product) throws SQLException {/* TODO */}
 	/*
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
@@ -78,7 +78,7 @@ public class ProductModelDS implements ProductModel {
 	*/
 
 	@Override
-	public synchronized ProductBean doRetrieveByKey(int id) throws SQLException {
+	public synchronized ProductBean doRetrieveProductByKey(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -123,6 +123,7 @@ public class ProductModelDS implements ProductModel {
 		return bean;
 	}
 
+	/*
 	@Override
 	public synchronized boolean doDelete(int id) throws SQLException {
 		Connection connection = null;
@@ -150,9 +151,10 @@ public class ProductModelDS implements ProductModel {
 		}
 		return (result != 0);
 	}
+	*/
 
 	@Override
-	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<ProductBean> doRetrieveAllProducts(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -339,7 +341,7 @@ public class ProductModelDS implements ProductModel {
 	}
 	*/
 	
-	public synchronized void doSaveOrder(int userId, Cart cart) throws SQLException {
+	public synchronized void doSaveOrder(int userId, CartBean cart) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		byte[] cartSer = null;
@@ -394,7 +396,7 @@ public class ProductModelDS implements ProductModel {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				int idCliente = rs.getInt("id_cliente");
-				Cart prodotti = Cart.deserialize(rs.getBytes("prodotti"));
+				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
 				Timestamp datetime = rs.getTimestamp("datetime");
 				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
 
@@ -438,7 +440,7 @@ public class ProductModelDS implements ProductModel {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				int idCliente = rs.getInt("id_cliente");
-				Cart prodotti = Cart.deserialize(rs.getBytes("prodotti"));
+				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
 				Timestamp datetime = rs.getTimestamp("datetime");
 				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
 

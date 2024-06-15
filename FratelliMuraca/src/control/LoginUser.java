@@ -33,9 +33,9 @@ public class LoginUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
-			cart = new Cart();
+			cart = new CartBean();
 			request.getSession().setAttribute("cart", cart);
 		}
 		request.getSession().setAttribute("cart", cart);

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Cart;
+import model.CartBean;
 import model.UserBean;
 
 /**
@@ -40,9 +40,9 @@ public class FavoriteViewControl extends HttpServlet {
 		}
 		
 		
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
-			cart = new Cart();
+			cart = new CartBean();
 			request.getSession().setAttribute("cart", cart);
 		}
 		

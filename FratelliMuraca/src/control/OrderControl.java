@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Cart;
+import model.CartBean;
 import model.ProductBean;
 import model.ProductModel;
 import model.ProductModelDS;
@@ -63,9 +63,9 @@ public class OrderControl extends HttpServlet {
 		}
 		
 		
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
-			cart = new Cart();
+			cart = new CartBean();
 			request.getSession().setAttribute("cart", cart);
 		}
 		
@@ -104,8 +104,8 @@ public class OrderControl extends HttpServlet {
 		
 		
 		// Verifica dell correttezza del carrello
-		Cart copia = null;
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartBean copia = null;
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null || cart.isEmpty()) {
 			doGet(request, response);
 		}
@@ -129,7 +129,7 @@ public class OrderControl extends HttpServlet {
 			request.setAttribute("opStatus", opStatus);
 			
 			if (opStatus) {
-				request.getSession().setAttribute("cart", new Cart());
+				request.getSession().setAttribute("cart", new CartBean());
 			}
 		
 			
@@ -142,8 +142,8 @@ public class OrderControl extends HttpServlet {
 	 * @param vecchio: carrello inviato dal post dell'utente non convalidato
 	 * @return nuovo: carrello convalidato
 	 */
-	private Cart copyValidateCart(Cart vecchio) throws IOException, SQLException {
-		Cart nuovo = new Cart();
+	private CartBean copyValidateCart(CartBean vecchio) throws IOException, SQLException {
+		CartBean nuovo = new CartBean();
 		for (Map.Entry<ProductBean, Integer> entry : vecchio.getProducts().entrySet()) {
 			ProductBean toCheck = entry.getKey();
 			int quantita = entry.getValue();
@@ -152,7 +152,7 @@ public class OrderControl extends HttpServlet {
 			}
 			
 
-			ProductBean equivalent = model.doRetrieveByKey(toCheck.getId());
+			ProductBean equivalent = model.doRetrieveProductByKey(toCheck.getId());
 			for (int i = 0; i < quantita; i++) {
 				nuovo.addProduct(equivalent);
 			}

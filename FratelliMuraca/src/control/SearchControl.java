@@ -52,7 +52,7 @@ static boolean isDataSource = true;
 	private List<String> searchProducts(String query) {
     	List<String> productsName = new LinkedList<>(); 
     	try {
-    		for(ProductBean prodotto : new LinkedList<>(model.doRetrieveAll(""))) {
+    		for(ProductBean prodotto : new LinkedList<>(model.doRetrieveAllProducts(""))) {
     			if(prodotto.getNome().toLowerCase().startsWith(query)) {
     				productsName.add(prodotto.getNome().toLowerCase());
     			}

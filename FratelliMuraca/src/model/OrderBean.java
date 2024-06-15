@@ -8,13 +8,13 @@ public class OrderBean implements Serializable {
 	
 	private int id;
 	private int id_cliente;
-	private Cart prodotti;
+	private CartBean prodotti;
 	private Timestamp datetime;
 	private StatoOrdine stato;
 	
 	public OrderBean() {}
 	
-	public OrderBean(int id, int id_cliente, Cart prodotti, Timestamp datetime, StatoOrdine stato) {
+	public OrderBean(int id, int id_cliente, CartBean prodotti, Timestamp datetime, StatoOrdine stato) {
 		this.id = id;
 		this.id_cliente = id_cliente;
 		this.prodotti = prodotti;
@@ -35,10 +35,10 @@ public class OrderBean implements Serializable {
 	public void setId_cliente(int id_cliente) {
 		this.id_cliente = id_cliente;
 	}
-	public Cart getProdotti() {
+	public CartBean getProdotti() {
 		return prodotti;
 	}
-	public void setProdotti(Cart prodotti) {
+	public void setProdotti(CartBean prodotti) {
 		this.prodotti = prodotti;
 	}
 	public Timestamp getDatetime() {

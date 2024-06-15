@@ -5,14 +5,14 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Cart implements Serializable {
+public class CartBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
 	// mappa dei prodotti, integer è il numero di quei prodotti nel carrello
 	private Map<ProductBean, Integer> products;
 	
-	public Cart() {
+	public CartBean() {
 		products = new HashMap<>();
 	}
 	
@@ -86,10 +86,10 @@ public class Cart implements Serializable {
         return baos.toByteArray();
     }
 
-    public static Cart deserialize(byte[] serializedCart) throws IOException, ClassNotFoundException {
+    public static CartBean deserialize(byte[] serializedCart) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bais = new ByteArrayInputStream(serializedCart);
         ObjectInputStream ois = new ObjectInputStream(bais);
-        Cart cart = (Cart) ois.readObject();
+        CartBean cart = (CartBean) ois.readObject();
         ois.close();
         return cart;
     }

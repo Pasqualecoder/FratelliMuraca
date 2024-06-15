@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.jasper.tagplugins.jstl.core.Out;
 
-import model.Cart;
+import model.CartBean;
 import model.ProductModel;
 import model.ProductModelDS;
 
@@ -51,9 +51,9 @@ public class CartControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
-			cart = new Cart();
+			cart = new CartBean();
 			request.getSession().setAttribute("cart", cart);
 		}
 		
@@ -71,18 +71,18 @@ public class CartControl extends HttpServlet {
 					
 					
 					for (int i = 0; i < quantity; i++)
-						cart.addProduct(model.doRetrieveByKey(id));
+						cart.addProduct(model.doRetrieveProductByKey(id));
 				} 
 				
 				// REMOVE FROM CART
 				
 				else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(model.doRetrieveByKey(id));
+					cart.deleteProduct(model.doRetrieveProductByKey(id));
 				}
 				
 				else if(action.equalsIgnoreCase("svuotaC")) {
-					cart = new Cart();
+					cart = new CartBean();
 				}
 				
 				// DETAILS

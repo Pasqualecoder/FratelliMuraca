@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Cart;
+import model.CartBean;
 import model.ProductBean;
 import model.ProductModel;
 import model.ProductModelDS;
@@ -49,9 +49,9 @@ public class DetailsControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
-			cart = new Cart();
+			cart = new CartBean();
 			request.getSession().setAttribute("cart", cart);
 		}
 
@@ -77,7 +77,7 @@ public class DetailsControl extends HttpServlet {
 					
 					
 					for (int i = 0; i < quantity; i++)
-						cart.addProduct(model.doRetrieveByKey(id));
+						cart.addProduct(model.doRetrieveProductByKey(id));
 				} 
 			}
 		} catch (SQLException e) {
@@ -90,7 +90,7 @@ public class DetailsControl extends HttpServlet {
 		
 		// IMPORTANTE
 		try {
-			ProductBean prodotto = model.doRetrieveByKey(id);
+			ProductBean prodotto = model.doRetrieveProductByKey(id);
 			if (prodotto == null) {
 				// Determina che la risorsa richiesta non è stata trovata
 			    response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
