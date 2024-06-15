@@ -51,6 +51,9 @@
 6. **Visualizzazione Password**
     - Permettere di mostrare la password che viene scritta
 
+# Sicurezza
+1. **Non Permettere ad un utente loggato di accedere alla pagina di login e register**
+
 ## Funzionalità Aggiuntive
 
 8. **Preferiti**
