@@ -21,20 +21,7 @@ import model.*;
 public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	// ProductModelDS usa il DataSource
-	// ProductModelDM usa il DriverManager	
-	static boolean isDataSource = true;
-	
-	static ProductModel model;
-	
-	static {
-		if (isDataSource) {
-			model = new ProductModelDS();
-		} else {
-			// model = new ProductModelDM();
-		}
-	}
-	
+	static ProductModel productModel = new ProductModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,10 +39,10 @@ public class ImageServlet extends HttpServlet {
             // Recupera l'ID dell'immagine dalla richiesta
             int imageId = Integer.parseInt(request.getParameter("img"));
             // Recupera l'immagine dal risultato della query
-            byte[] imageData = model.doRetrieveImage(imageId);
+            byte[] imageData = productModel.doRetrieveImage(imageId);
             if (imageData == null) {
             	// se il prodotto non ha immagini nel db carica l'immagine con id 1 che è un placeholder
-            	imageData = model.doRetrieveImage(1);
+            	imageData = productModel.doRetrieveImage(1);
             }
         
         	// Imposta il tipo di contenuto nella risposta

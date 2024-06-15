@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import model.CartBean;
+import model.OrderModel;
 import model.ProductModel;
 import model.ProductModelDS;
 
@@ -25,19 +26,7 @@ import model.ProductModelDS;
 public class CartControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	// ProductModelDS usa il DataSource
-	// ProductModelDM usa il DriverManager	
-	static boolean isDataSource = true;
-	
-	static ProductModel model;
-	
-	static {
-		if (isDataSource) {
-			model = new ProductModelDS();
-		} else {
-			// model = new ProductModelDM();
-		}
-	}
+	static ProductModel productModel = new ProductModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -71,57 +60,21 @@ public class CartControl extends HttpServlet {
 					
 					
 					for (int i = 0; i < quantity; i++)
-						cart.addProduct(model.doRetrieveProductByKey(id));
+						cart.addProduct(productModel.doRetrieveProductByKey(id));
 				} 
 				
 				// REMOVE FROM CART
 				
 				else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(model.doRetrieveProductByKey(id));
+					cart.deleteProduct(productModel.doRetrieveProductByKey(id));
 				}
 				
 				else if(action.equalsIgnoreCase("svuotaC")) {
 					cart = new CartBean();
 				}
+			}
 				
-				// DETAILS
-				/*
-				else if (action.equalsIgnoreCase("read")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					request.removeAttribute("product");
-					request.setAttribute("product", model.doRetrieveByKey(id));
-				} 
-				*/
-				
-				// DELETE FROM DB
-				/*
-				else if (action.equalsIgnoreCase("delete")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					model.doDelete(id);
-				} 
-				*/
-				
-				// INSERT INTO DB
-				/*
-				else if (action.equalsIgnoreCase("insert")) {
-					String nome = request.getParameter("nome");
-					String descrizione = request.getParameter("descrizione");
-					float prezzo = Float.parseFloat(request.getParameter("prezzo"));
-					int quantita = Integer.parseInt(request.getParameter("quantita"));
-					String dimensione = request.getParameter("dimensione");
-					boolean tipo = Boolean.parseBoolean(request.getParameter("tipo"));
-					ProductCategorie categoria = ProductCategorie.fromString(request.getParameter("categoria"));
-					String anno = request.getParameter("anno");
-					String ingredienti = request.getParameter("ingredienti");
-					String image = request.getParameter("image");
-					
-					// TODO: save images
-					ProductBean bean = null; // new ProductBean(nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti, image);
-					model.doSave(bean);
-				}
-				*/
-			}		
 		} catch (NumberFormatException e) { // errore nella conversione dell'id (l'utente ha provato a manomettere l'url)
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");

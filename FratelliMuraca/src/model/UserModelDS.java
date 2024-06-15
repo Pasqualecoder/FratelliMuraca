@@ -204,6 +204,4 @@ public class UserModelDS implements UserModel {
 		}
 	}
 	
-	
-	
 }

@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 
 public class UserBean implements Serializable {
@@ -96,6 +98,25 @@ public class UserBean implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	public void encryptPassword() {
+		String psw = password;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(psw.getBytes());
+
+            // Convert byte array to hex string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            this.password = hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	@Override
 	public int hashCode() {

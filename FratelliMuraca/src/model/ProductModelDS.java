@@ -35,8 +35,7 @@ public class ProductModelDS implements ProductModel {
 
 	private static final String TABLE_NAME = "prodotti";
 
-	// public synchronized void doSave(ProductBean product) throws SQLException {/* TODO */}
-	/*
+	/* doSave
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
 
@@ -77,6 +76,38 @@ public class ProductModelDS implements ProductModel {
 	}
 	*/
 
+	/* doDelete
+	@Override
+	public synchronized boolean doDelete(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "DELETE FROM " + ProductModelDS.TABLE_NAME + " WHERE ID = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, id);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return (result != 0);
+	}
+	*/
+	
+	// doSaveImages
+	
 	@Override
 	public synchronized ProductBean doRetrieveProductByKey(int id) throws SQLException {
 		Connection connection = null;
@@ -123,35 +154,7 @@ public class ProductModelDS implements ProductModel {
 		return bean;
 	}
 
-	/*
-	@Override
-	public synchronized boolean doDelete(int id) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		int result = 0;
-
-		String deleteSQL = "DELETE FROM " + ProductModelDS.TABLE_NAME + " WHERE ID = ?";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, id);
-
-			result = preparedStatement.executeUpdate();
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return (result != 0);
-	}
-	*/
+	
 
 	@Override
 	public synchronized Collection<ProductBean> doRetrieveAllProducts(String order) throws SQLException {
@@ -203,72 +206,7 @@ public class ProductModelDS implements ProductModel {
 		return products;
 	}
 
-	/**
-	 * restituisce una SINGOLA immagine, deve essere usato da ImageServlet
-	 * @param imgId
-	 * @return
-	 * @throws SQLException
-	 */
-	public synchronized byte[] doRetrieveImage(int imgId) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		byte[] imageData = null;
-
-		String selectSQL = "SELECT * FROM " + "images" + " WHERE id = ?";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, imgId);
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				// Recupera l'immagine dal risultato della query
-                imageData = rs.getBytes("imageblob");
-			}
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		
-		return imageData;
-	}
 	
-	public synchronized LinkedList<Immagine> doRetrieveImages(int id) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		LinkedList<Immagine> lista = new LinkedList<Immagine>();
-
-		String selectSQL = "SELECT * FROM " + "images" + " WHERE prod_fk = ?";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id);
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				byte[] buffer = rs.getBytes("imageblob");
-				lista.add(new Immagine(buffer));
-			}
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		
-		return lista;
-	}
 	
 	/**
 	 * restituisce una lista di chiavi di immagini di un prodotto. Serviranno poi per il ImageServlet.java
@@ -307,107 +245,32 @@ public class ProductModelDS implements ProductModel {
 		return lista;
 	}
 	
-	//TODO: save images
-	/*
-	public synchronized LinkedList<Immagine> doSaveImages(LinkedList<Immagine> immagini) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		LinkedList<Immagine> lista = new LinkedList<Immagine>();
-
-		String selectSQL = "SELECT * FROM " + "images" + " WHERE prod_fk = ?";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, id);
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				byte[] buffer = rs.getBytes("imageblob");
-				lista.add(new Immagine(buffer));
-			}
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		
-		return lista;
-	}
-	*/
 	
-	public synchronized void doSaveOrder(int userId, CartBean cart) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		byte[] cartSer = null;
-		
-		try {
-			cartSer = cart.serialize();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String insertSQL = "INSERT INTO " + "ordini" 
-				+ " (id_cliente, prodotti) "
-				+ "VALUES (?, ?)";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, userId);
-			preparedStatement.setBytes(2, cartSer);
-			preparedStatement.executeUpdate();
-			//connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-	}
-
 	
 	/**
-	 * Solo per l'admin
+	 * restituisce una SINGOLA immagine, deve essere usato da ImageServlet
+	 * @param imgId
+	 * @return
+	 * @throws SQLException
 	 */
-	public synchronized Collection<OrderBean> doRetrieveAllOrders() throws SQLException {
+	public synchronized byte[] doRetrieveImage(int imgId) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		byte[] imageData = null;
 
-		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
-
-		String selectSQL = "SELECT * FROM " + "ordini" + "ORDER BY " + "datetime" + "DESC";
+		String selectSQL = "SELECT * FROM " + "images" + " WHERE id = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-
+			preparedStatement.setInt(1, imgId);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				int idCliente = rs.getInt("id_cliente");
-				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
-				Timestamp datetime = rs.getTimestamp("datetime");
-				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
-
-				OrderBean ordine = new OrderBean(id, idCliente, prodotti, datetime, stato);
-				ordini.add(ordine);
+				// Recupera l'immagine dal risultato della query
+                imageData = rs.getBytes("imageblob");
 			}
-
-		} catch (IOException | ClassNotFoundException e){
-			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -416,54 +279,9 @@ public class ProductModelDS implements ProductModel {
 					connection.close();
 			}
 		}
-		return ordini;
+		
+		return imageData;
 	}
-
-	@Override
-	public synchronized Collection<OrderBean> doRetrieveOrders(UserBean user) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
-		int userOwner = user.getId();
-
-		String selectSQL = "SELECT * FROM " + "ordini" + " WHERE id_cliente = ? ORDER BY " + "datetime " + "DESC";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, userOwner);
-			
-			
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				int id = rs.getInt("id");
-				int idCliente = rs.getInt("id_cliente");
-				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
-				Timestamp datetime = rs.getTimestamp("datetime");
-				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
-
-				OrderBean ordine = new OrderBean(id, idCliente, prodotti, datetime, stato);
-				ordini.add(ordine);
-			}
-
-		} catch (IOException | ClassNotFoundException e){
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return ordini;
-	}
-	
-	
 	
 	
 	

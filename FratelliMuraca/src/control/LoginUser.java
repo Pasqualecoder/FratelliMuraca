@@ -19,7 +19,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/login")
 public class LoginUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static UserModel model = new UserModelDS();
+	static UserModel userModel = new UserModelDS();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,7 +33,7 @@ public class LoginUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
 			cart = new CartBean();
@@ -49,6 +50,15 @@ public class LoginUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
+		if(cart == null) {
+			cart = new CartBean();
+			request.getSession().setAttribute("cart", cart);
+		}
+		request.getSession().setAttribute("cart", cart);
+		request.setAttribute("cart", cart);
+		///////////////////////////////////
+		
 		HttpSession session = request.getSession();
 		
 		String email = request.getParameter("email");
@@ -57,7 +67,7 @@ public class LoginUser extends HttpServlet {
 		
 		
 		try {
-			UserBean user = model.doRetrieveUser(email, password);
+			UserBean user = userModel.doRetrieveUser(email, password);
 			if(user != null) {
 				
 				session.setAttribute("user", user);
@@ -94,5 +104,4 @@ public class LoginUser extends HttpServlet {
         }
     }
 	
-
 }

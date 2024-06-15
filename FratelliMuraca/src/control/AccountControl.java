@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CartBean;
+
 /**
  * Servlet implementation class AccountControl
  */
@@ -28,7 +30,16 @@ public class AccountControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
+		if(cart == null) {
+			cart = new CartBean();
+			request.getSession().setAttribute("cart", cart);
+		}
+		request.getSession().setAttribute("cart", cart);
+		request.setAttribute("cart", cart);
+		
+		
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AccountView.jsp");
 		dispatcher.forward(request, response);
 	}

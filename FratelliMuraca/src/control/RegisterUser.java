@@ -32,18 +32,7 @@ public class RegisterUser extends HttpServlet {
 	// ProductModelDM usa il DriverManager	
 	static boolean isDataSource = true;
 	
-	static UserModel userModel;
-	static ProductModel model;
-	
-	static {
-		if (isDataSource) {
-			model = new ProductModelDS();
-			userModel = new UserModelDS();
-			
-		} else {
-			// model = new ProductModelDM();
-		}
-	}
+	static UserModel userModel = new UserModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
