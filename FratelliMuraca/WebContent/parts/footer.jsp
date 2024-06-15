@@ -15,7 +15,7 @@
         }
 
         .footer {
-            background-color: #5f720f;
+            background-color: #607244;
             color: #fff;
             padding: 20px 0;
             width: 100%;

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*, javax.servlet.http.HttpSession" pageEncoding="UTF-8" %>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
@@ -24,4 +25,5 @@
 	<link href="css/nav-style.css" rel="stylesheet" />
 	<!-- login style -->
 	<link href="css/login_style.css" rel="stylesheet" />
+	
 </head>
