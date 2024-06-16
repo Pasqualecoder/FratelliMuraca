@@ -77,38 +77,6 @@
 	else {%>
 		<div class="container mt-5">
         <form action="order" method="post">
-            <!-- Nome del Destinatario -->
-            <div class="form-group">
-                <label for="nomeDes">Nome del Destinatario:</label>
-                <input type="text" class="form-control" id="nomeDes" name="nomeDes" value="<%= user1.getFullName()%>" required>
-            </div>
-
-            <!-- Indirizzo -->
-            <div class="form-group">
-                <label for="indirizzo">Indirizzo:</label>
-                <input type="text" class="form-control" id="indirizzo" name="indirizzo" placeholder="Via e numero civico" required>
-            </div>
-
-            <!-- Codice Postale -->
-			<div class="form-group">
-			    <label for="CAP">CAP o ZIP Code:</label>
-			    <input type="text" class="form-control" id="codicePostale" name="CAP" 
-			           placeholder="00000">
-			    <small id="postalCodeHelp" class="form-text text-muted">Inserisci il codice postale nel formato corretto per il tuo paese.</small>
-			</div>
-            
-            <!-- Città -->
-            <div class="form-group">
-                <label for="citta">Città:</label>
-                <input type="text" class="form-control" id="citta" name="citta" placeholder="Milano" required>
-            </div>
-
-            <!-- Paese -->
-            <div class="form-group">
-                <label for="paese">Paese:</label>
-                <input type="text" class="form-control" id="paese" name="paese" placeholder="Italia" required>
-            </div>
-
 			
 			<script src="https://www.paypal.com/sdk/js?client-id=<%= (String) getServletContext().getAttribute("PAYPAL_CLIENT_ID") %>&currency=EUR"></script>
 <div id="paypal-button-container"></div>
