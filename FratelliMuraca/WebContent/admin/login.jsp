@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
-<%@ include file="init/cartinit.jsp" %>
+<%@ include file="../init/cartinit.jsp" %>
 <html>
 <head>
-    <%@ include file="parts/head.jsp" %>
+    <%@ include file="../parts/head.jsp" %>
      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -61,7 +61,7 @@
 <body>
     <div class="login-panel">
         <h2>Login</h2>
-        <form action="/loginRouter" method="POST">
+        <form action="admin" method="POST">
             <input type="text" name="username" placeholder="Nome utente" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Accedi</button>

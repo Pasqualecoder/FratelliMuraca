@@ -204,4 +204,34 @@ public class UserModelDS implements UserModel {
 		}
 	}
 	
+	@Override
+	public LinkedList<UserBean> doRetrieveAllUsers() throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		LinkedList<UserBean> users = new LinkedList<UserBean>();
+		
+		String insertSQL = "SELECT * FROM " + TABLE_NAME + ";";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				UserBean user = new UserBean(rs.getInt("id"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), (Date)rs.getDate("ddn"), rs.getString("phone"));
+				users.add(user);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return users;
+	
+	
+	}
 }

@@ -63,7 +63,15 @@ public class RegisterUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
+		if(cart == null) {
+			cart = new CartBean();
+			request.getSession().setAttribute("cart", cart);
+		}
+		request.getSession().setAttribute("cart", cart);
+		request.setAttribute("cart", cart);
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("pwd");
 		String nome = request.getParameter("nome");

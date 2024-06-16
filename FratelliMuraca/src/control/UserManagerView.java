@@ -1,8 +1,6 @@
 package control;
-import model.*;
+
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,19 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import model.UserModel;
+import model.UserModelDS;
 
 /**
- * Servlet implementation class LoginUser
+ * Servlet implementation class UserManagerView
  */
-@WebServlet("/admin/dashboard")
-public class AdminView extends HttpServlet {
+@WebServlet("/admin/gestioneUtenti")
+public class UserManagerView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
+	private UserModel userModel;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminView() {
+    public UserManagerView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +34,17 @@ public class AdminView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		userModel = new UserModelDS();
+		System.out.println("funziona");
+		try {
+			request.setAttribute("users", userModel.doRetrieveAllUsers());
+		} catch (SQLException e) {
+	
+			e.printStackTrace();
+		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/dashboard.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestioneUtenti.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -41,11 +52,8 @@ public class AdminView extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	
-
-	
 
 }

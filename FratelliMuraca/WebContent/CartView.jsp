@@ -78,6 +78,7 @@
 		<div class="container mt-5">
         <form action="order" method="post">
 			
+<<<<<<< Updated upstream
 			<script src="https://www.paypal.com/sdk/js?client-id=<%= (String) getServletContext().getAttribute("PAYPAL_CLIENT_ID") %>&currency=EUR"></script>
 <div id="paypal-button-container"></div>
 <script>
@@ -130,6 +131,30 @@
     }).render('#paypal-button-container');
 </script>
 
+=======
+			<script src="https://www.paypal.com/sdk/js?client-id=paypalClientIdg&currency=EUR"></script>
+			<div id="paypal-button-container"></div>
+			<script>
+			    paypal.Buttons({
+			        createOrder: function(data, actions) {
+			            return actions.order.create({
+			                purchase_units: [{
+			                    amount: {
+			                        value: <%= prezzoTotale %> // Importo da pagare
+			                    }
+			                }]
+			            });
+			        },
+			        onApprove: function(data, actions) {
+			            return actions.order.capture().then(function(details) {
+			                alert('Pagamento completato da ' + details.payer.name.given_name + ' di ' + <%= prezzoTotale %>);
+			                
+			                // Qui puoi fare una richiesta al tuo server per registrare il pagamento
+			            });
+			        }
+			    }).render('#paypal-button-container');
+			</script>
+>>>>>>> Stashed changes
 
 
             <!-- Bottone di Submit -->

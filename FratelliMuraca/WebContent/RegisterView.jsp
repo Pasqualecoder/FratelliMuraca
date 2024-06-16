@@ -49,7 +49,7 @@
                         <small id="pwdError" class="form-text text-danger"></small>
                     </div> <!-- form-group end.// -->  
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block" style="background-color: #5f720f;"> Registrati</button>
+                        <button type="submit" class="btn btn-primary btn-block" style="background-color: #5f720f;" id="submit-button"> Registrati</button>
                     </div> <!-- form-group// -->      
                     <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>                                          
                 </form>
@@ -147,7 +147,12 @@ function checkEmail() {
             var response = JSON.parse(xhr.responseText);
             if (response.exists) {
             	document.getElementById("emailError").innerText = "Questa email e' gia' stata usata";
-            } 
+            	document.getElementById("submit-button").disabled = true;
+            }
+            else {
+            	document.getElementById("emailError").innerText = "";
+            	document.getElementById("submit-button").disabled = false;
+            }
         }
     };
     xhr.send();

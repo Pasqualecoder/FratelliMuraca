@@ -4,14 +4,14 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public interface UserModel {
+public interface AdminModel {
 	
 	/**
 	 * usare durante la creazione dell'utente, si occupa della crittografia della password
 	 * @param user
 	 * @throws SQLException
 	 */
-	public void doSaveUser(UserBean user) throws SQLException;
+	public void doSaveUser(AdminBean admin) throws SQLException;
 	
 	/**
 	 * per il login
@@ -20,25 +20,22 @@ public interface UserModel {
 	 * @return
 	 * @throws SQLException
 	 */
-	public UserBean doRetrieveUser(String email, String password) throws SQLException;
+	public AdminBean doRetrieveAdmin(String username, String password) throws SQLException;
 	
 	/**
 	 * UPDATE delle info dell'utente tra cui la password
 	 * @param userNuovo
 	 * @throws SQLException
 	 */
-	public void doChangeUser(UserBean userNuovo) throws SQLException;
-	
-	
-	public void doChangeUserNoPwd(UserBean userNuovo) throws SQLException;
+	public void doChangeAdmin(AdminBean adminNuovo) throws SQLException;
 	
 	/**
 	 * restituisce tutte le email. utilizzato in Ajax durante la registrazione per dire se l'email è stata già utilizzata
 	 * @return
 	 * @throws SQLException
 	 */
-	public LinkedList<String> doRetrieveAllEmail() throws SQLException;
+	public LinkedList<String> doRetrieveAllUsername() throws SQLException;
 	
 	
-	public LinkedList<UserBean> doRetrieveAllUsers() throws SQLException;
+	public LinkedList<UserBean> doRetrieveAllAdmins() throws SQLException;
 }

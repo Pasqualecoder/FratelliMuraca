@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 public class AdminFilter implements Filter {
 
     @Override
@@ -28,7 +29,7 @@ public class AdminFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         // implementare role scrivendo una funzione in LoginUser per vedere se e' un utente o un admin in base a in quale tabella si trova 
-        if (session == null || session.getAttribute("role") == null || !"ADMIN".equals(session.getAttribute("role"))) {
+        if (session == null || (boolean)session.getAttribute("admin") == false) {
             // Se l'utente non è admin, reindirizza alla pagina di accesso negato
             res.sendRedirect(req.getContextPath() + "/error.jsp");
         } else {

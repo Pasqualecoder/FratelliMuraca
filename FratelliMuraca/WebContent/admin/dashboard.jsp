@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
-<%@ include file="init/cartinit.jsp" %>
+<%@ include file="../init/cartinit.jsp" %>
 <html>
 <head>
-    <%@ include file="parts/head.jsp" %>
+    <%@ include file="../parts/head.jsp" %>
     <style>
         body {
             font-family: Tahoma, Arial, sans-serif; /* Font vecchio stile */
@@ -55,12 +55,12 @@
 <body>
     <% 
     // Recupera l'oggetto utente dalla sessione
-    UserBean user = (UserBean) session.getAttribute("user");
+    AdminBean admin = (AdminBean) session.getAttribute("admin");
     %>
     <div class="welcome-message">
-    <% if (user != null) { %>
+    <% if (admin != null) { %>
         <!-- Stampa un messaggio di benvenuto con il nome dell'utente -->
-        Ciao <%= user.getNome() %>!
+        Ciao <%= admin.getUsername() %>!
     <% } else { %>
         <!-- Stampa un messaggio alternativo se l'utente non è autenticato -->
         Ciao! Non sei loggato.
@@ -69,9 +69,10 @@
     <div class="admin-panel">
         <h2>Pannello di Amministrazione</h2>
         <ul>
-            <li><a href="/gestioneCatalogo">Gestione Catalogo</a></li>
-            <li><a href="/gestioneUtenti">Gestione Utenti</a></li>
-            <li><a href="/gestioneOrdini">Gestione Ordini</a></li>
+            <li><a href="gestioneCatalogo">Gestione Catalogo</a></li>
+            <li><a href="admin/gestioneUtenti">Gestione Utenti</a></li>
+            <li><a href="gestioneOrdini">Gestione Ordini</a></li>
+            <li><b><a href="./logout">Log out</a></b></li>
             <!-- Puoi aggiungere altre azioni secondo le necessità -->
         </ul>
     </div>
