@@ -19,6 +19,28 @@ if (products == null || products.size() == 0) {%>
 	<h1>Store attualmente non diponibile! Torna più tardi</h1>	
 <%return;}%>
 
+<script src="https://www.paypal.com/sdk/js?client-id=AZvT4etpeTmfGk5o2JAURXqBoLJ7MuxUGrxf9U2mllEpB-q8tb2pb0gfwh8ierQbvSHTXhf7MhBxdLSn&currency=USD"></script>
+<div id="paypal-button-container"></div>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '0.01' // Importo da pagare
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Pagamento completato da ' + details.payer.name.given_name);
+                // Qui puoi fare una richiesta al tuo server per registrare il pagamento
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+
 <!-- SEZIONE PRODOTTI -->
 <section class="py-5">
 	<div class="container px-4 px-lg-5 mt-5">
