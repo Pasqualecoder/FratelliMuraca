@@ -1,3 +1,4 @@
+<%@page import="control.StringEscapeUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
 
 
@@ -109,28 +110,58 @@
             </div>
 
 			
-			<script src="https://www.paypal.com/sdk/js?client-id=paypalClientId&currency=EUR"></script>
-			<div id="paypal-button-container"></div>
-			<script>
-			    paypal.Buttons({
-			        createOrder: function(data, actions) {
-			            return actions.order.create({
-			                purchase_units: [{
-			                    amount: {
-			                        value: <%= prezzoTotale %> // Importo da pagare
-			                    }
-			                }]
-			            });
-			        },
-			        onApprove: function(data, actions) {
-			            return actions.order.capture().then(function(details) {
-			                alert('Pagamento completato da ' + details.payer.name.given_name + ' di ' + <%= prezzoTotale %>);
-			                
-			                // Qui puoi fare una richiesta al tuo server per registrare il pagamento
-			            });
-			        }
-			    }).render('#paypal-button-container');
-			</script>
+			<script src="https://www.paypal.com/sdk/js?client-id=<%= (String) getServletContext().getAttribute("PAYPAL_CLIENT_ID") %>&currency=EUR"></script>
+<div id="paypal-button-container"></div>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            // Calcola l'importo totale dal carrello
+            var prezzoTotale = <%= prezzoTotale %>;
+
+            // Costruisci l'oggetto di creazione dell'ordine da passare a actions.order.create
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: prezzoTotale.toFixed(2), // Assicurati di arrotondare l'importo a due decimali
+                        breakdown: {
+                            item_total: {
+                                currency_code: 'EUR',
+                                value: prezzoTotale.toFixed(2)
+                            }
+                        }
+                    },
+                    items: [
+                        <% 
+                        // Itera attraverso i prodotti nel carrello
+                        for (Map.Entry<ProductBean, Integer> entry : cart.getProducts().entrySet()) {
+                            ProductBean prodotto = entry.getKey();
+                            int quantity = entry.getValue();
+                            String nomeProdottoEscaped = StringEscapeUtil.escapeString(prodotto.getNome());
+                        %>
+                        {
+                            name: '<%= nomeProdottoEscaped %>',
+                            unit_amount: {
+                                currency_code: 'EUR',
+                                value: <%= prodotto.getPrezzoScontato() %>.toFixed(2) // Prezzo unitario dell'articolo
+                            },
+                            quantity: <%= quantity %> // Quantità dell'articolo
+                        },
+                        <% } %>
+                    ]
+                }]
+            });
+        },
+
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Pagamento completato da ' + details.payer.name.given_name + ' di ' + details.purchase_units[0].amount.value);
+                console.log(details);
+                // Qui puoi fare una richiesta al tuo server per registrare il pagamento
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+
 
 
             <!-- Bottone di Submit -->
