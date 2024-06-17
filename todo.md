@@ -8,17 +8,9 @@
 2. **Pagina Amministratore**
    - **Gestione Catalogo**
      - Aggiungere, modificare e rimuovere prodotti dal catalogo.
-   - **Gestione Utenti**
-     - Visualizzare e gestire tutti gli utenti registrati.
-
-## Gestione Informazioni Cliente
-
-3. **Salvataggio Informazioni Cliente**
-   - Quando si effettua un ordine, salvare nel database le seguenti informazioni del cliente:
-     - Indirizzo
-     - Nome
-     - Cognome
-     - Informazioni di pagamento
+   - **Gestione Ordini**
+   - **Assegnazione admin**
+     - Permettere di creare e eliminare profili admin (solo all'admin con id1 che)
 
 ## Utente
 
@@ -28,14 +20,6 @@
 5. **Gestione Utente**
    - **Recensioni Prodotti**
      - Permettere agli utenti di lasciare recensioni sui prodotti acquistati direttamente dalla pagina dei dettagli del prodotto (implementare il backend per le recensioni).
-   - **Pagina degli Ordini**
-     - Creare una pagina che mostri gli ordini effettuati da ciascun utente.
-   - **Carrello Utente**
-     - Implementare un carrello personalizzato per ogni utente loggato.
-   - **Metodo di Pagamento**
-     - Implementare e gestire i metodi di pagamento.
-   - **Residenza**
-     - Gestire l'indirizzo di residenza dell'utente.
 
 ## Sito Responsive
 
@@ -62,3 +46,18 @@
 
 9. **Selezione Tipologia Prodotti**
    - Aggiungere la possibilità di selezionare la tipologia dei prodotti in `ProductView` utilizzando AJAX.
+   - Filtraggio prodotti
+
+
+## Bug
+
+1. **Fix Registrazione**
+  - Giorno di nascita nella registrazione viene salvato con un giorno in meno
+
+
+## Grafica
+1. **Fixare sidebar** 
+2. **Fixare navbar**
+3. **Aggiornare pagina home**
+  - inserire pulsante all'inzio per andare ai prodotti(shop.oliocirulli.com)
+4. **Fixare footer**
