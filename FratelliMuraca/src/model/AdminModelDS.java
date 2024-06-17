@@ -46,7 +46,7 @@ public class AdminModelDS implements AdminModel {
 
 		AdminBean bean = null;
 		
-		String insertSQL = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = ?;";
+		String insertSQL = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = SHA2(?, 256);";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);

@@ -16,7 +16,7 @@ public interface AdminModel {
 	/**
 	 * per il login
 	 * @param email
-	 * @param password DEVE GIà ESSERE CIFRATA
+	 * @param password
 	 * @return
 	 * @throws SQLException
 	 */
