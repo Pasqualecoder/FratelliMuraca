@@ -69,8 +69,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+	var password_start = '';
+	
     $(document).ready(function() {
+    	
         $('#editBtn').click(function() {
+        	password_start = $('#pwd').val();	
             $('#userDataForm input').prop('disabled', false);
             $('#editBtn').hide();
             $('#saveBtn').show();
@@ -127,14 +131,22 @@
 
         // Validate Password
         var password = document.getElementById("pwd").value.trim();
-        var pwdRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-        if (password === "") {
-            document.getElementById("pwdError").innerText = "Inserisci una password.";
-            valid = false;
-        } else if (!pwdRegex.test(password)) {
-            document.getElementById("pwdError").innerText = "La password deve avere almeno 8 caratteri, un numero, una lettera maiuscola e una minuscola.";
-            valid = false;
-        }
+        if(password != password_start)
+        {
+	        var pwdRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+	        if (password === "") {
+	            document.getElementById("pwdError").innerText = "Inserisci una password.";
+	            valid = false;
+	        } else if (!pwdRegex.test(password)) {
+	            document.getElementById("pwdError").innerText = "La password deve avere almeno 8 caratteri, un numero, una lettera maiuscola e una minuscola.";
+	            valid = false;
+	        }
+     	} else {
+     		
+     		valide = true;
+     		
+     	}
+        
         
         var phone = document.getElementById("phone").value.trim();
         var phoneRegex = /^\d{10}$/;

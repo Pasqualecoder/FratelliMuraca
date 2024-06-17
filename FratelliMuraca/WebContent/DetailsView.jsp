@@ -270,11 +270,10 @@ ul, ul li {
       </div>
     </div>
     
-    
     <div class="container mt-5 mb-4">
     	<div class="card p-3">
-        <form>
-            <!-- Dropdown per scegliere il prodotto -->
+        <form id="review-panel">
+            
 			<%= prodotto.getNome() %>
 			<br>
             <!-- Star Rating -->
@@ -432,7 +431,18 @@ ul, ul li {
 
 </div>
 
-
+<script>
+UserBean user = (UserBean)session.getAttribute("user");
+$(document).ready(function () {
+    // Check if the user is logged in
+   	UserBean user = (UserBean)session.getAttribute("user");// Make sure to use the correct syntax to inject server-side variable
+    if (user != null) {
+        $("#review-panel").prop('hidden', false);
+    } else {
+        $("#review-panel").prop('hidden', true);
+    }
+});
+</script>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

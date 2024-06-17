@@ -4,6 +4,7 @@ import java.io.*;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class CartBean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -63,6 +64,18 @@ public class CartBean implements Serializable {
         // Restituisce la mappa che rappresenta i prodotti nel carrello
         return products;
     }
+	
+	public LinkedList<ProductBean> retrieveProducts() {
+		LinkedList<ProductBean> prodotti = new LinkedList<>();
+		if(!(products.isEmpty()))
+		{
+			for (ProductBean product: products.keySet()) {
+				prodotti.add(product);
+			}
+		}	
+		
+		return prodotti;
+	}
 	
 	
 	@Override

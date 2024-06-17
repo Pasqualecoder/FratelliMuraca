@@ -1,0 +1,98 @@
+/* styles.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #C0C0C0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    width: 300px;
+    background-color: #E0E0E0;
+    border: 2px solid #A0A0A0;
+    box-shadow: 5px 5px 0 #808080;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: move; /* Change cursor to indicate draggable area */
+}
+
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000080;
+    color: #FFFFFF;
+    padding: 5px;
+    user-select: none; /* Prevent text selection */
+}
+
+.header-text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.close-button {
+    background-color: #C0C0C0;
+    color: #000000;
+    border: 2px solid #808080;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 10px;
+    box-shadow: 2px 2px 0 #FFFFFF, inset -1px -1px #A0A0A0, inset 1px 1px #E0E0E0;
+}
+
+.close-button:active {
+    box-shadow: 1px 1px 0 #FFFFFF, inset -1px -1px #A0A0A0, inset 1px 1px #E0E0E0;
+}
+
+.login-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    border: 2px solid #A0A0A0;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    box-shadow: inset -1px -1px #C0C0C0, inset 1px 1px #FFFFFF;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000080;
+    color: #FFFFFF;
+    border: 2px solid #A0A0A0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    box-shadow: 2px 2px 0 #808080, inset -1px -1px #FFFFFF, inset 1px 1px #C0C0C0;
+}
+
+.login-button:hover {
+    background-color: #0000C0;
+}
+
+.login-button:active {
+    box-shadow: 1px 1px 0 #808080, inset -1px -1px #FFFFFF, inset 1px 1px #C0C0C0;
+}

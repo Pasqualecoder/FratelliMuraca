@@ -146,11 +146,12 @@ public class UserModelDS implements UserModel {
 	public synchronized void doChangeUser(UserBean userNuovo) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		LinkedList<String> emails = new LinkedList<String>();
 		
-		String insertSQL = "UPDATE " + TABLE_NAME + " SET email = ?, password = SHA256(?), nome = ?, cognome = ?, ddn = ?, phone = ? WHERE id = ?"; 
+		
+		String insertSQL = "UPDATE " + TABLE_NAME + " SET email = ?, password = SHA2(?, 256), nome = ?, cognome = ?, ddn = ?, phone = ? WHERE id = ?"; 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, userNuovo.getEmail());
 			preparedStatement.setString(2, userNuovo.getPassword());
@@ -160,7 +161,8 @@ public class UserModelDS implements UserModel {
 			preparedStatement.setString(6, userNuovo.getPhone());
 			preparedStatement.setInt(7, userNuovo.getId());
 
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
+			connection.commit();
 			
 		} finally {
 			try {
@@ -177,21 +179,22 @@ public class UserModelDS implements UserModel {
 	public synchronized void doChangeUserNoPwd(UserBean userNuovo) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		LinkedList<String> emails = new LinkedList<String>();
+		
 		
 		String insertSQL = "UPDATE " + TABLE_NAME + " SET email = ?, nome = ?, cognome = ?, ddn = ?, phone = ? WHERE id = ?"; 
 		try {
 			connection = ds.getConnection();
+			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, userNuovo.getEmail());
-
 			preparedStatement.setString(2, userNuovo.getNome());
 			preparedStatement.setString(3, userNuovo.getCognome());
 			preparedStatement.setDate(4, userNuovo.getDdn());
 			preparedStatement.setString(5, userNuovo.getPhone());
 			preparedStatement.setInt(6, userNuovo.getId());
 
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
+			connection.commit();
 			
 		} finally {
 			try {
