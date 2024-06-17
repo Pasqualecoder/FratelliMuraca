@@ -6,12 +6,13 @@ import java.util.Collection;
 public interface OrderModel {
 
 	/**
-	 * TODO
+	 * saves a new order
 	 * @param userId
+	 * @param detailsJson
 	 * @param cart
 	 * @throws SQLException
 	 */
-	public void doSaveOrder(int userId, CartBean cart) throws SQLException;
+	public void doSaveOrder(OrderBean order) throws SQLException;
 	
 	/**
 	 * retreives all orders made by a user
@@ -23,7 +24,7 @@ public interface OrderModel {
 	
 	
 	/**
-	 * admin only: retrives all orders sorted by the latest
+	 * admin only: retrives all orders with the field user filled
 	 * @return
 	 * @throws SQLException
 	 */

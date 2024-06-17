@@ -9,18 +9,44 @@ public class OrderBean implements Serializable {
 	
 	private int id;
 	private int id_cliente;
+	private String details;
 	private CartBean prodotti;
-	private Timestamp datetime;
 	private StatoOrdine stato;
+	
+	/**
+	 * da riempire solo quando l'admin vuole vedere gli ultimi ordini
+	 */
+	private UserBean user;
 	
 	public OrderBean() {}
 	
-	public OrderBean(int id, int id_cliente, CartBean prodotti, Timestamp datetime, StatoOrdine stato) {
+	public OrderBean(int id, int id_cliente, String details, CartBean prodotti, StatoOrdine stato) {
 		this.id = id;
 		this.id_cliente = id_cliente;
+		this.details = details;
 		this.prodotti = prodotti;
-		this.datetime = datetime;
 		this.stato = stato;
+	}
+	
+	public OrderBean(int id, int id_cliente, UserBean user, String details, CartBean prodotti, StatoOrdine stato) {
+		this.id = id;
+		this.id_cliente = id_cliente;
+		this.user = user;
+		this.details = details;
+		this.prodotti = prodotti;
+		this.stato = stato;
+	}
+	
+	public OrderBean(int id, UserBean user, String details, CartBean prodotti, StatoOrdine stato) {
+		this.id = id;
+		this.user = user;
+		this.details = details;
+		this.prodotti = prodotti;
+		this.stato = stato;
+	}
+	
+	public OrderBean(int id_cliente, String details, CartBean prodotti) {
+		this(-1, id_cliente, details, prodotti, StatoOrdine.in_elaborazione);
 	}
 
 	public int getId() {
@@ -41,11 +67,12 @@ public class OrderBean implements Serializable {
 	public void setProdotti(CartBean prodotti) {
 		this.prodotti = prodotti;
 	}
-	public Timestamp getDatetime() {
-		return datetime;
+	public String getDetails() {
+		return details;
 	}
-	public void setDatetime(Timestamp datetime) {
-		this.datetime = datetime;
+	
+	public void setDetails(String details) {
+		this.details = details;
 	}
 	public StatoOrdine getStato() {
 		return stato;
@@ -53,7 +80,13 @@ public class OrderBean implements Serializable {
 	public void setStato(StatoOrdine stato) {
 		this.stato = stato;
 	}
-	
+	public UserBean getUser() {
+		return user;
+	}
+	public void setUser(UserBean user) {
+		this.user = user;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,7 +111,8 @@ public class OrderBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", id_cliente=" + id_cliente + ", prodotti=" + prodotti + ", datetime=" + datetime
+		return "Order [id=" + id + ", id_cliente=" + id_cliente + ", prodotti=" + prodotti + 
+				"details=" + (!details.isBlank() ? "presenti" : "assenti") 
 				+ ", stato=" + stato + "]";
 	}
 	

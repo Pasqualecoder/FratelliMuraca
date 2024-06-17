@@ -40,14 +40,13 @@ public class OrderControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// prendere l'id dell'utente
-		UserBean user = (UserBean) request.getSession().getAttribute("user_bean");			
+		UserBean user = (UserBean) request.getSession().getAttribute("user");			
 		if (user == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
 		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
 			dispatcher.forward(request, response);
 		}
-		
-		
+
 		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
 			cart = new CartBean();
@@ -63,8 +62,6 @@ public class OrderControl extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
-		
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderView.jsp");
 		dispatcher.forward(request, response);
@@ -76,74 +73,45 @@ public class OrderControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean opStatus = false;
 		
-		/* TODO:
-		 * verificare che l'utente esista e sia loggato
-		 * creare una copia del carrello identica del carrello ma con i dati presi dal db per evitare manomissioni
-		 * svuotare il vecchio
-		 * convertire questo nuovo carrello in un binario per salvarlo nel db insieme alle chiavi e il datetime e lo stato della consegna
-		 * reindirizzare alla pagina ordini recenti con una scritta di successo se tutto va a buon fine (la pagina deve essere la stessa che si usa sempre per vedere gli ordini ma con una nota sopra per far vedere che l'op è riuscita)
-		 */
+		// prendere l'id dell'utente
+		UserBean user = (UserBean) request.getSession().getAttribute("user");
+		if (user == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
+			dispatcher.forward(request, response);
+		}
 		
-		// controllo utente
-		int idUtente = Integer.parseInt(request.getParameter("userId"));
+		// Recupera i dettagli dal form
+        String detailsJson = request.getParameter("details");
+        if (detailsJson == null || detailsJson.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
+            return;
+        }
 		
-		
-		// Verifica dell correttezza del carrello
-		CartBean copia = null;
+
 		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null || cart.isEmpty()) {
 			doGet(request, response);
 		}
-		else {
-			try {
-				copia = copyValidateCart(cart);
-			} catch (IOException | SQLException e) {
-				e.printStackTrace();
-			}
-			cart = copia;
 	
 			
-			// salvataggio nel db
-			try {
-				orderModel.doSaveOrder(idUtente, cart);
-				opStatus = true;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-			request.setAttribute("opStatus", opStatus);
-			
-			if (opStatus) {
-				request.getSession().setAttribute("cart", new CartBean());
-			}
+		// salvataggio nel db
+		try {
+			OrderBean order = new OrderBean(user.getId(), detailsJson, cart);
+			orderModel.doSaveOrder(order);
+			opStatus = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("opStatus", opStatus);
+		
+		if (opStatus) {
+			request.getSession().setAttribute("cart", new CartBean());
+		}
 		
 			
-			doGet(request, response);
-		}
+		doGet(request, response);
 	}
 	
-	/**
-	 * probabilmente neanche necessaria
-	 * @param vecchio: carrello inviato dal post dell'utente non convalidato
-	 * @return nuovo: carrello convalidato
-	 */
-	private static CartBean copyValidateCart(CartBean vecchio) throws IOException, SQLException {
-		CartBean nuovo = new CartBean();
-		for (Map.Entry<ProductBean, Integer> entry : vecchio.getProducts().entrySet()) {
-			ProductBean toCheck = entry.getKey();
-			int quantita = entry.getValue();
-			if (quantita < 1) {
-				throw new IOException("quantita del prodotto "  + toCheck.getId() + ":" + toCheck.getNome() + " invalida");
-			}
-			
-
-			ProductBean equivalent = productModel.doRetrieveProductByKey(toCheck.getId());
-			for (int i = 0; i < quantita; i++) {
-				nuovo.addProduct(equivalent);
-			}
-			
-		}
-		return nuovo;
-	}
-
 }

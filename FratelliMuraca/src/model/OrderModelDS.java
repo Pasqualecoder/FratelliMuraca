@@ -2,6 +2,7 @@ package model;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,10 +33,13 @@ public class OrderModelDS implements OrderModel {
 	private static final String TABLE_NAME = "ordini";
 
 
-	public synchronized void doSaveOrder(int userId, CartBean cart) throws SQLException {
+	public synchronized void doSaveOrder(OrderBean order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		byte[] cartSer = null;
+		int userId = order.getId_cliente();
+		String detailsJson = order.getDetails();
+		CartBean cart = order.getProdotti();
 		
 		try {
 			cartSer = cart.serialize();
@@ -44,14 +48,15 @@ public class OrderModelDS implements OrderModel {
 		}
 		
 		String insertSQL = "INSERT INTO " + TABLE_NAME 
-				+ " (id_cliente, prodotti) "
-				+ "VALUES (?, ?)";
+				+ " (id_cliente, details, prodotti) "
+				+ "VALUES (?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, userId);
-			preparedStatement.setBytes(2, cartSer);
+			preparedStatement.setString(2, detailsJson);
+			preparedStatement.setBytes(3, cartSer);
 			preparedStatement.executeUpdate();
 			//connection.commit();
 		} finally {
@@ -72,7 +77,8 @@ public class OrderModelDS implements OrderModel {
 
 		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
 
-		String selectSQL = "SELECT * FROM " + TABLE_NAME + "ORDER BY " + "datetime" + "DESC";
+		String selectSQL = "SELECT * " + "FROM ordini, utenti " + 
+				"WHERE id_cliente = utenti.id";
 
 		try {
 			connection = ds.getConnection();
@@ -81,13 +87,24 @@ public class OrderModelDS implements OrderModel {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				// campi ordine
+				int id = rs.getInt("ordini.id");
 				int idCliente = rs.getInt("id_cliente");
+				String details = rs.getString("details");
 				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
-				Timestamp datetime = rs.getTimestamp("datetime");
 				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
-
-				OrderBean ordine = new OrderBean(id, idCliente, prodotti, datetime, stato);
+				
+				// campi utente
+				int idUser = rs.getInt("utenti.id");
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				String nome = rs.getString("nome");
+				String cognome = rs.getString("cognome");
+				Date ddn = rs.getDate("ddn");
+				String phone = rs.getString("phone");
+				
+				UserBean user = new UserBean(idUser, email, password, nome, cognome, ddn, phone);
+				OrderBean ordine = new OrderBean(id, idCliente, user, details, prodotti, stato);
 				ordini.add(ordine);
 			}
 
@@ -115,7 +132,7 @@ public class OrderModelDS implements OrderModel {
 		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
 		int userOwner = user.getId();
 
-		String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id_cliente = ? ORDER BY " + "datetime " + "DESC";
+		String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id_cliente = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -128,11 +145,11 @@ public class OrderModelDS implements OrderModel {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				int idCliente = rs.getInt("id_cliente");
+				String details = rs.getString("details");
 				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
-				Timestamp datetime = rs.getTimestamp("datetime");
 				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
 
-				OrderBean ordine = new OrderBean(id, idCliente, prodotti, datetime, stato);
+				OrderBean ordine = new OrderBean(id, idCliente, user, details, prodotti, stato);
 				ordini.add(ordine);
 			}
 

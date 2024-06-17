@@ -76,9 +76,11 @@
 	<%}
 	else {%>
 		<div class="container mt-5">
-        <form action="order" method="post">
+        <form id='orderForm' action="order" method="post">
+			<input type="hidden" id="detailsInput" name="details">
 			
-<<<<<<< Updated upstream
+			
+			
 			<script src="https://www.paypal.com/sdk/js?client-id=<%= (String) getServletContext().getAttribute("PAYPAL_CLIENT_ID") %>&currency=EUR"></script>
 <div id="paypal-button-container"></div>
 <script>
@@ -125,42 +127,18 @@
             return actions.order.capture().then(function(details) {
                 alert('Pagamento completato da ' + details.payer.name.given_name + ' di ' + details.purchase_units[0].amount.value);
                 console.log(details);
-                // Qui puoi fare una richiesta al tuo server per registrare il pagamento
+
+                // Imposta i dettagli dell'ordine nel campo nascosto del form
+                document.getElementById('detailsInput').value = JSON.stringify(details);
+                
+                
+                // Invia il form
+                document.getElementById('orderForm').submit();
             });
         }
     }).render('#paypal-button-container');
 </script>
 
-=======
-			<script src="https://www.paypal.com/sdk/js?client-id=paypalClientIdg&currency=EUR"></script>
-			<div id="paypal-button-container"></div>
-			<script>
-			    paypal.Buttons({
-			        createOrder: function(data, actions) {
-			            return actions.order.create({
-			                purchase_units: [{
-			                    amount: {
-			                        value: <%= prezzoTotale %> // Importo da pagare
-			                    }
-			                }]
-			            });
-			        },
-			        onApprove: function(data, actions) {
-			            return actions.order.capture().then(function(details) {
-			                alert('Pagamento completato da ' + details.payer.name.given_name + ' di ' + <%= prezzoTotale %>);
-			                
-			                // Qui puoi fare una richiesta al tuo server per registrare il pagamento
-			            });
-			        }
-			    }).render('#paypal-button-container');
-			</script>
->>>>>>> Stashed changes
-
-
-            <!-- Bottone di Submit -->
-            <div class="form-group text-right">
-                <button type="submit" class="btn btn-success">Conferma l'ordine</button>
-            </div>
         </form>
     </div>
 	<%} %>	

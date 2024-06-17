@@ -7,6 +7,17 @@
 <%@ include file="parts/head.jsp" %>
 
 <body>
+<script type="text/javascript">
+var currentdate = new Date(); 
+var datetime = "Last Sync: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+alert(datetime);
+</script>
+
 <%@ include file="parts/navbar.jsp" %>
 
 <h1>Ultimi ordini</h1>
@@ -44,20 +55,50 @@ if (ordini == null || ordini.size() <= 0) {
 
 				else {
 			for (OrderBean or : ordini) {
+				// SI PREFERISCE RIEMPIRE I CAMPI CON JAVASCRIPT PERCHé USA LE INFO GIUSTE DI PAYPAL				
+				// UserBean acquirente = or.getUser();
+				
+				// i text hanno gli id con numero dell'ordine così sono incrementali e js doesnt complain
 		%>
+
+<div class="card mb-4">
+    <div class="card-body">
 		<h4>Ordine #<%=or.getId()%></h4>
-		<lable for="destinatario">Destinatario:</lable> Mario Rossi <br>
-		<lable for="destinazione">Indirizzo destinazione:</lable> Via Roma 19 <br>
-		<lable for="metodo">Metodo di Pagamento</lable> PayPal <br>
-		
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="idTransazione" class="form-label">ID Transazione:</label>
+                    <span id="idTransazione<%=or.getId()%>" class="form-text"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="data" class="form-label">Data ordine:</label>
+                    <span id="data<%=or.getId()%>" class="form-text"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="acquirente" class="form-label">Acquirente:</label>
+                    <span id="acquirente<%=or.getId()%>" class="form-text"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="destinatario" class="form-label">Destinatario:</label>
+                    <span id="destinatario<%=or.getId()%>" class="form-text"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="indirizzo" class="form-label">Indirizzo destinazione:</label>
+                    <span id="indirizzo<%=or.getId()%>" class="form-text"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 		<table class="table mt-4">
 			<thead>
 			<tr>
 				<th>Prodotto</th>
-				<th>prezzo (no iva)</th>
-				<th>%iva</th>
-				<th>%sconto</th>
-				<th>quantità</th>
+				<th>Prezzo (no iva)</th>
+				<th>%IVA</th>
+				<th>%Sconto</th>
+				<th>Quantità</th>
 				<th>Totale</th>
 			</tr>
 			</thead>
@@ -83,11 +124,53 @@ if (ordini == null || ordini.size() <= 0) {
 				<td>&euro;<%= ProductBean.arrotondaDueDecimali(prodotto.getPrezzoScontato() * quantity) %></td>
 			</tr>
 			<%
-		}%>
+			}%>
 		
 			</tbody>
 		</table>
-<%}
+		<h5 class="text-right text-success">Totale: &euro;<%=prezzoTotale%></h5>
+</div>
+
+		
+		<script type="text/javascript">
+		// Codice JavaScript per popolare i campi nei tag <text>
+		document.addEventListener('DOMContentLoaded', function() {
+			const orderId = "<%= or.getId()%>";
+			const jsonString = `<%=or.getDetails()%>`;
+			const detailsInfo = JSON.parse(jsonString);
+			
+			// ID Transazione
+	        const idTransazione = detailsInfo.purchase_units[0].payments.captures[0].id;
+			document.getElementById("idTransazione"+orderId).textContent = idTransazione;
+
+			// Data di acquisto
+	        const dataAcquisto = new Date(detailsInfo.create_time);
+	        const dataAcquistoFormattata = dataAcquisto.getDate()+"/"+(dataAcquisto.getMonth() + 1)+"/"+dataAcquisto.getFullYear();
+	        document.getElementById("data"+orderId).textContent = dataAcquistoFormattata;
+			
+			// Acquirente: nome completo (nome e cognome)
+	        const acquirenteFullName = detailsInfo.payer.name.given_name + " "
+	        	+ detailsInfo.payer.name.surname + " " + detailsInfo.payer.email_address;
+	        document.getElementById("acquirente"+orderId).textContent = acquirenteFullName;
+	        
+	     	// Destinatario: nome completo (se disponibile, altrimenti usa il nome dell'acquirente)
+	        let destinatarioFullName;
+	        if (detailsInfo.purchase_units[0].shipping && detailsInfo.purchase_units[0].shipping.name) {
+	            destinatarioFullName = detailsInfo.purchase_units[0].shipping.name.full_name;
+	        } else {
+	            destinatarioFullName = acquirenteFullName;
+	        }
+	        document.getElementById("destinatario"+orderId).textContent = destinatarioFullName;
+
+	        // Indirizzo di destinazione
+	        const indirizzo = detailsInfo.purchase_units[0].shipping.address;
+	        const indirizzoCompleto = indirizzo.address_line_1 + " " + indirizzo.admin_area_2 + " " + indirizzo.admin_area_1 + " " + indirizzo.postal_code + " " + indirizzo.country_code;
+	        document.getElementById("indirizzo"+ orderId).textContent = indirizzoCompleto;
+	        
+		})
+			
+		</script>
+<%}		
 	} %>
 <%@ include file="parts/footer.jsp" %>
 </body>
