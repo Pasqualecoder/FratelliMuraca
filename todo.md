@@ -6,6 +6,21 @@
    - Creazione di un account amministratore.
 
 2. **Pagina Amministratore**
+	Struttura dell'amministratore:
+		Webcontent:
+			admin/login.jsp
+			admin/dashboard.jsp
+		Java:
+			AdminControl.java
+				doGet()
+					se non loggato (reindirizza)-> admin/login.jsp
+					se loggato
+						if ?action= o non settato -> admin/dashboard
+						if ?action="catalogo" -> admin/catalogo dove si può modificare o eliminare
+						if ?action="users" -> admin/manageUsers.jsp visualizzare gli utenti
+						if ?action="admins" -> admin/manageAdmins.jsp Permettere di creare e eliminare profili admin (solo all'admin con id1 che)
+						if ?action="orders" -> admin/orders.jsp visualizzare gli ordini e modificare lo stato
+					
    - **Gestione Catalogo**
      - Aggiungere, modificare e rimuovere prodotti dal catalogo.
    - **Gestione Ordini**
