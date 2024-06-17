@@ -19,10 +19,7 @@ if (products == null || products.size() == 0) {%>
 	<h1>Store attualmente non diponibile! Torna più tardi</h1>	
 <%return;}%>
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 <!-- SEZIONE PRODOTTI -->
 <section class="py-5">

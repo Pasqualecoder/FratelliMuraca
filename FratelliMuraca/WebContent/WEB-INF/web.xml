@@ -26,7 +26,6 @@
     <servlet-class>control.ImageServlet</servlet-class>
   </servlet>
 
-<<<<<<< Updated upstream
   <!-- Configurazione della servlet EnvLoaderServlet -->
     <servlet>
         <servlet-name>EnvLoaderServlet</servlet-name>
@@ -35,9 +34,6 @@
     </servlet>
 
   <!---->
-=======
-
->>>>>>> Stashed changes
     
   
   <error-page>
