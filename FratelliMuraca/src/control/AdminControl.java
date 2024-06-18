@@ -57,6 +57,32 @@ public class AdminControl extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
+			String operazione = request.getParameter("op");
+			if (operazione == null) {
+				operazione = "";
+			}
+			String id = request.getParameter("id");
+			if (id == null) {
+				id = "";
+			}
+			if(operazione.equals("delete")) {
+				try {
+					productModel.doDelete(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(operazione.equals("modifica")) {
+				try {
+					request.setAttribute("prodotto", productModel.doRetrieveProductByKey(Integer.parseInt(id)));
+				} catch (NumberFormatException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				redirect = "modifica.jsp";
+			}
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/" + redirect);

@@ -25,5 +25,4 @@
 	<link href="css/nav-style.css" rel="stylesheet" />
 	<!-- login style -->
 	<link href="css/login_style.css" rel="stylesheet" />
-	
 </head>

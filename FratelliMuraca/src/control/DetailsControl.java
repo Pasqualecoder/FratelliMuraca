@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.*;
 import model.CartBean;
 import model.ProductBean;
 import model.ProductModel;
@@ -96,6 +97,9 @@ public class DetailsControl extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DetailsView.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+	// TODO: scrivere funzione per vedere se l'utente ha comprato il prodotto
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -103,5 +107,7 @@ public class DetailsControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+	
+
 
 }

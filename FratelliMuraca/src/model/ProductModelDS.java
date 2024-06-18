@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import model.*;
 
 import com.mysql.cj.jdbc.Blob;
 
@@ -118,22 +119,23 @@ public class ProductModelDS implements ProductModel {
 	}
 
 
-	/* doDelete
+	
 	@Override
-	public synchronized boolean doDelete(int id) throws SQLException {
+	public synchronized void doDelete(String id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		int id_int = Integer.parseInt(id);
 
-		int result = 0;
+		List<Integer> imagesKey =  doRetrieveImagesKey(id_int);
+		doDeleteImages(imagesKey);
 
 		String deleteSQL = "DELETE FROM " + ProductModelDS.TABLE_NAME + " WHERE ID = ?";
-
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, id);
+			preparedStatement.setInt(1, id_int);
 
-			result = preparedStatement.executeUpdate();
+			preparedStatement.executeUpdate();
 
 		} finally {
 			try {
@@ -144,9 +146,7 @@ public class ProductModelDS implements ProductModel {
 					connection.close();
 			}
 		}
-		return (result != 0);
 	}
-	*/
 	
 	// doSaveImages
 	
@@ -374,6 +374,33 @@ public class ProductModelDS implements ProductModel {
 	        }
 	    }
 	}
+	
+	private synchronized void doDeleteImages(List<Integer> id_list) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		Connection connection = null;
 
+		String deleteSQL = "DELETE FROM images WHERE ID = ?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			for (int id : id_list) {
+				if(id != 1)
+				{
+					preparedStatement.setInt(1, id);
+					preparedStatement.executeUpdate();
+					preparedStatement.clearParameters();
+				}
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
 	
 }
