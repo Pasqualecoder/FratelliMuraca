@@ -87,11 +87,6 @@ public class ProductModelDS implements ProductModel {
 	        // connection.commit();
 	    } catch (SQLException e) {
 	        if (connection != null) {
-	            try {
-	                connection.rollback(); // Effettua il rollback in caso di errore
-	            } catch (SQLException ex) {
-	                ex.printStackTrace();
-	            }
 	        }
 	        throw e; // Rilancia l'eccezione dopo il rollback
 	    } finally {

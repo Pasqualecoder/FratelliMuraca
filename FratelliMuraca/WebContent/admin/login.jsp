@@ -9,6 +9,8 @@
 
 </head>
 <body>
+<form action="admin" method="POST">
+
 <div class="login-container" id="login-container">
         <div class="login-header" id="login-header">
             <span class="header-text">Login</span>
@@ -27,7 +29,7 @@
             </form>
         </div>
     </div>
-
+</form>
     <script src="./js/admin-script.js"></script>
 </body>
 </html>

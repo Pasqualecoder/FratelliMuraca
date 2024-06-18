@@ -8,7 +8,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Modifica Catalogo</title>
 </head> 
 <body>
 
@@ -23,7 +23,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
     </div>
     <div class="form-group">
         <label for="prezzo">Prezzo</label>
-        <input name="prezzo" type="type" class="form-control" required>
+        <input name="prezzo" type="text" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="iva">% IVA</label>
@@ -70,8 +70,9 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
 
 	
 	
-	TABELLA PER METTERE TUTTI I PRODOTTI	
+	TABELLA PER METTERE TUTTI I PRODOTTI
 	<table>
+	
 	</table>
 </body>
 </html>
