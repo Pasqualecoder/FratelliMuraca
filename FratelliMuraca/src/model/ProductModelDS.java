@@ -1,11 +1,7 @@
 package model;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,46 +31,97 @@ public class ProductModelDS implements ProductModel {
 
 	private static final String TABLE_NAME = "prodotti";
 
-	/* doSave
 	@Override
-	public synchronized void doSave(ProductBean product) throws SQLException {
+	public synchronized void doSaveProduct(ProductBean product, LinkedList<ImageBean> images) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet generatedKeys = null;
 
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	    int id;
+	    String insertSQL = "INSERT INTO " + ProductModelDS.TABLE_NAME
+	            + " (nome, descrizione, prezzo, sale_perc, iva_perc, quantita, dimensione, tipo, categoria, anno, ingredienti) "
+	            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		String insertSQL = "INSERT INTO " + ProductModelDS.TABLE_NAME
-				+ " (nome, descrizione, prezzo, quantita, dimensione, tipo, categoria, anno, ingredienti) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    try {
+	        // Ottieni la connessione dal datasource
+	        connection = ds.getConnection();
+	        
+	        // Configura il PreparedStatement per restituire le chiavi generate automaticamente
+	        preparedStatement = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setString(2, product.getDescrizione());
-			preparedStatement.setFloat(3, product.getPrezzo());
-			preparedStatement.setInt(4, product.getQuantita());
-			preparedStatement.setString(5, product.getDimensione());
-			preparedStatement.setBoolean(6, product.getTipo());
-			preparedStatement.setString(7, product.getCategoria().toString());
-			preparedStatement.setString(8, product.getAnno());
-			preparedStatement.setString(9, product.getIngredienti());
-			
-			// TODO: save images
-			
-			preparedStatement.executeUpdate();
+	        // Imposta i parametri del PreparedStatement
+	        preparedStatement.setString(1, product.getNome());
+	        preparedStatement.setString(2, product.getDescrizione());
+	        preparedStatement.setFloat(3, product.getPrezzoNetto());
+	        preparedStatement.setInt(4, product.getSalePerc());
+	        preparedStatement.setInt(5, product.getIvaPerc());
+	        preparedStatement.setInt(6, product.getQuantita());
+	        preparedStatement.setString(7, product.getDimensione());
+	        preparedStatement.setBoolean(8, product.getTipo());
+	        preparedStatement.setString(9, product.getCategoria().toString());
+	        preparedStatement.setString(10, product.getAnno());
+	        preparedStatement.setString(11, product.getIngredienti());
 
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
+	        // Esegui l'aggiornamento e recupera le chiavi generate
+	        int affectedRows = preparedStatement.executeUpdate();
+	        
+	        if (affectedRows == 0) {
+	            throw new SQLException("Inserimento prodotto fallito, nessuna riga affetta.");
+	        }
+
+	        // Recupera il nuovo ID generato
+	        id = -1;
+	        generatedKeys = preparedStatement.getGeneratedKeys();
+	        if (generatedKeys.next()) {
+	            long newProductId = generatedKeys.getLong(1);
+	            id = (int) newProductId;
+	            System.out.println("Nuovo ID prodotto: " + newProductId);
+
+	            // Aggiorna l'ID nel product bean
+	            product.setId(id);
+	        } else {
+	            throw new SQLException("Inserimento prodotto fallito, nessuna chiave generata.");
+	        }
+
+	        // Conferma la transazione
+	        // connection.commit();
+	    } catch (SQLException e) {
+	        if (connection != null) {
+	            try {
+	                connection.rollback(); // Effettua il rollback in caso di errore
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	        throw e; // Rilancia l'eccezione dopo il rollback
+	    } finally {
+	        if (generatedKeys != null) {
+	            try {
+	                generatedKeys.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (preparedStatement != null) {
+	            try {
+	                preparedStatement.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    // Salva le immagini associate al prodotto
+	    doSaveImages(id, images);
 	}
-	*/
+
 
 	/* doDelete
 	@Override
@@ -284,6 +331,54 @@ public class ProductModelDS implements ProductModel {
 	}
 	
 	
-	
+	private synchronized void doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException {
+		if (immagini == null || immagini.size() == 0) {
+			return;
+		}
+
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    String insertSQL = "INSERT INTO " + "images " + "(imageblob, prod_fk) VALUES (?, ?)";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(insertSQL);
+
+	        for (ImageBean im : immagini) {
+	            // Converti l'array di byte dei dati dell'immagine in un InputStream
+	            byte[] imageData = im.getDati(); // Assumendo che ImageBean abbia un metodo getDati() che ritorna byte[]
+	            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+
+	            // Imposta il Blob nell'istruzione preparata
+	            preparedStatement.setBlob(1, inputStream);
+
+	            // Imposta l'ID del prodotto esterno (prodottoFk)
+	            preparedStatement.setInt(2, prodottoFk);
+
+	            // Esegui l'inserimento
+	            preparedStatement.executeUpdate();
+
+	            // Ripulisci il Blob per la prossima iterazione
+	            inputStream.close();
+	            preparedStatement.clearParameters();
+	        }
+
+	        // connection.commit();
+	    } catch (IOException e) {
+	        // Gestione dell'eccezione di IO (chiusura stream)
+	        e.printStackTrace();
+	    } finally {
+	        // Chiusura delle risorse
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+	}
+
 	
 }

@@ -2,11 +2,19 @@ package model;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public interface ProductModel {
-	/* solo per l'admin consente la creazione di un nuovo prodotto
-	public void doSaveProduct(ProductBean product) throws SQLException;
-	*/
+	// solo per l'admin consente la creazione di un nuovo prodotto
+	/**
+	 * viene ignorato il campo product.immagini (LinkedList<Integer>) in favore della linked list di vere immagini
+	 * in binario da caricare nel db
+	 * @param product
+	 * @param images
+	 * @throws SQLException
+	 */
+	public void doSaveProduct(ProductBean product, LinkedList<ImageBean> images) throws SQLException;
+	
 
 	/* solo per l'admin, consente l'eleminazione di un prodotto dal catalogo
 	public boolean doDeleteProduct(int code) throws SQLException;
@@ -33,7 +41,6 @@ public interface ProductModel {
 	
 	public byte[] doRetrieveImage(int imgId) throws SQLException;
 	
-	//TODO: 	public synchronized LinkedList<Immagine> doSaveImages(LinkedList<Immagine> immagini) throws SQLException {
-
+	// private LinkedList<ImageBean> doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException; 
 	
 }

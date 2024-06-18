@@ -3,8 +3,8 @@ package model;
 public enum ProductCategorie {
 	none,
 	classici,
-	aromatizzati;
-	
+	aromatizzati,
+	cosmetici;
 	
 	public static ProductCategorie fromString(String text) {
         for (ProductCategorie enumValue : ProductCategorie.values()) {

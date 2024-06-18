@@ -20,8 +20,8 @@ import model.*;
 public class AdminControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	static AdminModel adminModel = new AdminModelDS();
-	static ProductModel productModel = new ProductModelDS();
+	private static AdminModel adminModel = new AdminModelDS();
+	private static ProductModel productModel = new ProductModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()

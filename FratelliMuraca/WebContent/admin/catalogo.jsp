@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" import="java.util.*,model.*"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
+    pageEncoding="UTF-8"%>
     
 <%
 LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti");
@@ -7,7 +7,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head> 
 <body>
@@ -23,18 +23,18 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
     </div>
     <div class="form-group">
         <label for="prezzo">Prezzo</label>
-        <input name="prezzo" type="number" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="sconto">% Sconto</label>
-        <input name="sconto" type="number" class="form-control" required>
+        <input name="prezzo" type="type" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="iva">% IVA</label>
         <input name="iva" type="number" class="form-control" required>
     </div>
     <div class="form-group">
-        <label for="quantita">Quantità</label>
+        <label for="sconto">% Sconto</label>
+        <input name="sconto" type="number" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="quantita">QuantitÃ </label>
         <input name="quantita" type="number" class="form-control" required>
     </div>
     <div class="form-group">
@@ -42,7 +42,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
         <input name="dimensione" type="text" class="form-control" required>
     </div>
     <div class="form-group">
-        <label for="tipo">È cosmetico?</label>
+        <label for="tipo">Ãˆ cosmetico?</label>
         <input name="tipo" type="checkbox" class="form-check-input">
     </div>
     <div class="form-group">
@@ -63,7 +63,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
     </div>
     <div class="form-group">
         <label for="foto">Carica Foto</label>
-        <input type="file" name="foto[]" class="form-control-file" multiple required>
+        <input type="file" id="immagine" class="form-control-file" name="foto[]" accept="image/png, image/gif, image/jpeg" multiple>
     </div>
     <button type="submit" class="btn btn-primary">Invia</button>
 </form>
