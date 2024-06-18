@@ -106,8 +106,20 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
     if (user != null) { %>
     <div class="container mt-5 mb-4" id="review-panel">
     	<div class="card p-3">
-        <form>
-            
+        <form id="review-panel">
+            <% 
+            	Boolean canCommentBool = (Boolean) request.getAttribute("canComment"); // dont use me 
+            	boolean canComment = (canCommentBool != null) ? canCommentBool.booleanValue() : false; // use me
+            	if (canComment) {%>
+            		<h1 class="text-success">SEI AUTORIZZATO A COMMENTARE</h1>
+            		<p>metti qui tutto il codice per commentare con il form e la roba</p>
+            	<%}
+            	else {%>
+            		<h1 class="text-danger">rip non puoi commentare :-(</h1>
+            		<p>fai che non si riesca a scrivere nell'input box (è sempre necessario fare il controllo backend 
+            		se l'utente puo effettivamente scrivere il commento perché il frontend può essere manomesso facilmente)</p>
+            	<%}
+            %>
 			<%= prodotto.getNome() %>
 			<br>
             <!-- Star Rating -->
