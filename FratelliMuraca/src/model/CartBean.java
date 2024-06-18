@@ -77,6 +77,11 @@ public class CartBean implements Serializable {
 		return prodotti;
 	}
 	
+	public boolean isProductPresent(ProductBean prodottoEsterno) {
+		LinkedList<ProductBean> prodottiInterni = retrieveProducts();
+		return prodottiInterni.contains(prodottoEsterno);
+	}
+	
 	
 	@Override
 	public String toString() {

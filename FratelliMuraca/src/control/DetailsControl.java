@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
@@ -11,10 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.CartBean;
-import model.ProductBean;
-import model.ProductModel;
-import model.ProductModelDS;
+import org.apache.catalina.User;
+
+import model.*;
 
 /**
  * Servlet implementation class DetailsControl
@@ -24,6 +24,7 @@ public class DetailsControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	static ProductModel productModel = new ProductModelDS();
+	static OrderModel orderModel = new OrderModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -77,8 +78,9 @@ public class DetailsControl extends HttpServlet {
 		
 		
 		// IMPORTANTE
+		ProductBean prodotto = null;
 		try {
-			ProductBean prodotto = productModel.doRetrieveProductByKey(id);
+			prodotto = productModel.doRetrieveProductByKey(id);
 			if (prodotto == null) {
 				// Determina che la risorsa richiesta non è stata trovata
 			    response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
@@ -93,6 +95,20 @@ public class DetailsControl extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		
+		// sezione per l'abilitazione al commento
+		/* 
+		 * se l'utente è loggato e ha effettuato l'acquisto del prodotto con lo stesso id
+		 * è autorizzato a commentare
+		 * l'attributo request.getAttribute("canComment") da usare nel frontend
+		 */
+		boolean canComment = false;
+		UserBean user = (UserBean) request.getSession().getAttribute("user");
+		if (user != null) {
+			canComment = checkBought(user, prodotto);
+		}
+		
+		request.setAttribute("canComment", canComment);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DetailsView.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -104,4 +120,32 @@ public class DetailsControl extends HttpServlet {
 		doGet(request, response);
 	}
 
+	/**
+	 * per ogni ordine effettuato dall'utente
+	 * controlla se è presente quel prodotto
+	 * @param user
+	 * @param prodotto
+	 * @return
+	 */
+	private boolean checkBought(UserBean user, ProductBean prodotto) {
+		LinkedList<OrderBean> listaOrdini = null;
+		try {
+			listaOrdini = (LinkedList<OrderBean>) orderModel.doRetrieveOrders(user);			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		boolean toReturn = false; // valore restituito dall funzione
+		for (OrderBean or : listaOrdini) {
+			CartBean vecchioCart = or.getProdotti();
+			if (vecchioCart.isProductPresent(prodotto)) {
+				toReturn = true;
+				break;
+			}
+		}
+		
+		return toReturn;
+	}
+	
 }

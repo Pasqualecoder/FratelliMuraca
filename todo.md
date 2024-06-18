@@ -1,5 +1,7 @@
 # To-Do List Progetto
 
+TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
+
 ## Implementazione Account e Pagina Amministratore
 
 1. **Account Amministratore**
