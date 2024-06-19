@@ -2,6 +2,11 @@
 
 TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 
+mettere un filtro per tutte le pagine .JSP
+non vanno mostrate. bisogna sempre passare dalle control
+
+gestire meglio le redirect a 404
+
 ## Implementazione Account e Pagina Amministratore
 
 1. **Account Amministratore**
@@ -49,9 +54,6 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
      - Registrazione
 
 # Pagina Registrazione/Login
-
-6. **Visualizzazione Password**
-    - Permettere di mostrare la password che viene scritta
 
 # Sicurezza
 1. **Non Permettere ad un utente loggato di accedere alla pagina di login e register**

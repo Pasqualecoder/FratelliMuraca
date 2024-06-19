@@ -109,9 +109,6 @@ public class DetailsControl extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
-	// TODO: scrivere funzione per vedere se l'utente ha comprato il prodotto
-	
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

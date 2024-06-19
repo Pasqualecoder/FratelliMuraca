@@ -15,13 +15,13 @@ import model.CartBean;
  * Servlet implementation class HomeView
  */
 @WebServlet("/home")
-public class HomeView extends HttpServlet {
+public class HomeControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeView() {
+    public HomeControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,8 +38,9 @@ public class HomeView extends HttpServlet {
 		}
 		request.getSession().setAttribute("cart", cart);
 		request.setAttribute("cart", cart);
-
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home.jsp");
+		
+		String requestedPage = request.getParameter("page");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(setRedirect(requestedPage));
 		dispatcher.forward(request, response);
 	}
 
@@ -51,4 +52,25 @@ public class HomeView extends HttpServlet {
 		doGet(request, response);
 	}
 
+	
+	private String setRedirect(String requestedPage) {
+		String redirect = null;
+		if (requestedPage == null || requestedPage.equals("home")) {
+			redirect = "/home.jsp";
+		}
+		else if (requestedPage.equals("product")) { // preferibilmente non utilizzabile
+			redirect = "/product"; // reindirizzo alla servlet
+		}
+		else if (requestedPage.equals("about")) {
+			redirect = "/about.jsp";
+		}
+		else if (requestedPage.equals("contacts")) {
+			redirect = "/contacts.jsp";
+		}
+		else {
+			redirect = "/home.jsp";
+		}
+		return redirect;
+	}
+	
 }

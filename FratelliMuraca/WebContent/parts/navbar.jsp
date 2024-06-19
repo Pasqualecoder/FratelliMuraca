@@ -6,7 +6,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
   
-  	.navbar-nav .nav-link .fa-user {
+  	.navbar-nav .nav-link .fa-user fa-home {
   	font-size: 1.5rem; /* Increase size */
   	color: white; /* Color of the icon */
 	}
@@ -29,7 +29,7 @@
       z-index: 1; /* Stay on top */
       top: 0;
       right: 0;
-      background-color: #5f720f; /* Green background */
+      background-color: #607244; /* Green background */
       overflow-x: hidden; /* Disable horizontal scroll */
       transition: 0.5s; /* Smooth transition */
       padding-top: 60px; /* Place content below the navbar */
@@ -43,7 +43,8 @@
       transition: 0.3s;
     }
     .sidepanel a:hover {
-      color: #d4edda;
+      color: yellow;
+      text-decoration: underline;
     }
     .sidepanel .closebtn {
       position: absolute;
@@ -66,9 +67,7 @@
       position: absolute;
       top: -5px;
       right: -10px;
-      background-color: red;
       color: white;
-      border-radius: 50%;
     }
     
     .nav-link {
@@ -104,36 +103,63 @@
       transform: scaleX(1);
     }
     
-    .search-results {
+.search-results {
     background-color: white;
     border: 1px solid #ccc;
-    margin-top: 140px;
     padding: 10px;
-    border-radius: 4px; /* Angoli arrotondati per il contenitore dei risultati */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra più pronunciata */
-    max-height: 200px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-    display: none; /* Nasconde il div di default */
+    display: none;
     position: absolute;
+    top: 50px;
     z-index: 1;
-    transition: max-height 0.3s ease-in-out; /* Transizione per l'altezza */
+    transition: max-height 0.3s ease-in-out;
 }
 
-.search-results p {
-    margin: 0; /* Rimuove i margini dei paragrafi */
-    padding: 8px 10px; /* Spaziatura interna per i risultati */
-    border-bottom: 1px solid #eee; /* Sottolinea ogni risultato */
-    cursor: pointer; /* Cambia il cursore per i risultati */
-    transition: background-color 0.3s; /* Transizione per il colore di sfondo */
+.search-result {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer; /* Mostra il puntatore quando passi sopra il risultato di ricerca */
+    transition: background-color 0.3s; /* Animazione di sfondo al passaggio del mouse */
 }
 
-.search-results p:last-child {
-    border-bottom: none; /* Rimuove il bordo per l'ultimo elemento */
-}
-
-.search-results p:hover {
+.search-result:hover {
     background-color: #f0f0f0; /* Cambia il colore di sfondo al passaggio del mouse */
 }
+
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result:hover {
+    background-color: #f0f0f0;
+}
+
+.product-image {
+    width: 80px; /* Larghezza desiderata per l'immagine */
+    height: auto;
+    border-radius: 4px;
+    margin-right: 10px;
+    
+}
+
+.product-name {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 5px; /* Spazio inferiore tra nome del prodotto e prezzo */
+}
+
+.product-price {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
 
 /* Mostra il div quando ci sono risultati di ricerca */
 .search-results.active {
@@ -159,6 +185,12 @@
     background-color: #f1f1f1;
 }
 
+
+.home-icon {
+	
+}
+
+
   </style>
 </head>
 <% UserBean user1 = (UserBean)session.getAttribute("user"); %>
@@ -166,11 +198,14 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top">
+	<!-- Home Icon -->
+    <a class="navbar-brand position-relative nav-link" href="home">
+    	<i class="fas fa-home home-icon"></i>
+    </a>
+    
     <!-- Cart Icon with Badge -->
-    <a class="navbar-brand position-relative" href="cart">
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-            <path fill="white" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607L1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4a2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4a2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2a1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2a1 1 0 0 1 0-2"/>
-        </svg>
+    <a class="navbar-brand position-relative nav-link" href="cart">
+		<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="white" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607L1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4a2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4a2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2a1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2a1 1 0 0 1 0-2"/></svg>
         <span id="cartBadge" class="badge badge badge-warning" style="font-size: 12px; color: white;"><%= cart.getSize() %></span>
     </a>
     <!-- Search Bar -->
@@ -214,10 +249,10 @@
                 <a class="nav-link" href="product">Prodotti</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="home?page=about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="home?page=contacts">Contatti</a>
             </li>
         </ul>
     </div>
@@ -228,10 +263,10 @@
     <a href="javascript:void(0)" class="closebtn" onclick="openCloseNav()">&times;</a>
     <!-- User Icon in Sidebar -->
   
-    <a class="nav-link" href="#">Home</a>
-    <a class="nav-link" href="#">Features</a>
-    <a class="nav-link" href="#">Pricing</a>
-    <a class="nav-link" href="#">Contact</a>
+    <a class="nav-link" href="home">Home</a>
+    <a class="nav-link" href="product">Prodotti</a>
+    <a class="nav-link" href="home?page=about">About</a>
+    <a class="nav-link" href="home?page=contacts">Contatti</a>
     <!-- Search Bar in Side Panel -->
 
 </div>
@@ -263,7 +298,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	
     /* Open the side panel */
     function openCloseNav() {
-        console.log("opening")
         if(document.getElementById("mySidepanel").style.width == "250px"){
             document.getElementById("mySidepanel").style.width = "0px";
         }
@@ -271,41 +305,58 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("mySidepanel").style.width = "250px";
         }
     }
-
+    
     function searchProducts() {
-    	
         var query = document.getElementById('searchInput').value;
-        
+
         if (query.length === 0) {
-        	searchResults.classList.remove('active');
+            searchResults.classList.remove('active');
             document.getElementById('searchResults').innerHTML = '';
             return;
         }
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'search?query=' + encodeURIComponent(query), true);
-        
+
         xhr.onreadystatechange = function () {
-        	
-        	if (xhr.readyState == 4 && xhr.status == 200) {
-        		console.log(JSON.parse(xhr.responseText));
+            if (xhr.readyState == 4 && xhr.status == 200) {
                 var products = JSON.parse(xhr.responseText);
-               
                 var results = document.getElementById('searchResults');
                 results.innerHTML = '';
-                
+				
                 for (var i = 0; i < products.length; i++) {
-                    var product = document.createElement('p');
-                    product.innerText = products[i];
-                    results.appendChild(product);
+                    var product = products[i];
+
+                    // Creazione dell'elemento del prodotto
+                    var productDiv = document.createElement('div');
+                    productDiv.className = 'search-result';
+
+                    // Creazione dell'immagine del prodotto
+                    var img = document.createElement('img');
+                    img.src = 'imageServlet?img=' + product.immagini[0]; // Utilizza la prima immagine
+                    img.alt = product.nome;
+                    img.className = 'product-image';
+
+                    // Creazione del nome del prodotto come link
+                    var nameLink = document.createElement('a');
+                    nameLink.href = 'details?id=' + product.id;
+                    nameLink.innerText = product.nome;
+                    nameLink.className = 'product-name';
+
+                    // Aggiungere tutti gli elementi al div del prodotto
+                    productDiv.appendChild(img);
+                    productDiv.appendChild(nameLink);
+
+                    // Aggiungere il div del prodotto ai risultati
+                    results.appendChild(productDiv);
                 }
+
                 searchResults.classList.add('active');
             }
         };
+
         xhr.send();
     }
-    
-    
    	
 </script>
 

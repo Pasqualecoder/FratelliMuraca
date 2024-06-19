@@ -6,6 +6,7 @@
 
 <!DOCTYPE html>
 <html>
+<head><title>Login - Fratelli Muraca</title></head>
 <%@ include file="parts/head.jsp" %>
 <%@ include file="parts/navbar.jsp" %>
 <body>
@@ -22,21 +23,26 @@
 	
 			<%}
 	 }%>
-    <form class="col-sm-2 mx-auto mt-4" method="POST" action="login">
-        <div class="mb-3">
-            <a href="register">Non Ancora Registrato?</a>
-        </div>
+    
+    <h1 class="font-italic text-center">Login</h1>
+    <form class="col-sm-4 mx-auto mt-4" method="POST" action="login">
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4">
-            <input name="email" type="email" id="form2Example1" class="form-control" />
             <label class="form-label" for="form2Example1">Indirizzo Email</label>
+            <input name="email" type="email" id="form2Example1" class="form-control" />
         </div>
     
         <!-- Password input -->
         <div data-mdb-input-init class="form-outline mb-4">
-            <input name="pwd" type="password" id="form2Example2" class="form-control" />
-            <label class="form-label" for="form2Example2">Password</label>
-        </div>
+		    <label class="form-label" for="form2Example2">Password</label>
+		    <div class="input-group">
+		        <input name="pwd" type="password" id="form2Example2" class="form-control" />
+		        <span class="input-group-text" id="togglePassword">
+		            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+		        </span>
+		    </div>
+		</div>
+
     
         <!-- 2 column grid layout for inline styling -->
         <div class="row mb-4">
@@ -49,14 +55,37 @@
             </div>
     
             <div class="col">
-                <!-- Simple link -->
-                <a href="#!">Forgot password?</a>
+                <a href="home/?page=contacts">Password Dimenticata?</a>
             </div>
+        </div>
+        
+        <div class="mb-3">
+            <a href="register">Non Ancora Registrato?</a>
         </div>
     
         <!-- Submit button -->
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4"">Log in</button>
     </form>
+
+
+<script>
+	// show password
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const pwdField = document.getElementById('form2Example2');
+        const icon = this.querySelector('i');
+        
+        // Toggle the type attribute
+        if (pwdField.type === 'password') {
+            pwdField.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            pwdField.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    });
+</script>
 
 
 <!-- Bootstrap JS and dependencies -->

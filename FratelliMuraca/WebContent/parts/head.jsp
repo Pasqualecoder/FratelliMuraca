@@ -21,8 +21,6 @@
 	<link href="css/card-animation.css" rel="stylesheet" />
 	<!-- cart css -->
 	<link href="css/cart-style.css" rel="stylesheet" />
-	<!-- nav style and animation -->
-	<link href="css/nav-style.css" rel="stylesheet" />
-	<!-- login style -->
-	<link href="css/login_style.css" rel="stylesheet" />
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>

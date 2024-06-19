@@ -10,7 +10,7 @@
 
 <div class="container mt-5 mb-3">
     <div class="card">
-        <div class="card-header text-white" style="background-color: #5f720f;">
+        <div class="card-header text-white" style="background-color: #607244;">
             <h3>I tuoi dati</h3>
         </div>
         <div class="card-body">
@@ -57,8 +57,11 @@
                     </div>
                     <small id="phoneError" class="form-text text-danger"></small>
                 </div>
-                <button type="button" id="editBtn" class="btn btn-success mt-3" style="background-color: #5f720f;">Modifica i Dati</button>
-                <button type="submit" id="saveBtn" class="btn btn-primary mt-3" style="display: none;">Salva i Dati</button>
+                <div class="text-right">
+				    <button type="button" id="editBtn" class="btn btn-success mt-3" style="background-color: #607244;">Modifica i Dati</button>
+				    <button type="submit" id="cancelBtn" class="btn btn-danger mt-3" style="display: none;">Annulla</button>
+	                <button type="submit" id="saveBtn" class="btn btn-primary mt-3" style="display: none;">Salva i Dati</button>
+				</div>
             </form>
         </div>
     </div>
@@ -72,12 +75,16 @@
 	var password_start = '';
 	
     $(document).ready(function() {
-    	
-        $('#editBtn').click(function() {
+        $('#editBtn').click(function() { // Quando viene cliccato il pulsante edit
         	password_start = $('#pwd').val();	
             $('#userDataForm input').prop('disabled', false);
             $('#editBtn').hide();
+            $('#cancelBtn').show();
             $('#saveBtn').show();
+        });
+        
+        $('#cancelBtn').click(function() {
+            window.location.reload(); // Ricarica la pagina
         });
     });
     

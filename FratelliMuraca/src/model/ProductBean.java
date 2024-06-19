@@ -216,6 +216,41 @@ public class ProductBean implements Serializable {
 	public ProductBean() {
 	}
 	
+	public String toJSON() {
+	    StringBuilder json = new StringBuilder();
+	    json.append("{");
+	    
+	    json.append("\"id\":").append(id).append(",");
+	    json.append("\"nome\":\"").append(nome).append("\",");
+	    json.append("\"descrizione\":\"").append(descrizione).append("\",");
+	    json.append("\"prezzoNetto\":").append(prezzoNetto).append(",");
+	    json.append("\"prezzoIva\":").append(prezzoIva).append(",");
+	    json.append("\"prezzoScontato\":").append(prezzoScontato).append(",");
+	    json.append("\"salePerc\":").append(salePerc).append(",");
+	    json.append("\"isOnSale\":").append(isOnSale).append(",");
+	    json.append("\"ivaPerc\":").append(ivaPerc).append(",");
+	    json.append("\"quantita\":").append(quantita).append(",");
+	    json.append("\"dimensione\":\"").append(dimensione).append("\",");
+	    json.append("\"tipo\":").append(tipo).append(",");
+	    json.append("\"categoria\":\"").append(categoria != null ? categoria.name() : null).append("\",");
+	    json.append("\"anno\":\"").append(anno).append("\",");
+	    json.append("\"ingredienti\":\"").append(ingredienti).append("\",");
+	    
+	    json.append("\"immagini\": [");
+	    for (int i = 0; i < immagini.size(); i++) {
+	        json.append(immagini.get(i));
+	        if (i < immagini.size() - 1) {
+	            json.append(",");
+	        }
+	    }
+	    json.append("]");
+	    
+	    json.append("}");
+	    
+	    return json.toString();
+	}
+
+	
 
 	/**
 	 * due prodotti sono uguali se hanno lo stesso id

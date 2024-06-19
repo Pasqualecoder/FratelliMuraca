@@ -71,7 +71,7 @@
 	</table>
 	
 	<% if (session.getAttribute("user") == null) {%>
-		<h6>Devi essere loggato per effettuare l'ordine</h6>
+		<h5 class="text-danger font-italic">Devi essere loggato per effettuare l'ordine</h5>
 		<a class="btn btn-success mt-auto" href="login">Entra subito</a><br><br>
 	<%}
 	else {%>
@@ -125,9 +125,6 @@
 
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-                alert('Pagamento completato da ' + details.payer.name.given_name + ' di ' + details.purchase_units[0].amount.value);
-                console.log(details);
-
                 // Imposta i dettagli dell'ordine nel campo nascosto del form
                 document.getElementById('detailsInput').value = JSON.stringify(details);
                 

@@ -10,7 +10,7 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/details-style.css"
+<link rel="stylesheet" href="css/details-style.css">
  </head>
 <%@ include file="parts/head.jsp" %>
 

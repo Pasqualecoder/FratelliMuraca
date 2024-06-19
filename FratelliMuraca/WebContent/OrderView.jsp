@@ -7,20 +7,10 @@
 <%@ include file="parts/head.jsp" %>
 
 <body>
-<script type="text/javascript">
-var currentdate = new Date(); 
-var datetime = "Last Sync: " + currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() + " @ "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
-alert(datetime);
-</script>
 
 <%@ include file="parts/navbar.jsp" %>
 
-<h1>Ultimi ordini</h1>
+<h1 class="font-italic text-center">Ultimi ordini</h1>
 <%
 	Boolean opStatus = (Boolean) request.getAttribute("opStatus");
 

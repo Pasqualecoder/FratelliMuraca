@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,41 +31,51 @@ static boolean isDataSource = true;
 		}
 	}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String query = request.getParameter("query");
-        
-        List<String> products = searchProducts(query.toLowerCase());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String query = request.getParameter("query");
+	    
+	    List<ProductBean> productsSearched = searchProducts(query.toLowerCase());
 
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.print("[");
-        for (int i = 0; i < products.size(); i++) {
-            out.print("\"" + products.get(i) + "\"");
-            if (i < products.size() - 1) {
-                out.print(",");
-            }
-        }
-        out.print("]");
-        out.flush();
-    }
+	    response.setContentType("application/json");
+	    PrintWriter out = response.getWriter();
+
+	    StringBuilder jsonOutput = new StringBuilder();
+	    jsonOutput.append("[");
+
+	    // Utilizzo di un for-each per iterare sulla lista dei prodotti
+	    for (ProductBean product : productsSearched) {
+	        jsonOutput.append(product.toJSON()).append(",");
+	    }
+
+	    // Rimuovere l'ultima virgola se ci sono elementi
+	    if (!productsSearched.isEmpty()) {
+	        jsonOutput.setLength(jsonOutput.length() - 1);
+	    }
+
+	    jsonOutput.append("]");
+
+	    // Scrivere l'intera stringa JSON sull'output alla fine
+	    out.print(jsonOutput.toString());
+	    out.flush();
+	}
+
+
 
     
-	private List<String> searchProducts(String query) {
-    	List<String> productsName = new LinkedList<>(); 
-    	try {
-    		for(ProductBean prodotto : new LinkedList<>(model.doRetrieveAllProducts(""))) {
-    			if(prodotto.getNome().toLowerCase().startsWith(query)) {
-    				productsName.add(prodotto.getNome().toLowerCase());
-    			}
+	private List<ProductBean> searchProducts(String query) {
+        List<ProductBean> productsName = new LinkedList<ProductBean>();
+        try {
+            for (ProductBean prodotto : new LinkedList<>(model.doRetrieveAllProducts(null))) {
+                if (prodotto.getNome().toLowerCase().startsWith(query)) {
+                	prodotto.setDescrizione("");
+                	prodotto.setIngredienti("");
+                    productsName.add(prodotto);
+                }
             }
-            
-    	}
-    	catch (Exception e) {
-    		
-    	}
-    	System.out.println("[Search Control.java 65: ]" + productsName);
-    	return productsName;
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return productsName;
     }
 
 }

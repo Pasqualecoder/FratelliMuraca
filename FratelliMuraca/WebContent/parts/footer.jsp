@@ -1,67 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Footer Example</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            position: relative;
-            Removed margin-top: 20%;
-        }
-
-        .footer {
-            background-color: #607244;
-            color: #fff;
-            padding: 20px 0;
-            width: 100%;
-        }
-
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: #f8f9fa;
-            text-decoration: underline;
-            transition: 0.3s;
-        }
-
-        .footer-img {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 75px;
-        }
-
-        /* New styling to add space */
-        .content {
-            flex: 1; /* Ensure content takes up remaining space */
-            padding-bottom: 20px; /* Space between content and footer */
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/footer-style.css">
+    
 </head>
 <body>
-
 
     <footer class="footer mt-auto">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <h5>Company</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="home?page=about">About Us</a></li>
+                        <li><a href="home?page=contacts">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <h5>Products</h5>
                     <ul class="list-unstyled">
                         <li><a href="#">Product 1</a></li>
@@ -69,12 +28,15 @@
                         <li><a href="#">Product 3</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-12">
                     <h5>Follow Us</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Instagram</a></li>
+                    <ul class="social-icons">
+                        <li><a href="https://www.facebook.com" class="facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.twitter.com" class="twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com" class="instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.linkedin.com" class="linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="https://www.youtube.com" class="youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.pinterest.com" class="pinterest" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -87,4 +49,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

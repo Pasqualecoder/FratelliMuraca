@@ -1,0 +1,98 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.footer {
+    background-color: #607244;
+    color: #fff;
+    padding: 20px 0;
+    width: 100%;
+    position: relative;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #f8f9fa;
+    text-decoration: underline;
+    transition: 0.3s;
+}
+
+.footer-img {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 125px; /* Increased size for Groot image */
+}
+
+/* Stile base per il container delle icone social */
+.social-icons {
+    display: flex;
+    justify-content: start;
+    list-style: none;
+    padding: 0;
+}
+
+.social-icons li {
+    margin-right: 15px; /* Spazio tra le icone */
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 24px;
+    transition: transform 0.3s, color 0.3s;
+}
+
+/* Hover effects per ogni social network */
+.social-icons a.facebook:hover {
+    color: #3b5998; /* Colore blu di Facebook */
+}
+
+.social-icons a.twitter:hover {
+    color: #1da1f2; /* Colore azzurro di Twitter */
+}
+
+.social-icons a.instagram:hover {
+    color: #e1306c; /* Colore rosa di Instagram */
+}
+
+.social-icons a.linkedin:hover {
+    color: #0077b5; /* Colore blu di LinkedIn */
+}
+
+.social-icons a.youtube:hover {
+    color: #ff0000; /* Colore rosso di YouTube */
+}
+
+.social-icons a.pinterest:hover {
+    color: #bd081c; /* Colore rosso di Pinterest */
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 921px) {
+    .footer-img {
+        width: 100px; /* Riduci l'immagine di Groot per schermi più piccoli */
+    }
+    .social-icons a {
+        font-size: 20px; /* Riduci le icone social per schermi più piccoli */
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-img {
+        width: 80px; /* Ulteriore riduzione per schermi molto piccoli */
+    }
+    .social-icons a {
+        font-size: 18px; /* Ulteriore riduzione delle icone social */
+    }
+    .social-icons {
+        justify-content: center; /* Centro le icone sui schermi molto piccoli */
+    }
+}

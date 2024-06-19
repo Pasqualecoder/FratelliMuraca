@@ -6,11 +6,12 @@
 
 <!DOCTYPE html>
 <html>
+<head><title>Register - Fratelli Muraca</title></head>
 <%@ include file="parts/head.jsp" %>
 <%@ include file="parts/navbar.jsp" %>
 <body>
     
-
+<h1 class="font-italic text-center">Registrati</h1>
 <div class="row justify-content-center">
         <div class="col-md-6 mt-4">
             <article class="card-body">
@@ -33,30 +34,73 @@
                         <small id="ageMessage" class="form-text text-danger"></small>
                     </div> <!-- form-group end.// -->
                     <div class="form-group">
-                        <label>Email address</label>
-                        <input type="email" class="form-control" placeholder="" name="email" id="email" onfocusout="checkEmail()">
-                        <small id="emailError" class="form-text text-danger"></small>
-                        <small class="form-text text-muted">Non condivideremo la tua Email con nessuno</small>
-                    </div> <!-- form-group end.// -->
+					    <label for="phone">Numero di telefono</label>
+					    <div class="input-group">
+					        <input type="tel" class="form-control" placeholder="" name="phone" id="phone">
+					        <span class="input-group-text">
+					            <i class="fa fa-phone"></i>
+					        </span>
+					    </div>
+					    <small id="phoneError" class="form-text text-danger"></small>
+					</div> <!-- form-group end.// -->
                     <div class="form-group">
-                        <label>Numero di telefono</label>
-                        <input type="tel" class="form-control" placeholder="" name="phone" id="phone">
-                        <small id="phoneError" class="form-text text-danger"></small>
-                    </div> <!-- form-group end.// -->
+					    <label for="email">Indirizzo E-mail</label>
+					    <div class="input-group">
+					        <input type="email" class="form-control" placeholder="" name="email" id="email" onfocusout="checkEmail()">
+					        <span class="input-group-text">
+					            <i class="fa fa-envelope"></i>
+					        </span>
+					    </div>
+					    <small id="emailError" class="form-text text-danger"></small>
+					    <small class="form-text text-muted">Non condivideremo la tua Email con nessuno</small>
+					</div> <!-- form-group end.// -->
+
                     <div class="form-group">
-                        <label>Create password</label>
-                        <input class="form-control" type="password" name="pwd" id="pwd" >
-                        <small id="pwdError" class="form-text text-danger"></small>
-                    </div> <!-- form-group end.// -->  
+					    <label for="pwd">Create password</label>
+					    <div class="input-group">
+					        <input class="form-control" type="password" name="pwd" id="pwd">
+					        <span class="input-group-text">
+					            <i class="fa fa-eye-slash toggle-password" id="togglePwd" aria-hidden="true"></i>
+					        </span>
+					    </div>
+					    <small id="pwdError" class="form-text text-danger"></small>
+					</div> <!-- form-group end.// -->
+
+
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block" style="background-color: #5f720f;" id="submit-button"> Registrati</button>
                     </div> <!-- form-group// -->      
                     <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>                                          
                 </form>
             </article> <!-- card-body end .// -->
-            <div class="border-top card-body text-center">Gia' registrato? <a href="login">Log In</a></div>
+            <div class="border-top card-body text-center">
+            	<h3 class="font-weight-light" style="display: inline">Gia' registrato? <a href="login">Log In</a></h3>
+           	</div>
         </div> <!-- col.//-->
     </div> <!-- row.//-->
+    
+<script>
+    // JavaScript per il toggle della visibilità della password
+    document.getElementById('togglePwd').addEventListener('click', function() {
+        const pwdField = document.getElementById('pwd');
+        const icon = this;
+
+        // Toggle the type attribute
+        if (pwdField.type === 'password') {
+            pwdField.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            pwdField.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    });
+</script>
+
+    
+    
 <script>
 
 function validate() {
