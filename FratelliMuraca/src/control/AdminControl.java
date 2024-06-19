@@ -83,6 +83,25 @@ public class AdminControl extends HttpServlet {
 				}
 				redirect = "modifica.jsp";
 			}
+			else if(operazione.equals("deleteImage")) {
+				String img = request.getParameter("img");
+				String id_prodotto = request.getParameter("prodotto");
+				if (id_prodotto == null) {
+					id_prodotto = "";
+				}
+				if (img == null) {
+					img = "";
+				}
+				int img_id = Integer.parseInt(request.getParameter("img"));
+				try {
+					request.setAttribute("prodotto", productModel.doRetrieveProductByKey(Integer.parseInt(id_prodotto)));
+					productModel.doDeleteImage(img_id);
+				} catch (NumberFormatException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				redirect = "modifica.jsp";
+			}
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/" + redirect);

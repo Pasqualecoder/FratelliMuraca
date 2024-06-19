@@ -44,6 +44,9 @@ public interface ProductModel {
 	
 	public void doDelete(String id) throws SQLException;
 	
+	public void doDeleteImage(int id) throws SQLException;
+	
+	
 	// private LinkedList<ImageBean> doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException; 
 	
 }

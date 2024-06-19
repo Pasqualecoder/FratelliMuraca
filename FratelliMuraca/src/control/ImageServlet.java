@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.*;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +45,9 @@ public class ImageServlet extends HttpServlet {
             	// se il prodotto non ha immagini nel db carica l'immagine con id 1 che è un placeholder
             	imageData = productModel.doRetrieveImage(1);
             }
-        
+            
+            
+            
         	// Imposta il tipo di contenuto nella risposta
         	response.setContentType("image/jpeg");
         	
@@ -64,6 +67,7 @@ public class ImageServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 

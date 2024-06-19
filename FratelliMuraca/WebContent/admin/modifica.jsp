@@ -62,12 +62,18 @@ LinkedList<Integer> immagini = prodotto.getImmagini();
     <div class="form-group">
         <label for="foto">Carica Foto</label>
         <input type="file" id="immagine" class="form-control-file" name="foto[]" accept="image/png, image/gif, image/jpeg" multiple>
-        <% for(int idImg : immagini) { %>
-        	<img src="imageServlet?img=<%= idImg %>" alt="<%= prodotto.getNome() %>" width="50%">
-        	<button type="button" class="btn btn-primary" onclick="myFunction()">Rimuovi</button>
-        <% } %>
+        
     </div>
     <button type="submit" class="btn btn-primary">Invia</button>
+    
+    
 </form>
+<% for(int idImg : immagini) { %>
+	<img src="imageServlet?img=<%=idImg%>" alt="<%= prodotto.getNome() %>" width="50%">
+	<a href="./admin?action=catalogo&op=deleteImage&img=<%= idImg %>&prodotto=<%= prodotto.getId() %>">rimuovi</a>
+    	<!-- <form action="imageServlet?img=<%=idImg%>&op=delete" method="POST">
+        	<input type="submit" class="btn btn-primary" value="rimuovi">
+    	</form> -->
+		<% } %>
 </body>
 </html>
