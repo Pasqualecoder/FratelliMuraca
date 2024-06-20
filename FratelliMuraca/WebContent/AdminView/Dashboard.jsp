@@ -11,6 +11,10 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
 </head>
 <body>
 	Benvenuto <%= admin.getUsername() %>
+	<% if (admin.getId() == 1) {%>
+		  <a href="./admin?action=modificaAdmin">modifica admin</a>
+		<%}
+	%>
 	<a href="./admin?action=catalogo">modifica catalogo</a>
 	<a href="logout">logout</a>
 </body>

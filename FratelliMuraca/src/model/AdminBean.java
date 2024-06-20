@@ -93,5 +93,9 @@ public class AdminBean implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "AdminBean [id=" + id + ", username=" + username + ", password=" + password + "]";
+	}
 	
 }

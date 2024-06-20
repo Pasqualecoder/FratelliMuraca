@@ -44,6 +44,7 @@ public class AdminControl extends HttpServlet {
 			return;
 		}
 		
+		// se sei un admin
 		String redirect = "Dashboard.jsp";
 		String action = request.getParameter("action");
 		
@@ -99,6 +100,18 @@ public class AdminControl extends HttpServlet {
 					e.printStackTrace();
 				}
 				redirect = "ModificaView.jsp";
+			}
+		}
+		else if(action.equals("modificaAdmin")){
+			try {
+				Collection <UserBean> adminList = adminModel.doRetrieveAllAdmins();
+				System.out.println(adminList);
+				System.out.println(adminBean);
+				request.setAttribute("adminList", adminList);
+				redirect = "ModificaAdmin.jsp";
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 		
