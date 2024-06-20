@@ -28,7 +28,6 @@ public class AdminControl extends HttpServlet {
      */
     public AdminControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -105,8 +104,11 @@ public class AdminControl extends HttpServlet {
 		else if(action.equals("modificaAdmin")){
 			try {
 				Collection <AdminBean> adminList = adminModel.doRetrieveAllAdmins();
-				System.out.println(adminList);
+				
+				// cancellaci quando hai finito di debuggare
+				System.out.println(adminList); 
 				System.out.println(adminBean);
+
 				request.setAttribute("adminList", adminList);
 				redirect = "ModificaAdmin.jsp";
 			}

@@ -76,7 +76,6 @@ public class ProductModelDS implements ProductModel {
 	        if (generatedKeys.next()) {
 	            long newProductId = generatedKeys.getLong(1);
 	            id = (int) newProductId;
-	            System.out.println("Nuovo ID prodotto: " + newProductId);
 
 	            // Aggiorna l'ID nel product bean
 	            product.setId(id);

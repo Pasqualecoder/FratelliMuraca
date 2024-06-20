@@ -23,7 +23,6 @@ public class HomeControl extends HttpServlet {
      */
     public HomeControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

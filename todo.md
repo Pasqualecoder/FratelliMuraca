@@ -2,11 +2,6 @@
 
 TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 
-mettere un filtro per tutte le pagine .JSP
-non vanno mostrate. bisogna sempre passare dalle Control
-
-togliere tutti i System.out utilizzati per il debug
-
 # Testare le vulnerabilita' di Spike
 
 
@@ -38,17 +33,14 @@ togliere tutti i System.out utilizzati per il debug
      - Permettere di creare e eliminare profili admin (solo all'admin con id1 che) assicurarsi che a livello di sicurezza durante il redirect sia fatto il controllo sull'id
 
 ## Utente
-
-
 4. **Modifica Campi Utente**
-   - Correggere i bug relativi alla modifica dei campi del profilo utente.
+   - Correggere i bug relativi alla modifica dei campi del profilo utente. (date salvato con un giorno in meno)
 
 5. **Gestione Utente**
    - **Recensioni Prodotti**
-     - Permettere agli utenti di lasciare recensioni sui prodotti acquistati direttamente dalla pagina dei dettagli del prodotto (implementare il backend per le recensioni).
+     - Permettere agli utenti di lasciare recensioni sui prodotti acquistati direttamente dalla pagina dei dettagli del prodotto (implementare il backend (db) per le recensioni).
 
 ## Sito Responsive
-
 6. **Responsive Design**
    - Assicurarsi che le seguenti sezioni del sito siano responsive:
      - Footer
@@ -59,7 +51,6 @@ togliere tutti i System.out utilizzati per il debug
 # Pagina Registrazione/Login
 
 # Sicurezza
-1. **Non Permettere ad un utente loggato di accedere alla pagina di login e register**
 2. **Rimuovere le info di debug da error.jsp**
 3. **Nascondere le pagine di errore di default sempre per nascondere le info di debug**
 
@@ -73,18 +64,13 @@ PDF negli ordini
 
 9. **Selezione Tipologia Prodotti**
    - Aggiungere la possibilità di selezionare la tipologia dei prodotti in `ProductView` utilizzando AJAX.
-   - Filtraggio prodotti
+   - Filtraggio prodotti (valutare se far filtrare al db)
 
 
 ## Bug
 
-1. **Fix Registrazione**
-  - Giorno di nascita nella registrazione viene salvato con un giorno in meno
-
 
 ## Grafica
-1. **Fixare sidebar** 
-2. **Fixare navbar**
 3. **Aggiornare pagina home**
   - inserire pulsante all'inzio per andare ai prodotti(shop.oliocirulli.com)
 4. **Fixare footer**
@@ -94,3 +80,7 @@ fixare la distanza tra icona del carrello e numero
 # prima della presentazione
 - mostrare meno info di debug in error.jsp
 - rimuovere /Main.java /ErrorControl.java
+
+#### a tempo perso
+- in verifyEmail passare l'onere del controllo dell'inizio dell'email a mysql
+- stessa cosa probabilmente ai prodotti ricercati con ajax

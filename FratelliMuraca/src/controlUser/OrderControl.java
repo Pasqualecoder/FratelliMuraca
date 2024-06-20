@@ -33,7 +33,6 @@ public class OrderControl extends HttpServlet {
      */
     public OrderControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

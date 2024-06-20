@@ -28,7 +28,6 @@ public class EditUserControl extends HttpServlet {
      */
     public EditUserControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

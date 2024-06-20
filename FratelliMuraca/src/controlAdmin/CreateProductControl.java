@@ -38,7 +38,6 @@ public class CreateProductControl extends HttpServlet {
      */
     public CreateProductControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

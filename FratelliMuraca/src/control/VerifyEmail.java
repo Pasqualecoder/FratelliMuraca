@@ -1,6 +1,5 @@
 package control;
 
-import java.awt.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -28,7 +27,6 @@ public class VerifyEmail extends HttpServlet {
      */
     public VerifyEmail() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -44,7 +42,6 @@ public class VerifyEmail extends HttpServlet {
 		try {
 			emails = (LinkedList<String>) model.doRetrieveAllEmail();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -69,7 +66,6 @@ public class VerifyEmail extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

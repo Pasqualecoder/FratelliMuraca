@@ -24,7 +24,6 @@ public class AccountControl extends HttpServlet {
      */
     public AccountControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

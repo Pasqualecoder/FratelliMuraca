@@ -28,7 +28,6 @@ public class LoginUser extends HttpServlet {
      */
     public LoginUser() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

@@ -48,7 +48,7 @@ public class UserModelDS implements UserModel {
 				+ " (email, password, nome, cognome, ddn, phone) " 
 				+ "VALUES (?, SHA2(?, 256), ?, ?, ?, ?)";
 
-		System.out.println(user.getDdn());
+		System.out.println(user.getDdn()); // ancora in debug
 		
 		try {
 			connection = ds.getConnection();

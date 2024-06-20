@@ -27,7 +27,6 @@ public class UserManagerView extends HttpServlet {
      */
     public UserManagerView() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

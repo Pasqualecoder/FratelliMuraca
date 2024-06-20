@@ -20,7 +20,6 @@ public class LogoutControl extends HttpServlet {
      */
     public LogoutControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
