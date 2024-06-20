@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +20,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/modificaDati")
 public class EditUserControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
+	private static UserModel userModel = new UserModelDS();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,54 +35,62 @@ public class EditUserControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Metodo GET non previsto");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		HttpSession session = request.getSession();
-		UserModelDS model = new UserModelDS();
 		UserBean userVecchio = (UserBean)session.getAttribute("user");
-		String passwordNuova = (String)request.getParameter("password");
+		if (userVecchio == null) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Non sei loggato");
+			return;
+		}
+		
+		int id = userVecchio.getId();
+		String email = request.getParameter("email");
+		String nome = request.getParameter("name");
+		String surname = request.getParameter("surname");
+		String passwordNuova = request.getParameter("password");
 		String passwordVecchia = userVecchio.getPassword();
 		Date ddn = Date.valueOf(request.getParameter("birthdate"));
+		String phone = request.getParameter("phone");
+		
+		if (isNullOrEmpty(email) || isNullOrEmpty(nome) || isNullOrEmpty(surname) || 
+			    isNullOrEmpty(passwordNuova) || isNullOrEmpty(passwordVecchia) || 
+			    isNullOrEmpty(phone) || id < 1 || isUnderage(ddn)) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request, non tutti i campi sono stati compilati");
+		    return;
+		}
+		
 		
 		if (passwordNuova.equals(passwordVecchia)) {
-			UserBean nuovoUser = new UserBean(userVecchio.getId(), request.getParameter("email"), passwordVecchia, request.getParameter("name"), request.getParameter("surname"), ddn,request.getParameter("phone"));
+			UserBean nuovoUser = new UserBean(id, email, passwordVecchia, nome, surname, ddn, phone);
 			
 			try {
-				model.doChangeUserNoPwd(nuovoUser);
+				userModel.doChangeUserNoPwd(nuovoUser);
 				session.setAttribute("user", nuovoUser);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		else {
-			UserBean nuovoUser = new UserBean(userVecchio.getId(), request.getParameter("email"), passwordNuova, request.getParameter("nome"), request.getParameter("cognome"), ddn,request.getParameter("phone"));
+			UserBean nuovoUser = new UserBean(id, email, passwordNuova, nome, surname, ddn, phone);
 			try {
-				model.doChangeUser(userVecchio);
+				userModel.doChangeUser(userVecchio);
 				session.setAttribute("user", nuovoUser);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
-		
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
 			dispatcher.forward(request, response);
-		
 		}
-		
+
+	
 		private static String encryptPassword(String psw) {
 	        try {
 	            MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -97,5 +108,24 @@ public class EditUserControl extends HttpServlet {
 	            throw new RuntimeException(e);
 	        }
 	    }
-
+		
+		private static boolean isNullOrEmpty(String str) {
+		    return str == null || str.trim().isEmpty();
+		}
+		
+		private static boolean isUnderage(Date birthdate) {
+		    Calendar current = Calendar.getInstance(); // Ottiene la data e ora correnti
+		    Calendar birthCal = Calendar.getInstance();
+		    birthCal.setTime(birthdate); // Imposta la data di nascita
+		    
+		    int age = current.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
+		    
+		    // Regola l'età se il compleanno non è ancora arrivato quest'anno
+		    if (current.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) {
+		        age--;
+		    }
+		    
+		    return age < 18;
+		}
+		
 }

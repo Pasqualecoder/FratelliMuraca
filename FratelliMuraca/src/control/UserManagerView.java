@@ -20,7 +20,7 @@ import model.UserModelDS;
 public class UserManagerView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private UserModel userModel;
+	private UserModel userModel = new UserModelDS();;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,9 +34,6 @@ public class UserManagerView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		userModel = new UserModelDS();
-		System.out.println("funziona");
 		try {
 			request.setAttribute("users", userModel.doRetrieveAllUsers());
 		} catch (SQLException e) {
@@ -52,7 +49,6 @@ public class UserManagerView extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

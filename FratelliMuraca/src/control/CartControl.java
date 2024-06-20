@@ -55,6 +55,16 @@ public class CartControl extends HttpServlet {
 	}
 	
 	
+	public static void cartSetup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
+		if(cart == null) {
+			cart = new CartBean();
+			request.getSession().setAttribute("cart", cart);
+		}
+		request.getSession().setAttribute("cart", cart);
+		request.setAttribute("cart", cart);
+	}
+	
 	public static void cartAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {

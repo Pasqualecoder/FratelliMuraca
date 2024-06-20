@@ -70,7 +70,6 @@ public class AdminControl extends HttpServlet {
 				try {
 					productModel.doDelete(id);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -78,7 +77,6 @@ public class AdminControl extends HttpServlet {
 				try {
 					request.setAttribute("prodotto", productModel.doRetrieveProductByKey(Integer.parseInt(id)));
 				} catch (NumberFormatException | SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				redirect = "modifica.jsp";
@@ -97,7 +95,6 @@ public class AdminControl extends HttpServlet {
 					request.setAttribute("prodotto", productModel.doRetrieveProductByKey(Integer.parseInt(id_prodotto)));
 					productModel.doDeleteImage(img_id);
 				} catch (NumberFormatException | SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				redirect = "modifica.jsp";
@@ -120,7 +117,6 @@ public class AdminControl extends HttpServlet {
 		try {
 			adminBean = adminModel.doRetrieveAdmin(username, password);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

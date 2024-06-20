@@ -14,15 +14,21 @@
 	// Se la creazione è andata a buon fine l'attributo creationState viene settato a true per far vedere un messaggio di successo
 	Boolean creationState = (Boolean) request.getAttribute("creationState");
 	if(creationState != null) { 
-			if (creationState.booleanValue() == true) {%>
+			if (creationState.booleanValue()) {%>
 				<div class="p-3 mb-2 bg-success text-white">Operazione completata con successo. Effettua l'accesso</div>
-				
 			<%}
 			else {%>
 				<div class="p-3 mb-2 bg-danger text-white">Errore durante la creazione dell'account. Riprova più tardi</div>
-	
 			<%}
-	 }%>
+	 }
+	 
+	Boolean isError = (Boolean) request.getAttribute("error");
+	if (isError != null) {
+		if (isError.booleanValue()) {%>
+			<div class="p-3 mb-2 bg-danger text-white">Errore di autenticazione</div>
+		<%}
+	}
+	%>
     
     <h1 class="font-italic text-center">Login</h1>
     <form class="col-sm-4 mx-auto mt-4" method="POST" action="login">

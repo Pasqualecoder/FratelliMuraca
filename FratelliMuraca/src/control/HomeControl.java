@@ -30,14 +30,7 @@ public class HomeControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
+		CartControl.cartSetup(request, response);
 		
 		String requestedPage = request.getParameter("page");
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(setRedirect(requestedPage));
@@ -48,7 +41,6 @@ public class HomeControl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

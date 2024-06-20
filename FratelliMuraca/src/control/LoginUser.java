@@ -33,14 +33,7 @@ public class LoginUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
+		CartControl.cartSetup(request, response);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginView.jsp");
 		dispatcher.forward(request, response);
@@ -50,35 +43,22 @@ public class LoginUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
-		///////////////////////////////////
+		CartControl.cartSetup(request, response);
 		
 		HttpSession session = request.getSession();
 		
 		String email = request.getParameter("email");
 		String password = encryptPassword(request.getParameter("pwd"));
 		
-		
-		
 		try {
 			UserBean user = userModel.doRetrieveUser(email, password);
 			if(user != null) {
-				
 				session.setAttribute("user", user);
-				
-	
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account");
-				dispatcher.forward(request, response); 
+				response.sendRedirect(request.getContextPath() + "/account");
 			}
 			else {
-			    
-			    response.sendRedirect("login?error=1"); 
+				request.setAttribute("error", true);
+				doGet(request, response);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,5 +83,5 @@ public class LoginUser extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-	
+
 }

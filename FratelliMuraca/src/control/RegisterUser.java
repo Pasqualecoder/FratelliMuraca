@@ -28,10 +28,6 @@ import model.UserBean;
 public class RegisterUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	// ProductModelDS usa il DataSource
-	// ProductModelDM usa il DriverManager	
-	static boolean isDataSource = true;
-	
 	static UserModel userModel = new UserModelDS();
 	
     /**
@@ -46,14 +42,7 @@ public class RegisterUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
+		CartControl.cartSetup(request, response);
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegisterView.jsp");
 		dispatcher.forward(request, response);
@@ -63,14 +52,7 @@ public class RegisterUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
+		CartControl.cartSetup(request, response);
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("pwd");

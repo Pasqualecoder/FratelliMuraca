@@ -26,11 +26,8 @@ public class ErrorControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hello");
-		String errno = request.getParameter("errno");
-		response.sendError(418, "I'm a teapot");
-        // throw new ServletException("Errore nella servlet");
-
+		// test error
+		// response.sendError(sc);
 	}
 
 	/**

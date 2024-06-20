@@ -92,17 +92,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="prodotti-aromatizzati.jsp">
+                    <a href="prodotti-aromatizzati">
                         <img src="media/groot.png" alt="Oli Aromatizzati" class="img-fluid">
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="prodotti-classici.jsp">
+                    <a href="prodotti-classici">
                         <img src="media/groot.png" alt="Oli Classici" class="img-fluid">
                     </a>
                 </div>
                 <div class="col-md-4">
-                    <a href="cosmetici.jsp">
+                    <a href="cosmetici">
                         <img src="media/groot.png" alt="Oli Cosmetici" class="img-fluid">
                     </a>
                 </div>

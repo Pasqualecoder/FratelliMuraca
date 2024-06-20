@@ -19,17 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-static boolean isDataSource = true;
+	static ProductModel productModel = new ProductModelDS();
 	
-	static ProductModel model;
-	
-	static {
-		if (isDataSource) {
-			model = new ProductModelDS();
-		} else {
-			// model = new ProductModelDM();
-		}
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String query = request.getParameter("query");
@@ -60,12 +51,10 @@ static boolean isDataSource = true;
 	}
 
 
-
-    
 	private List<ProductBean> searchProducts(String query) {
         List<ProductBean> productsName = new LinkedList<ProductBean>();
         try {
-            for (ProductBean prodotto : new LinkedList<>(model.doRetrieveAllProducts(null))) {
+            for (ProductBean prodotto : new LinkedList<>(productModel.doRetrieveAllProducts(null))) {
                 if (prodotto.getNome().toLowerCase().startsWith(query)) {
                 	prodotto.setDescrizione("");
                 	prodotto.setIngredienti("");

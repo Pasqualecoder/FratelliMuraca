@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class VerifyEmail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     static UserModel model = new UserModelDS();
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,16 +43,14 @@ public class VerifyEmail extends HttpServlet {
 		
 		try {
 			emails = model.doRetrieveAllEmail();
-			System.out.println("Debug Email in Ajax" + "\n" + emails);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
-		for(String user_email : emails) {
-			if(email.startsWith(user_email)) {
+		for(String userEmail : emails) {
+			if(email.startsWith(userEmail)) {
 				emailExists = true;
 	            break;
 			}
