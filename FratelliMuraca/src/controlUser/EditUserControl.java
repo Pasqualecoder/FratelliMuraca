@@ -1,4 +1,4 @@
-package control;
+package controlUser;
 import  model.*;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -86,7 +86,7 @@ public class EditUserControl extends HttpServlet {
 			}
 		}
 		
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/ProductView.jsp");
 			dispatcher.forward(request, response);
 		}
 

@@ -1,4 +1,4 @@
-package control;
+package controlUser;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.CartControl;
 import model.CartBean;
-import model.UserBean;
 
 /**
- * Servlet implementation class FavoriteViewControl
+ * Servlet implementation class AccountControl
  */
-@WebServlet("/favorite")
-public class FavoriteViewControl extends HttpServlet {
+@WebServlet("/account")
+public class AccountControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FavoriteViewControl() {
+    public AccountControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,27 +31,9 @@ public class FavoriteViewControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		UserBean user = (UserBean) request.getSession().getAttribute("user");			
-		if (user == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
-			dispatcher.forward(request, response);
-		}
+		CartControl.cartSetup(request, response);
 		
-		
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
-		
-		// TODO
-		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/FavoritesView.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/AccountView.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -59,7 +41,6 @@ public class FavoriteViewControl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -1,16 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" import="java.util.*,model.*"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
+    pageEncoding="UTF-8"%>
 <%
 AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Dashboard Admin Fratelli Muraca</title>
+<meta charset="UTF-8">
+<title>Dashboard Admin - Fratelli Muraca</title>
 </head>
 <body>
 	Benvenuto <%= admin.getUsername() %>
 	<a href="./admin?action=catalogo">modifica catalogo</a>
+	<a href="logout">logout</a>
 </body>
 </html>

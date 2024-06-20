@@ -1,4 +1,4 @@
-package control;
+package controlUser;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.CartControl;
 import model.*;
 
 import java.io.*;
@@ -39,23 +40,11 @@ public class OrderControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CartControl.cartSetup(request, response);
+
 		// prendere l'id dell'utente
 		UserBean user = (UserBean) request.getSession().getAttribute("user");			
-		if (user == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
-			dispatcher.forward(request, response);
-		}
 
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
-		
 		try {
 			request.removeAttribute("ordini");
 			request.setAttribute("ordini", orderModel.doRetrieveOrders(user));
@@ -63,7 +52,7 @@ public class OrderControl extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderView.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/OrderView.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -75,11 +64,6 @@ public class OrderControl extends HttpServlet {
 		
 		// prendere l'id dell'utente
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
-		if (user == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
-			dispatcher.forward(request, response);
-		}
 		
 		// Recupera i dettagli dal form
         String detailsJson = request.getParameter("details");
@@ -87,14 +71,12 @@ public class OrderControl extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
             return;
         }
-		
 
 		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null || cart.isEmpty()) {
 			doGet(request, response);
 		}
 	
-			
 		// salvataggio nel db
 		try {
 			OrderBean order = new OrderBean(user.getId(), detailsJson, cart);
@@ -109,11 +91,8 @@ public class OrderControl extends HttpServlet {
 		if (opStatus) {
 			request.getSession().setAttribute("cart", new CartBean());
 		}
-		
 			
 		doGet(request, response);
 	}
-	
-
 	
 }

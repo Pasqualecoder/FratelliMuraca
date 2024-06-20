@@ -1,4 +1,4 @@
-package control;
+package controlUser;
 
 import model.*;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.CartControl;
 import model.CartBean;
 import model.ProductModel;
 import model.ProductModelDS;
@@ -44,7 +45,7 @@ public class RegisterUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartControl.cartSetup(request, response);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/RegisterView.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/RegisterView.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -62,20 +63,15 @@ public class RegisterUser extends HttpServlet {
 		String telefono = request.getParameter("phone");
 		
 		// Controlla che tutti i parametri obbligatori siano forniti
-		if (email == null || email.isEmpty() ||
-				password == null || password.isEmpty() ||
-				nome == null || nome.isEmpty() ||
-				cognome == null || cognome.isEmpty() || ddn == null ||
-				telefono == null || telefono.isEmpty()) {
-			request.setAttribute("errorMessage", "Tutti i campi obbligatori devono essere compilati.");
-			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		if (isNullOrEmpty(email) || isNullOrEmpty(password) 
+				|| isNullOrEmpty(nome) || isNullOrEmpty(cognome) || ddn == null || isNullOrEmpty(telefono)) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Campi mancanti");
 			return;
 		}
 		
 		// Verifica se l'utente è maggiorenne
         if (!isMaggiorenne(ddn)) {
-            request.setAttribute("errorMessage", "Devi essere maggiorenne per registrarti.");
-            request.getRequestDispatcher("/error").forward(request, response);
+        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Devi essere maggiorenne");
             return;
         }
 		
@@ -90,7 +86,7 @@ public class RegisterUser extends HttpServlet {
         	e.printStackTrace();
         }
         	
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginView.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/LoginView.jsp");
         dispatcher.forward(request, response);
 	}
 	
@@ -127,5 +123,8 @@ public class RegisterUser extends HttpServlet {
         return age >= 18;
     }
 	
+	private static boolean isNullOrEmpty(String str) {
+	    return str == null || str.trim().isEmpty();
+	}
 
 }

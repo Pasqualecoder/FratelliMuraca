@@ -1,25 +1,31 @@
-package control;
+package controlAdmin;
 
-import model.*;
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import model.UserModel;
+import model.UserModelDS;
 
 /**
- * Servlet implementation class AddFavoriteControl
+ * Servlet implementation class UserManagerView
  */
-@WebServlet("/AddFavoriteControl")
-public class AddFavoriteControl extends HttpServlet {
+@WebServlet("/admin/gestioneUtenti")
+public class UserManagerView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private UserModel userModel = new UserModelDS();;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddFavoriteControl() {
+    public UserManagerView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,21 +34,22 @@ public class AddFavoriteControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		try {
+			request.setAttribute("users", userModel.doRetrieveAllUsers());
+		} catch (SQLException e) {
+	
+			e.printStackTrace();
+		}
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestioneUtenti.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-		UserBean user = (UserBean)session.getAttribute("user");
-		
-		//FavoriteBean favorite = new FavoriteBean() // find a way to pass product id
-		
-
+		doGet(request, response);
 	}
 
 }

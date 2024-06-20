@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" import="java.util.*,model.*"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
+    pageEncoding="UTF-8"%>
 <%
-ProductBean prodotto = (ProductBean)request.getAttribute("prodotto");
+ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
 LinkedList<Integer> immagini = prodotto.getImmagini();
 %>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ LinkedList<Integer> immagini = prodotto.getImmagini();
         <input name="sconto" type="number" class="form-control" value="<%= prodotto.getSalePerc() %>" required>
     </div>
     <div class="form-group">
-        <label for="quantita">Quantit‡</label>
+        <label for="quantita">Quantit√†</label>
         <input name="quantita" type="number" class="form-control" value="<%= prodotto.getQuantita() %>" required>
     </div>
     <div class="form-group">
@@ -40,15 +40,15 @@ LinkedList<Integer> immagini = prodotto.getImmagini();
         <input name="dimensione" type="text" class="form-control"  value="<%= prodotto.getDimensione() %>" required>
     </div>
     <div class="form-group">
-        <label for="tipo">» cosmetico?</label>
+        <label for="tipo">√à cosmetico?</label>
         <input name="tipo" type="checkbox" class="form-check-input"  <%= prodotto.getTipo()? "checked": "" %>>
     </div>
     <div class="form-group">
         <label for="categoria">Categoria</label>
         <select name="categoria" class="form-control">
             <option value="classici" <%= "Classici".equals(prodotto.getCategoria()) ? "selected" : "" %>>Classici</option>
-            <option value="classici" <%= "Aromatizzati".equals(prodotto.getCategoria()) ? "selected" : "" %>>Aromatizzati</option>
-            <option value="classici" <%= "Cosmetici".equals(prodotto.getCategoria()) ? "selected" : "" %>>Cosmetici</option>
+            <option value="aromatizzati" <%= "Aromatizzati".equals(prodotto.getCategoria()) ? "selected" : "" %>>Aromatizzati</option>
+            <option value="cosmetici" <%= "Cosmetici".equals(prodotto.getCategoria()) ? "selected" : "" %>>Cosmetici</option>
         </select>
     </div>
     <div class="form-group">

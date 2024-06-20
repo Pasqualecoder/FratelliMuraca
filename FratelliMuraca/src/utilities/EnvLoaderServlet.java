@@ -1,4 +1,4 @@
-package control;
+package utilities;
 
 import java.io.*;
 import java.util.*;

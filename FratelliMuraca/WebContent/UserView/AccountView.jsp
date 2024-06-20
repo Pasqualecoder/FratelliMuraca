@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
-<%@ include file="init/cartinit.jsp" %>
+<%@ include file="../init/cartinit.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <% UserBean user = (UserBean)session.getAttribute("user"); %>
-<%@ include file="parts/head.jsp" %>
-<%@ include file="parts/navbar.jsp" %>
+<%@ include file="../parts/head.jsp" %>
+<%@ include file="../parts/navbar.jsp" %>
 <body>
 
 <div class="container mt-5 mb-3">
@@ -169,6 +169,6 @@
     }
 </script>
 
-<%@ include file="parts/footer.jsp" %>
+<%@ include file="../parts/footer.jsp" %>
 </body>
 </html>
