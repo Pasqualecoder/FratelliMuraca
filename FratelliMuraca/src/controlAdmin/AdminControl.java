@@ -104,7 +104,7 @@ public class AdminControl extends HttpServlet {
 		}
 		else if(action.equals("modificaAdmin")){
 			try {
-				Collection <UserBean> adminList = adminModel.doRetrieveAllAdmins();
+				Collection <AdminBean> adminList = adminModel.doRetrieveAllAdmins();
 				System.out.println(adminList);
 				System.out.println(adminBean);
 				request.setAttribute("adminList", adminList);

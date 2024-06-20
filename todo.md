@@ -5,6 +5,8 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 mettere un filtro per tutte le pagine .JSP
 non vanno mostrate. bisogna sempre passare dalle Control
 
+togliere tutti i System.out utilizzati per il debug
+
 # Testare le vulnerabilita' di Spike
 
 
@@ -33,7 +35,7 @@ non vanno mostrate. bisogna sempre passare dalle Control
      - Aggiungere, modificare e rimuovere prodotti dal catalogo.
    - **Gestione Ordini**
    - **Assegnazione admin**
-     - Permettere di creare e eliminare profili admin (solo all'admin con id1 che)
+     - Permettere di creare e eliminare profili admin (solo all'admin con id1 che) assicurarsi che a livello di sicurezza durante il redirect sia fatto il controllo sull'id
 
 ## Utente
 
@@ -62,8 +64,8 @@ non vanno mostrate. bisogna sempre passare dalle Control
 3. **Nascondere le pagine di errore di default sempre per nascondere le info di debug**
 
 ## Funzionalità Aggiuntive
-
 PDF negli ordini
+
 
 8. **Preferiti**
    - Implementare una funzionalità che permetta agli utenti di aggiungere prodotti ai preferiti. (Gia' iniziata vedere FavoriteBean, FavoriteModel, FavoriteView e le due servlet)
@@ -87,3 +89,8 @@ PDF negli ordini
   - inserire pulsante all'inzio per andare ai prodotti(shop.oliocirulli.com)
 4. **Fixare footer**
 fixare la distanza tra icona del carrello e numero
+
+
+# prima della presentazione
+- mostrare meno info di debug in error.jsp
+- rimuovere /Main.java /ErrorControl.java

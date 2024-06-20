@@ -15,14 +15,14 @@ import model.*;
 /**
  * Servlet implementation class Main
  */
-@WebServlet("/main")
-public class Main extends HttpServlet {
+@WebServlet("/test")
+public class Test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Main() {
+    public Test() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,6 +31,9 @@ public class Main extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// test error
+		// response.sendError(sc);
+		/*
 		UserModel userModel = new UserModelDS();
 		long unixTimestamp = 1059170400000L;
 		Date data = new Date(unixTimestamp);
@@ -43,6 +46,15 @@ public class Main extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
+		AdminModel adminModel = new AdminModelDS();
+		AdminBean bean = new AdminBean("boss6", "a");
+		try {
+			adminModel.doChangeAdmin(bean);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

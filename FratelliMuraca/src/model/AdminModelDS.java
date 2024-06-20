@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -77,38 +78,107 @@ public class AdminModelDS implements AdminModel {
 
 	@Override
 	public void doSaveUser(AdminBean admin) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "INSERT INTO " + TABLE_NAME
+				+ " (username, password) " 
+				+ "VALUES (?, SHA2(?, 256));";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, admin.getUsername());
+			preparedStatement.setString(2, admin.getPassword());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
 	}
 
 
 	@Override
 	public void doChangeAdmin(AdminBean adminNuovo) throws SQLException {
-		// TODO Auto-generated method stub
+		// TODO: Implementare la logica per cambiare i dettagli dell'amministratore.
+
+	    // Per ora, lancia un'eccezione specifica per indicare che il metodo non è implementato.
+	    throw new UnsupportedOperationException("Il metodo AdminModelDS.doChangeAdmin() non è ancora implementato.");
+	}
+
+	@Override
+	public Collection<AdminBean> doRetrieveAllAdmins() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<AdminBean> list = new LinkedList<AdminBean>();
 		
+		String insertSQL = "SELECT * FROM " + TABLE_NAME;
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String usernameAdmin = rs.getString("username");
+				String passwordAdmin = rs.getString("password");
+				list.add(new AdminBean(id, usernameAdmin, passwordAdmin));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return list;
 	}
 
 
 	@Override
-	public LinkedList<String> doRetrieveAllUsername() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public AdminBean doRetrieveAdmin(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		AdminBean bean = null;
+		
+		String insertSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?;";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1, code);
+			
+
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String usernameAdmin = rs.getString("username");
+				String passwordAdmin = rs.getString("password");
+				bean = new AdminBean(id, usernameAdmin, passwordAdmin);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return bean;
 	}
 
-
-	@Override
-	public LinkedList<UserBean> doRetrieveAllAdmins() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

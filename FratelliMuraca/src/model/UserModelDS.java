@@ -115,7 +115,7 @@ public class UserModelDS implements UserModel {
 
 	
 	@Override
-	public synchronized LinkedList<String> doRetrieveAllEmail() throws SQLException {
+	public synchronized Collection<String> doRetrieveAllEmail() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		LinkedList<String> emails = new LinkedList<String>();
@@ -210,7 +210,7 @@ public class UserModelDS implements UserModel {
 	}
 	
 	@Override
-	public LinkedList<UserBean> doRetrieveAllUsers() throws SQLException{
+	public Collection<UserBean> doRetrieveAllUsers() throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		LinkedList<UserBean> users = new LinkedList<UserBean>();

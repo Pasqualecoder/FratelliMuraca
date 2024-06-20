@@ -42,7 +42,7 @@ public class VerifyEmail extends HttpServlet {
 		LinkedList<String> emails = new LinkedList<>();
 		
 		try {
-			emails = model.doRetrieveAllEmail();
+			emails = (LinkedList<String>) model.doRetrieveAllEmail();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

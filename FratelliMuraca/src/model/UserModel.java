@@ -37,8 +37,8 @@ public interface UserModel {
 	 * @return
 	 * @throws SQLException
 	 */
-	public LinkedList<String> doRetrieveAllEmail() throws SQLException;
+	public Collection<String> doRetrieveAllEmail() throws SQLException;
 	
 	
-	public LinkedList<UserBean> doRetrieveAllUsers() throws SQLException;
+	public Collection<UserBean> doRetrieveAllUsers() throws SQLException;
 }
