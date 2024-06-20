@@ -1,4 +1,4 @@
-package control;
+package controlUser;
 import model.*;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import control.CartControl;
 
 /**
  * Servlet implementation class LoginUser
@@ -35,16 +37,26 @@ public class LoginUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartControl.cartSetup(request, response);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginView.jsp");
+		response.sendError(HttpServletResponse.SC_NOT_FOUND, "muori");
+		return;
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/LoginView.jsp");
 		dispatcher.forward(request, response);
+		*/
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CartControl.cartSetup(request, response);
-		
 		HttpSession session = request.getSession();
 		
 		String email = request.getParameter("email");

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
-<%@ include file="init/cartinit.jsp" %>
+<%@ include file="../init/cartinit.jsp" %>
 
 <!DOCTYPE html>
 <html>
+<head><title>Account - Fratelli Muraca</title></head>
 <% UserBean user = (UserBean)session.getAttribute("user"); %>
-<%@ include file="parts/head.jsp" %>
-<%@ include file="parts/navbar.jsp" %>
+<%@ include file="../parts/head.jsp" %>
+<%@ include file="../parts/navbar.jsp" %>
 <body>
 
 <div class="container mt-5 mb-3">
@@ -44,22 +45,22 @@
                     <small id="ageMessage" class="form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Password</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="pwd" name="password" value="<%= user.getPassword() %>" disabled>
-                    </div>
-                    <small id="pwdError" class="form-text text-danger"></small>
-                </div>
-                <div class="form-group">
                     <label for="phone">Numero di Telefono</label>
                     <div class="input-group">
                         <input type="text" class="form-control" id="phone" name="phone" value="<%= user.getPhone() %>" disabled>
                     </div>
                     <small id="phoneError" class="form-text text-danger"></small>
                 </div>
+                <div class="form-group">
+                    <label for="pwd">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="pwd" name="password" value="<%= user.getPassword() %>" disabled>
+                    </div>
+                    <small id="pwdError" class="form-text text-danger"></small>
+                </div>
                 <div class="text-right">
 				    <button type="button" id="editBtn" class="btn btn-success mt-3" style="background-color: #607244;">Modifica i Dati</button>
-				    <button type="submit" id="cancelBtn" class="btn btn-danger mt-3" style="display: none;">Annulla</button>
+				    <button type="button" id="cancelBtn" class="btn btn-danger mt-3" style="display: none;">Annulla</button>
 	                <button type="submit" id="saveBtn" class="btn btn-primary mt-3" style="display: none;">Salva i Dati</button>
 				</div>
             </form>
@@ -169,6 +170,6 @@
     }
 </script>
 
-<%@ include file="parts/footer.jsp" %>
+<%@ include file="../parts/footer.jsp" %>
 </body>
 </html>

@@ -8,7 +8,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Modifica Catalogo</title>
+<title>Modifica Catalogo Admin - Fratelli Muraca</title>
 </head> 
 <body>
 

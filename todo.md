@@ -63,6 +63,8 @@ non vanno mostrate. bisogna sempre passare dalle Control
 
 ## Funzionalità Aggiuntive
 
+PDF negli ordini
+
 8. **Preferiti**
    - Implementare una funzionalità che permetta agli utenti di aggiungere prodotti ai preferiti. (Gia' iniziata vedere FavoriteBean, FavoriteModel, FavoriteView e le due servlet)
 
@@ -84,3 +86,4 @@ non vanno mostrate. bisogna sempre passare dalle Control
 3. **Aggiornare pagina home**
   - inserire pulsante all'inzio per andare ai prodotti(shop.oliocirulli.com)
 4. **Fixare footer**
+fixare la distanza tra icona del carrello e numero

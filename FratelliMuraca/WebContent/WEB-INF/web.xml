@@ -23,13 +23,13 @@
   
   <servlet>
     <servlet-name>ImageServlet</servlet-name>
-    <servlet-class>control.ImageServlet</servlet-class>
+    <servlet-class>utilities.ImageServlet</servlet-class>
   </servlet>
 
   <!-- Configurazione della servlet EnvLoaderServlet -->
     <servlet>
         <servlet-name>EnvLoaderServlet</servlet-name>
-        <servlet-class>control.EnvLoaderServlet</servlet-class>
+        <servlet-class>utilities.EnvLoaderServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

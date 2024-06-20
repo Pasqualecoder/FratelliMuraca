@@ -1,24 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
 
 
-<%@ include file="init/cartinit.jsp" %>
+<%@ include file="../init/cartinit.jsp" %>
 
 
 <!DOCTYPE html>
 <html>
 <head><title>Login - Fratelli Muraca</title></head>
-<%@ include file="parts/head.jsp" %>
-<%@ include file="parts/navbar.jsp" %>
+<%@ include file="../parts/head.jsp" %>
+<%@ include file="../parts/navbar.jsp" %>
 <body>
 	<% 
 	// Se la creazione è andata a buon fine l'attributo creationState viene settato a true per far vedere un messaggio di successo
-	Boolean creationState = (Boolean) request.getAttribute("creationState");
+	String creationState = request.getParameter("creationState");
 	if(creationState != null) { 
-			if (creationState.booleanValue()) {%>
+			if (creationState.equals("success")) {%>
 				<div class="p-3 mb-2 bg-success text-white">Operazione completata con successo. Effettua l'accesso</div>
 			<%}
-			else {%>
+			else if (creationState.equals("failure")) {%>
 				<div class="p-3 mb-2 bg-danger text-white">Errore durante la creazione dell'account. Riprova più tardi</div>
+			<%}
+			else {%>
+				<div class="p-3 mb-2 bg-danger text-white">Errore non implementato</div>
 			<%}
 	 }
 	 
@@ -70,7 +73,7 @@
         </div>
     
         <!-- Submit button -->
-        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4"">Log in</button>
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-block mb-4">Log in</button>
     </form>
 
 
@@ -98,6 +101,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<%@ include file="parts/footer.jsp" %>
+<%@ include file="../parts/footer.jsp" %>
 </body>
 </html>

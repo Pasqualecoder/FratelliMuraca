@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
 
-<%@ include file="init/cartinit.jsp" %>
+<%@ include file="../init/cartinit.jsp" %>
 
 <!DOCTYPE html>
 <html>
-<%@ include file="parts/head.jsp" %>
+<%@ include file="../parts/head.jsp" %>
 
 <body>
 
-<%@ include file="parts/navbar.jsp" %>
+<%@ include file="../parts/navbar.jsp" %>
 
 <h1 class="font-italic text-center">Ultimi ordini</h1>
 <%
@@ -162,6 +162,6 @@ if (ordini == null || ordini.size() <= 0) {
 		</script>
 <%}		
 	} %>
-<%@ include file="parts/footer.jsp" %>
+<%@ include file="../parts/footer.jsp" %>
 </body>
 </html>

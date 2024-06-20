@@ -1,4 +1,4 @@
-<%@page import="control.StringEscapeUtil"%>
+<%@page import="utilities.StringEscapeUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
 
 

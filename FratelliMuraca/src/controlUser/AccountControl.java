@@ -1,4 +1,4 @@
-package control;
+package controlUser;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.CartControl;
 import model.CartBean;
 
 /**
@@ -32,7 +33,7 @@ public class AccountControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartControl.cartSetup(request, response);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AccountView.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/AccountView.jsp");
 		dispatcher.forward(request, response);
 	}
 

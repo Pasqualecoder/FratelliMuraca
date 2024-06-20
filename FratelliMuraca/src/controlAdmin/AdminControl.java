@@ -1,4 +1,4 @@
-package control;
+package controlAdmin;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,14 +36,16 @@ public class AdminControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String subfolder = "/AdminView/";
 		AdminBean adminBean = (AdminBean) request.getSession().getAttribute("admin");
 		if (adminBean == null) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/login.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(subfolder + "LoginView.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
 		
-		String redirect = "dashboard.jsp";
+		// se sei un admin
+		String redirect = "Dashboard.jsp";
 		String action = request.getParameter("action");
 		
 		if (action == null) {
@@ -53,7 +55,7 @@ public class AdminControl extends HttpServlet {
 			try {
 				Collection<ProductBean> prodotti = productModel.doRetrieveAllProducts(null);
 				request.setAttribute("prodotti", prodotti);
-				redirect = "catalogo.jsp";
+				redirect = "CatalogoView.jsp";
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -79,7 +81,7 @@ public class AdminControl extends HttpServlet {
 				} catch (NumberFormatException | SQLException e) {
 					e.printStackTrace();
 				}
-				redirect = "modifica.jsp";
+				redirect = "ModificaView.jsp";
 			}
 			else if(operazione.equals("deleteImage")) {
 				String img = request.getParameter("img");
@@ -92,16 +94,28 @@ public class AdminControl extends HttpServlet {
 				}
 				int img_id = Integer.parseInt(request.getParameter("img"));
 				try {
-					request.setAttribute("prodotto", productModel.doRetrieveProductByKey(Integer.parseInt(id_prodotto)));
 					productModel.doDeleteImage(img_id);
+					request.setAttribute("prodotto", productModel.doRetrieveProductByKey(Integer.parseInt(id_prodotto)));
 				} catch (NumberFormatException | SQLException e) {
 					e.printStackTrace();
 				}
-				redirect = "modifica.jsp";
+				redirect = "ModificaView.jsp";
+			}
+		}
+		else if(action.equals("modificaAdmin")){
+			try {
+				Collection <UserBean> adminList = adminModel.doRetrieveAllAdmins();
+				System.out.println(adminList);
+				System.out.println(adminBean);
+				request.setAttribute("adminList", adminList);
+				redirect = "ModificaAdmin.jsp";
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/" + redirect);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(subfolder + redirect);
 		dispatcher.forward(request, response);
 	}
 

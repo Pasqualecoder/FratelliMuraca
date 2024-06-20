@@ -35,8 +35,6 @@ public class UserBean implements Serializable {
 		this.phone = phone;
 	}
 	
-	
-	
 	public UserBean() {}
 
 	public int getId() {
