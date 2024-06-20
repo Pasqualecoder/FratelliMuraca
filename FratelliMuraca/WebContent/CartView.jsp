@@ -6,8 +6,8 @@
 
 <!DOCTYPE html>
 <html>
+<head><title>Carrello - Fratelli Muraca</title></head>
 <%@ include file="parts/head.jsp" %>
-
 <body>
 <%@ include file="parts/navbar.jsp" %>
 

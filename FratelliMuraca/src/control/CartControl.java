@@ -16,6 +16,7 @@ import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import model.CartBean;
 import model.OrderModel;
+import model.ProductBean;
 import model.ProductModel;
 import model.ProductModelDS;
 
@@ -40,6 +41,21 @@ public class CartControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cartAction(request, response);
+	
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
+	
+	public static void cartAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
 		if(cart == null) {
 			cart = new CartBean();
@@ -55,19 +71,30 @@ public class CartControl extends HttpServlet {
 					int id = Integer.parseInt(request.getParameter("id"));
 					int quantity = 1;
 					try {
-						quantity = Integer.parseInt(request.getParameter("quantity"));						
-					} catch (NumberFormatException e) {}
+						quantity = Integer.parseInt(request.getParameter("quantity"));
+					} catch (NumberFormatException e) {
+						quantity = 1;
+					}
 					
-					
-					for (int i = 0; i < quantity; i++)
-						cart.addProduct(productModel.doRetrieveProductByKey(id));
+					ProductBean toAdd = productModel.doRetrieveProductByKey(id);
+					if (toAdd != null) {
+						cart.addProduct(toAdd, quantity);							
+					} else {
+						response.sendError(HttpServletResponse.SC_NOT_FOUND, "Prodotto con id=" + id + " non trovato");
+						return;
+					}
 				} 
 				
 				// REMOVE FROM CART
-				
 				else if (action.equalsIgnoreCase("deleteC")) {
+					int quantity = 1;
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(productModel.doRetrieveProductByKey(id));
+					try {
+						quantity = Integer.parseInt(request.getParameter("quantity"));		
+					} catch (NumberFormatException e) {
+						quantity = 1;
+					}
+					cart.deleteProduct(productModel.doRetrieveProductByKey(id), quantity);					
 				}
 				
 				else if(action.equalsIgnoreCase("svuotaC")) {
@@ -76,26 +103,15 @@ public class CartControl extends HttpServlet {
 			}
 				
 		} catch (NumberFormatException e) { // errore nella conversione dell'id (l'utente ha provato a manomettere l'url)
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
-			dispatcher.forward(request, response);
+			response.sendError(HttpServletResponse.SC_FORBIDDEN, "id prodotto non valido");
+			return;
 		}
 		catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			e.printStackTrace();
 		}
 
 		request.getSession().setAttribute("cart", cart);
 		request.setAttribute("cart", cart);
-	
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

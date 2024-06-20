@@ -22,18 +22,39 @@ public class CartBean implements Serializable {
 	}
 	
 	public void addProduct(ProductBean nuovo) {
-		
+		if (nuovo == null) return;
         // Se il prodotto è già presente nel carrello, incrementa la sua quantità
         if (products.containsKey(nuovo)) {
             int quantity = products.get(nuovo);
-            products.put(nuovo, quantity + 1);
+            if (quantity < 99) {
+            	products.put(nuovo, quantity + 1);
+            }
         } else {
             // Se il prodotto non è presente nel carrello, aggiungilo con quantità 1
             products.put(nuovo, 1);
         }
 	}
 	
+	public void addProduct(ProductBean nuovo, int quantita) {
+		if (nuovo == null || quantita <= 0) return;
+		if (quantita >= 100 ) quantita = 99;
+		// Se il prodotto è già presente nel carrello, incrementa la sua quantità
+        if (products.containsKey(nuovo)) {
+            int quantitaPresente = products.get(nuovo);
+            if (quantitaPresente + quantita < 100) {
+            	products.put(nuovo, quantitaPresente + quantita);            	
+            }
+            else {
+            	products.put(nuovo, 99);
+            }
+        } else {
+            // Se il prodotto non è presente nel carrello, aggiungilo con quantità
+            products.put(nuovo, quantita);
+        }
+	}
+	
 	public void deleteProduct(ProductBean vecchio) {
+		if (vecchio == null) return;
         // Rimuovi il prodotto solo se è presente nel carrello
         if (products.containsKey(vecchio)) {
             int quantity = products.get(vecchio);
@@ -45,6 +66,20 @@ public class CartBean implements Serializable {
             }
         }
  	}
+	
+	public void deleteProduct(ProductBean vecchio, int quantita) {
+		if (vecchio == null || quantita <= 0) return;
+		if (products.containsKey(vecchio)) {
+			int quantityPrec = products.get(vecchio);
+			int diff = quantityPrec - quantita;
+			if (diff > 1) {
+				products.put(vecchio, diff);
+			}
+			else {
+				products.remove(vecchio);
+			}
+		}
+	}
 	
 	public int getQuantity(ProductBean product) {
 		// restituisce la quantità di quel prodotto nel carrello o 0 se non è presente

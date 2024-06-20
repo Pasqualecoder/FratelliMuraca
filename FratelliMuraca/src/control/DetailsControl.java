@@ -34,54 +34,23 @@ public class DetailsControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-
+		CartControl.cartAction(request, response);
+		
 		int id = -1;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
+			if (id <= 0) throw new NumberFormatException();
 		} catch (NumberFormatException e) {
-			// Determina che la risorsa richiesta non � stata trovata
-			response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404
-		    response.sendRedirect("error.jsp");
-		}
-
-		
-		String action = request.getParameter("action");
-		try {
-			if (action != null) {
-				// ADD TO CART
-				if (action.equalsIgnoreCase("addC")) {
-					int quantity = 1;
-					try {
-						quantity = Integer.parseInt(request.getParameter("quantity"));						
-					} catch (NumberFormatException e) {}
-					
-					
-					for (int i = 0; i < quantity; i++)
-						cart.addProduct(productModel.doRetrieveProductByKey(id));
-				} 
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, "errore id prodotto");
+			return;
 		}
 		
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
-		
-		
-		// IMPORTANTE
 		ProductBean prodotto = null;
 		try {
 			prodotto = productModel.doRetrieveProductByKey(id);
 			if (prodotto == null) {
-				// Determina che la risorsa richiesta non � stata trovata
-			    response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-			    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
-				dispatcher.forward(request, response);
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Prodotto con id=" + id + " non trovato");
+				return;
 			}
 			
 			request.removeAttribute("prodotto");

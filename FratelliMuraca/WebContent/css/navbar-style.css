@@ -1,0 +1,178 @@
+.navbar-nav .nav-link .fa-user fa-home {
+font-size: 1.5rem; /* Increase size */
+color: white; /* Color of the icon */
+}
+ 	body {
+ 		padding-top: 56px; /* Adjust this value based on the height of your navbar */
+}
+   .navbar {
+     background-color: #607244; /* Green background */
+ }
+   color: white !important; /* White text for links */
+ }
+ .navbar-brand:hover, .nav-link:hover {
+   color: #d4edda !important; /* Lighter green on hover */
+ }
+ /* Side panel styles */
+ .sidepanel {
+   height: 100%; /* Full-height */
+   width: 0; /* Initial width 0 */
+   position: fixed; /* Fixed side panel */
+   z-index: 1; /* Stay on top */
+   top: 0;
+   right: 0;
+   background-color: #607244; /* Green background */
+   overflow-x: hidden; /* Disable horizontal scroll */
+   transition: 0.5s; /* Smooth transition */
+   padding-top: 60px; /* Place content below the navbar */
+ }
+ .sidepanel a {
+   padding: 8px 8px 8px 32px;
+   text-decoration: none;
+   font-size: 25px;
+   color: white;
+   display: block;
+   transition: 0.3s;
+ }
+ .sidepanel a:hover {
+   color: yellow;
+   text-decoration: underline;
+ }
+ .sidepanel .closebtn {
+   position: absolute;
+   top: 0;
+   right: 25px;
+   font-size: 36px;
+ }
+ .sidepanel .form-control {
+   width: 80%; /* Control width */
+   margin: 10px 20px;
+ }
+ .sidepanel .btn {
+   margin: 10px 20px;
+ }
+ .navbar-toggler {
+   border-color: rgba(255, 255, 255, 0.1);
+ }
+ /* Badge styles */
+    .badge {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      color: white;
+    }
+    
+    .nav-link {
+    	color: white; !important
+    	text-decoration: none; !important
+    }
+    
+     .nav-link:hover {
+    	color: yellow; !important
+    	text-decoration: none; !important
+    }
+    
+    .nav-item {
+      position: relative;
+    }
+    
+    .nav-item::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      border-radius: 4px;
+      background-color: white;
+      bottom: 0;
+      left: 0;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform .3s ease-in-out;
+    }
+    
+    .nav-item:hover::before {
+      transform-origin: left;
+      transform: scaleX(1);
+    }
+    
+.search-results {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    display: none;
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer; /* Mostra il puntatore quando passi sopra il risultato di ricerca */
+ transition: background-color 0.3s; /* Animazione di sfondo al passaggio del mouse */
+}
+
+.search-result:hover {
+    background-color: #f0f0f0; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result:hover {
+    background-color: #f0f0f0;
+}
+
+.product-image {
+    width: 80px; /* Larghezza desiderata per l'immagine */
+    height: auto;
+    border-radius: 4px;
+    margin-right: 10px;
+    
+}
+
+.product-name {
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 5px; /* Spazio inferiore tra nome del prodotto e prezzo */
+}
+
+.product-price {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+
+/* Mostra il div quando ci sono risultati di ricerca */
+.search-results.active {
+    display: block;
+}
+
+.user-dropdown {
+    display: none; /* Initially hide the dropdown */
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.user-dropdown a {
+    color: #000;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown a:hover {
+    background-color: #f1f1f1;
+}

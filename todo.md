@@ -3,9 +3,10 @@
 TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 
 mettere un filtro per tutte le pagine .JSP
-non vanno mostrate. bisogna sempre passare dalle control
+non vanno mostrate. bisogna sempre passare dalle Control
 
-gestire meglio le redirect a 404
+# Testare le vulnerabilita' di Spike
+
 
 ## Implementazione Account e Pagina Amministratore
 
@@ -57,6 +58,8 @@ gestire meglio le redirect a 404
 
 # Sicurezza
 1. **Non Permettere ad un utente loggato di accedere alla pagina di login e register**
+2. **Rimuovere le info di debug da error.jsp**
+3. **Nascondere le pagine di errore di default sempre per nascondere le info di debug**
 
 ## Funzionalità Aggiuntive
 

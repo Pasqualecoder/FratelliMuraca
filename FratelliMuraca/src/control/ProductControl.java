@@ -29,50 +29,8 @@ public class ProductControl extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		CartBean cart = (CartBean) request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new CartBean();
-			request.getSession().setAttribute("cart", cart);
-		}
-		
-		String action = request.getParameter("action");
-
-		try {
-			if (action != null) {
-				// ADD TO CART
-				if (action.equalsIgnoreCase("addC")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					int quantity = 1;
-					try {
-						quantity = Integer.parseInt(request.getParameter("quantity"));						
-					} catch (NumberFormatException e) {}
-					
-					
-					for (int i = 0; i < quantity; i++)
-						cart.addProduct(productModel.doRetrieveProductByKey(id));
-				} 
-				
-				// REMOVE FROM CART
-				else if (action.equalsIgnoreCase("deleteC")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(productModel.doRetrieveProductByKey(id));
-				}
-			}		
-		} catch (NumberFormatException e) { // errore nella conversione dell'id (l'utente ha provato a manomettere l'url)
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
-		    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
-			dispatcher.forward(request, response);
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CartControl.cartAction(request, response);		
 		
 		String sort = request.getParameter("sort");
 

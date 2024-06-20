@@ -35,9 +35,58 @@
 
   <!---->
     
-  
-  <error-page>
-    <error-code>404</error-code> 
-    <location>/error.jsp</location>
-  </error-page>
+	<!-- Errore 400: Richiesta non valida (Bad Request) -->
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Errore 401: Non autorizzato (Unauthorized) -->
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Errore 403: Accesso vietato (Forbidden) -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Errore 404: Risorsa non trovata (Not Found) -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Errore 418: I'm a teapot -->
+    <error-page>
+        <error-code>418</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Errore 500: Errore interno del server (Internal Server Error) -->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Errore 502: Gateway errato (Bad Gateway) -->
+    <error-page>
+        <error-code>502</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Errore 503: Servizio non disponibile (Service Unavailable) -->
+    <error-page>
+        <error-code>503</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <!-- Eccezioni generiche: Tutti i tipi di eccezioni Java non catturate -->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+	
 </web-app>
