@@ -51,6 +51,7 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 # Pagina Registrazione/Login
 
 # Sicurezza
+1. **Content-Security Policy**
 2. **Rimuovere le info di debug da error.jsp**
 3. **Nascondere le pagine di errore di default sempre per nascondere le info di debug**
 
