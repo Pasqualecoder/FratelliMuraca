@@ -1,4 +1,4 @@
-package controlUser;
+	package controlUser;
 
 import model.*;
 import java.io.IOException;
@@ -76,18 +76,17 @@ public class RegisterUser extends HttpServlet {
         }
 		
         UserBean user = new UserBean(email, password, nome, cognome, ddn, telefono);
-        System.out.println(user);
+        String creationState;
         try {
         	userModel.doSaveUser(user);
         	// Reindirizza alla pagina del profilo utente in caso di successo
-            request.setAttribute("creationState", true);
+        	creationState = "success";
         } catch (SQLException e) {
-        	request.setAttribute("creationState", false);
+        	creationState = "failure";
         	e.printStackTrace();
         }
         	
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/LoginView.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/login?creationState=" + creationState);
 	}
 	
 	private static String encryptPassword(String psw) {

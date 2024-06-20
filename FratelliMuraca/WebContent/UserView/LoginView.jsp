@@ -12,13 +12,16 @@
 <body>
 	<% 
 	// Se la creazione è andata a buon fine l'attributo creationState viene settato a true per far vedere un messaggio di successo
-	Boolean creationState = (Boolean) request.getAttribute("creationState");
+	String creationState = request.getParameter("creationState");
 	if(creationState != null) { 
-			if (creationState.booleanValue()) {%>
+			if (creationState.equals("success")) {%>
 				<div class="p-3 mb-2 bg-success text-white">Operazione completata con successo. Effettua l'accesso</div>
 			<%}
-			else {%>
+			else if (creationState.equals("failure")) {%>
 				<div class="p-3 mb-2 bg-danger text-white">Errore durante la creazione dell'account. Riprova più tardi</div>
+			<%}
+			else {%>
+				<div class="p-3 mb-2 bg-danger text-white">Errore non implementato</div>
 			<%}
 	 }
 	 

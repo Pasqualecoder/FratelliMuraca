@@ -86,8 +86,7 @@ public class EditUserControl extends HttpServlet {
 			}
 		}
 		
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/ProductView.jsp");
-			dispatcher.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/account");
 		}
 
 	

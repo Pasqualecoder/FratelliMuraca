@@ -180,7 +180,6 @@ function checkEmail() {
 	if (email.length === 0) {
         return;
     }
-	console.log(email);
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', 'verify?email=' + encodeURIComponent(email), true)
