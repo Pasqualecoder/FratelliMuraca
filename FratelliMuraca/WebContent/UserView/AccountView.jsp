@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html>
+<head><title>Account - Fratelli Muraca</title></head>
 <% UserBean user = (UserBean)session.getAttribute("user"); %>
 <%@ include file="../parts/head.jsp" %>
 <%@ include file="../parts/navbar.jsp" %>

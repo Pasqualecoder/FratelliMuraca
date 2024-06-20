@@ -37,8 +37,20 @@ public class LoginUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CartControl.cartSetup(request, response);
 		
+		response.sendError(HttpServletResponse.SC_NOT_FOUND, "muori");
+		return;
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/UserView/LoginView.jsp");
 		dispatcher.forward(request, response);
+		*/
 	}
 
 	/**

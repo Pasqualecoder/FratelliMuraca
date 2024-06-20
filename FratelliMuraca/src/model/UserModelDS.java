@@ -48,6 +48,8 @@ public class UserModelDS implements UserModel {
 				+ " (email, password, nome, cognome, ddn, phone) " 
 				+ "VALUES (?, SHA2(?, 256), ?, ?, ?, ?)";
 
+		System.out.println(user.getDdn());
+		
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);

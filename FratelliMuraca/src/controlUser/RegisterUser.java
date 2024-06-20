@@ -79,7 +79,6 @@ public class RegisterUser extends HttpServlet {
         String creationState;
         try {
         	userModel.doSaveUser(user);
-        	// Reindirizza alla pagina del profilo utente in caso di successo
         	creationState = "success";
         } catch (SQLException e) {
         	creationState = "failure";
