@@ -14,6 +14,10 @@
 </div>
 <div class="central-container" id="dashboard-container">
 	<a class="go-back" href="admin">&#171 Dashboard</a>
+
+	<body>
+	<h2> Gestione admin </h2>
+	<p> lista degli admin </p>
 	<table border="1">
 	    <tr>
 	        <th>Id</th>
@@ -38,6 +42,19 @@
 <!-- 1 mostrare gli admin
  recuperarli dal bean
  fare una ul e mostrarla schermo -->
+	
+	<h2>Aggiungi un nuovo admin</h2>
+	<form action="admin/addAdmin" method="post">
+	    <label for="username">Username:</label>
+	    <input type="text" id="username" name="username" required>
+	    <label for="password">Password:</label>
+	    <input type="password" id="password" name="password" required>
+	    <button type="submit">Aggiungi Admin</button>
+	</form>
+	
+	<!-- 1 mostrare gli admin
+	 recuperarli dal bean
+	 fare una ul e mostrarla schermo -->
 
 </body>
 </html>
