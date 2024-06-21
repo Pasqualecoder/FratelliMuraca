@@ -11,12 +11,11 @@
 <body>
 <form action="admin" method="POST">
 
-<div class="login-container" id="login-container">
-        <div class="login-header" id="login-header">
-            <span class="header-text">Login</span>
-        </div>
-        <div class="login-body">
-            <form>
+<div class="login-container central-container">
+       	<div class="container-title">
+        Login
+    	</div>
+        
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username">
@@ -26,10 +25,8 @@
                     <input type="password" id="password" name="password">
                 </div>
                 <button type="submit" class="login-button">Login</button>
-            </form>
-        </div>
+        
     </div>
 </form>
-    <script src="./js/admin-script.js"></script>
 </body>
 </html>

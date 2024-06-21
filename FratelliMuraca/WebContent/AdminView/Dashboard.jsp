@@ -11,19 +11,15 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
 <title>Dashboard Admin - Fratelli Muraca</title>
 </head>
 <body>
-<div class="central-container" id="dashboard-container">
-    <div class="page-title">
-        Benvenuto <%= admin.getUsername() %>
+<div class="dashboard-container central-container">
+    <div class="container-title">
+        Benvenuto
     </div>
-    <div id="action-section">
-
-        <ul class="action-links">
-            <% if (admin.getId() == 1) { %>
-                <li><a href="./admin?action=modificaAdmin">Gestione admin</a></li>
-            <% } %>
-            <li><a href="./admin?action=catalogo">Gestione catalogo</a></li>
-            <li><a href="logout"><b>Logout</b></a></li>
-        </ul>
+    <ul>
+    	<li><a href="#">Opzione 1</a></li>
+    	<li><a href="#">Opzione 1</a></li>
+    	<li><a href="#" id="logout-link">Log Out</a></li>
+    </ul>
     </div>
 </div>
 </body>

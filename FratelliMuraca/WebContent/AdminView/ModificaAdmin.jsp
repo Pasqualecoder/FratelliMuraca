@@ -9,12 +9,12 @@
 <title>Gestisci Admin - Fratelli Muraca</title>
 </head>
 <body>
-<div class="page-title">
-    Gestione Admin
-</div>
-<div class="central-container" id="dashboard-container">
+<div class="central-container admin-manager-container">
+	<div class="container-title">
+	    Gestione Admin
+	</div>
 	<a class="go-back" href="admin">&#171 Dashboard</a>
-	<table border="1">
+	<table>
 	    <tr>
 	        <th>Id</th>
 	        <th>User</th>
@@ -35,9 +35,5 @@
 	    } %>
 	</table>
 </div>
-<!-- 1 mostrare gli admin
- recuperarli dal bean
- fare una ul e mostrarla schermo -->
-
 </body>
 </html>
