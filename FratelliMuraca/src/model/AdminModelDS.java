@@ -187,7 +187,8 @@ public class AdminModelDS implements AdminModel {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		int id = (adminDaRimuovere.getId());
-
+		if(id <= 1) {return;} //controllo id invalidi
+		
 		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
 		try {
 			connection = ds.getConnection();
@@ -216,7 +217,7 @@ public class AdminModelDS implements AdminModel {
 			return; //controllo stringa
 		}
 		int id = Integer.parseInt(idAdminDaRimuovere);
-
+		if(id <= 1) {return;} //controllo id invalidi
 		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
 		try {
 			connection = ds.getConnection();
