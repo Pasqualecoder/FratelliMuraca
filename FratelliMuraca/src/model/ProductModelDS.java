@@ -351,6 +351,44 @@ public class ProductModelDS implements ProductModel {
 		return imageData;
 	}
 	
+	@Override
+	public synchronized void doUpdateProduct(ProductBean product) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		
+		String insertSQL = "UPDATE " + TABLE_NAME + " SET nome = ?, descrizione = ?, prezzo = ?, sale_perc = ?, iva_perc = ?, quantita = ?, dimensione = ?, tipo = ?, categoria = ?, anno = ?, ingredienti = ?, WHERE id = ?"; 
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, product.getNome());
+			preparedStatement.setString(2, product.getDescrizione());
+			preparedStatement.setFloat(3, product.getPrezzoNetto());
+			preparedStatement.setInt(4, product.getSalePerc());
+			preparedStatement.setInt(5, product.getIvaPerc());
+			preparedStatement.setInt(6, product.getQuantita());
+			preparedStatement.setString(7, product.getDimensione());
+			preparedStatement.setBoolean(8, product.getTipo());
+			preparedStatement.setString(9, product.getCategoria().toString());
+			preparedStatement.setString(10, product.getAnno());
+			preparedStatement.setString(11, product.getIngredienti());
+			preparedStatement.setInt(12, product.getId());
+
+			preparedStatement.executeUpdate();
+			connection.commit();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+	
 	
 	private synchronized void doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException {
 		if (immagini == null || immagini.size() == 0) {
@@ -428,5 +466,6 @@ public class ProductModelDS implements ProductModel {
 		}
 		
 	}
+	
 	
 }

@@ -38,6 +38,8 @@ public interface ProductModel {
 	public Collection<ProductBean> doRetrieveAllProducts(String order) throws SQLException;
 
 	
+	public void doUpdateProduct(ProductBean product) throws SQLException;
+	
 	
 	public byte[] doRetrieveImage(int imgId) throws SQLException;
 	
@@ -45,6 +47,7 @@ public interface ProductModel {
 	public void doDelete(String id) throws SQLException;
 	
 	public void doDeleteImage(int id) throws SQLException;
+	
 	
 	
 	// private LinkedList<ImageBean> doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException; 
