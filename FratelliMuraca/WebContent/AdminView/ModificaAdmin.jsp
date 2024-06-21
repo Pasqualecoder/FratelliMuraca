@@ -10,15 +10,28 @@
 <body>
 <h2> Gestione admin </h2>
 <p> lista degli admin </p>
-
-<% if(adminList != null && !adminList.isEmpty())
-	{
-	for(AdminBean externalAdmin : adminList)
-		{%>
-			<p> <%= externalAdmin %></p>
-		<%}
-	}
-%>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Password</th>
+        <th>Action</th>
+    </tr>
+    <% if (adminList != null && !adminList.isEmpty()) {
+        for (AdminBean externalAdmin : adminList) {
+            String actionLink = (externalAdmin.getId() != 1) 
+                                ? "<a href='removeAdmin.jsp?id=" + externalAdmin.getId() + "'>Rimuovi</a>" 
+                                : "";
+    %>
+    <tr>
+        <td><%= externalAdmin.getId() %></td>
+        <td><%= externalAdmin.getUsername() %></td>
+        <td><%= externalAdmin.getPassword() %></td>
+        <td><%= actionLink %></td>
+    </tr>
+    <% }
+    } %>
+</table>
 <!-- 1 mostrare gli admin
  recuperarli dal bean
  fare una ul e mostrarla schermo -->
