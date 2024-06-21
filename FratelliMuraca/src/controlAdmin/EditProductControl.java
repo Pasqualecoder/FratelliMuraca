@@ -1,13 +1,18 @@
 package controlAdmin;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import model.*;
 
 /**
@@ -53,11 +58,48 @@ public class EditProductControl extends HttpServlet {
         ProductCategorie categoria = ProductCategorie.fromString(request.getParameter("categoria"));
         String anno = request.getParameter("anno");
         String ingredienti = request.getParameter("ingredienti");
+        
+        List<Integer> productImagesIds =new LinkedList<Integer>();
+        
 		
 		ProductBean nuovoProdotto = new ProductBean(id, nome, descrizione, prezzo, iva, sconto, quantita, dimensione, tipo, categoria, anno, ingredienti, null);		
 		
-		// TODO: gestione immagini @PASKU
 		
+		
+		// TODO: gestione immagini @PASKU
+		try {
+			productImagesIds = productModel.doRetrieveImagesKey(id);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(Integer idImg : productImagesIds) {
+			/* ME SERVE IMAGEBEAN */
+		}
+		
+		/* AGGIUNGERE ANCHE LE FOTO AGGIUNTE SE CI SONO CON
+		 * List<ImageBean> images = new LinkedList<>();
+            for (Part part : request.getParts()) {
+                if ("foto[]".equals(part.getName()) && part.getSize() > 0) {
+                    try {
+                        InputStream inputStream = part.getInputStream();
+                        byte[] dati = convertInputStreamToByteArray(inputStream);
+
+                        ImageBean imageBean = new ImageBean();
+                        imageBean.setDati(dati);
+
+                        images.add(imageBean);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+		 */
+		
+		/* AGGIUNGERE LE FOTO AL PRODUCTBEAN E UPDATARE QUELLO VECCHIO */
+		/* BORDELLO NON SO COME FUNZIONA LA GESTIONE DELLE IMMAGINI */
 		try {
 			productModel.doUpdateProduct(nuovoProdotto);
 		} catch (SQLException e) {
