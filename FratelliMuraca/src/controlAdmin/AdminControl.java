@@ -103,14 +103,28 @@ public class AdminControl extends HttpServlet {
 		}
 		else if(action.equals("modificaAdmin")){
 			try {
-				Collection <AdminBean> adminList = adminModel.doRetrieveAllAdmins();
-				
-				// cancellaci quando hai finito di debuggare
-				System.out.println(adminList); 
-				System.out.println(adminBean);
-
-				request.setAttribute("adminList", adminList);
 				redirect = "ModificaAdmin.jsp";
+				
+				String opModifica = request.getParameter("op");
+				String id = request.getParameter("id");
+				
+				
+				if(opModifica != null){
+					if( (id != null) && opModifica.equals("remove")){
+						System.out.println("db cancella admin id = " + id);
+						
+						adminModel.doDeleteAdminById(id);
+					}
+					/*
+					else if(opModifica.equals("aggiungi"))
+					{
+						System.out.println("db aggiungi admin");
+					}*/
+				}
+				
+				//importante, dopo if sennò non carica l'update
+				Collection <AdminBean> adminList  = (Collection<AdminBean>) adminModel.doRetrieveAllAdmins();
+				request.setAttribute("adminList", adminList);
 			}
 			catch (SQLException e) {
 				e.printStackTrace();

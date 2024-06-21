@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
@@ -77,7 +78,7 @@ public class AdminModelDS implements AdminModel {
 
 
 	@Override
-	public void doSaveUser(AdminBean admin) throws SQLException {
+	public synchronized void doSaveAdmin(AdminBean admin) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -107,15 +108,15 @@ public class AdminModelDS implements AdminModel {
 
 
 	@Override
-	public void doChangeAdmin(AdminBean adminNuovo) throws SQLException {
+	public synchronized void doChangeAdmin(AdminBean adminNuovo) throws SQLException {
 		// TODO: Implementare la logica per cambiare i dettagli dell'amministratore.
 
-	    // Per ora, lancia un'eccezione specifica per indicare che il metodo non è implementato.
-	    throw new UnsupportedOperationException("Il metodo AdminModelDS.doChangeAdmin() non è ancora implementato.");
+	    // Per ora, lancia un'eccezione specifica per indicare che il metodo non ï¿½ implementato.
+	    throw new UnsupportedOperationException("Il metodo AdminModelDS.doChangeAdmin() non ï¿½ ancora implementato.");
 	}
 
 	@Override
-	public Collection<AdminBean> doRetrieveAllAdmins() throws SQLException {
+	public synchronized Collection<AdminBean> doRetrieveAllAdmins() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -148,7 +149,7 @@ public class AdminModelDS implements AdminModel {
 
 
 	@Override
-	public AdminBean doRetrieveAdmin(int code) throws SQLException {
+	public synchronized AdminBean doRetrieveAdmin(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -180,5 +181,95 @@ public class AdminModelDS implements AdminModel {
 		
 		return bean;
 	}
+	
+	@Override
+	public synchronized void doDeleteAdmin(AdminBean adminDaRimuovere) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int id = (adminDaRimuovere.getId());
+
+		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, id);
+
+			preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}	
+	}
+	
+	@Override
+	public synchronized void doDeleteAdminById(String idAdminDaRimuovere) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		if(idAdminDaRimuovere == null || idAdminDaRimuovere.isEmpty())
+		{
+			return; //controllo stringa
+		}
+		int id = Integer.parseInt(idAdminDaRimuovere);
+
+		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, id);
+
+			preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}	
+	}
+	
+	@Override
+	public synchronized void doAddAdmin(AdminBean adminDaAggiungere) throws SQLException{
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    int id;
+	    String insertSQL = "INSERT INTO " + TABLE_NAME
+	            + " (username, password) "
+	            + "VALUES (?, SHA2(?,256))";
+
+	    try {
+	        // Ottieni la connessione dal datasource
+	        connection = ds.getConnection();
+
+	        // Imposta i parametri del PreparedStatement
+	        preparedStatement.setString(1, adminDaAggiungere.getUsername());
+	        preparedStatement.setString(2, adminDaAggiungere.getPassword());
+
+	        // Inserimento admin
+	        preparedStatement.executeUpdate();
+
+	        // Conferma la transazione
+	        // connection.commit();
+	    }
+	    finally {
+	    	try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                if (connection != null)
+                    connection.close();
+            }
+	    }
+	}
+	
 
 }

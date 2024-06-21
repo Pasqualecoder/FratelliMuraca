@@ -16,7 +16,7 @@ public interface UserModel {
 	/**
 	 * per il login
 	 * @param email
-	 * @param password DEVE GIà ESSERE CIFRATA
+	 * @param password DEVE GIï¿½ ESSERE CIFRATA
 	 * @return
 	 * @throws SQLException
 	 */
@@ -29,16 +29,40 @@ public interface UserModel {
 	 */
 	public void doChangeUser(UserBean userNuovo) throws SQLException;
 	
-	
+	/**
+	 * cambia dettagli utente senza modfiica la password
+	 * @return null
+	 * @throws SQLException
+	 */
 	public void doChangeUserNoPwd(UserBean userNuovo) throws SQLException;
 	
 	/**
-	 * restituisce tutte le email. utilizzato in Ajax durante la registrazione per dire se l'email è stata già utilizzata
+	 * restituisce tutte le email. utilizzato in Ajax durante la registrazione per dire se l'email ï¿½ stata giï¿½ utilizzata
 	 * @return
 	 * @throws SQLException
 	 */
 	public Collection<String> doRetrieveAllEmail() throws SQLException;
 	
-	
+	/**
+	 * restituisce una collection di tutti gli user presenti nel db
+	 * @return Collection<UserBean>
+	 * @throws SQLException
+	 */
 	public Collection<UserBean> doRetrieveAllUsers() throws SQLException;
+	
+	/**
+	 * rimuove l'user scelto
+	 * @return null
+	 * @throws SQLException
+	 */
+	public void doDeleteUser(UserBean userDaRimuovere) throws SQLException;
+	
+	/*
+	/**
+	 * aggiunge l'user scelto
+	 * @return null
+	 * @throws SQLException
+	 */
+	//public void doDeleteUser(UserBean userDaAggiungere) throws SQLException;
+	
 }

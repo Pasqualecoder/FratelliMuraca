@@ -236,7 +236,68 @@ public class UserModelDS implements UserModel {
 		}
 		
 		return users;
-	
-	
 	}
+	
+	@Override
+	public synchronized void doDeleteUser(UserBean userDaRimuovere) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int id = (userDaRimuovere.getId());
+
+		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, id);
+
+			preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}		
+	}
+	
+	/*
+	@Override
+	public synchronized void doAddUser(UserBean UserDaAggiungere) throws SQLException{
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    int id;
+	    String insertSQL = "INSERT INTO " + TABLE_NAME
+	            + " (username, password) "
+	            + "VALUES (?, SHA2(?,256))";
+
+	    try {
+	        // Ottieni la connessione dal datasource
+	        connection = ds.getConnection();
+
+	        // Imposta i parametri del PreparedStatement
+	        preparedStatement.setString(1, adminDaAggiungere.getUsername());
+	        preparedStatement.setString(2, adminDaAggiungere.getPassword());
+
+	        // Inserimento admin
+	        preparedStatement.executeUpdate();
+
+	        // Conferma la transazione
+	        // connection.commit();
+	    }
+	    finally {
+	    	try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                if (connection != null)
+                    connection.close();
+            }
+	    }
+	}
+	*/
+	
 }
