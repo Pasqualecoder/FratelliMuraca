@@ -18,7 +18,6 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 					se non loggato (reindirizza)-> admin/login.jsp
 					se loggato
 						if ?action="catalogo" -> admin/catalogo dove si può modificare o eliminare
-						if ?action="users" -> admin/manageUsers.jsp visualizzare gli utenti
 						if ?action="orders" -> admin/orders.jsp visualizzare gli ordini e modificare lo stato
 					
    - **Gestione Catalogo**
