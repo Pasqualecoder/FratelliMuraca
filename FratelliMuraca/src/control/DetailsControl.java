@@ -21,6 +21,7 @@ public class DetailsControl extends HttpServlet {
     
 	static ProductModel productModel = new ProductModelDS();
 	static OrderModel orderModel = new OrderModelDS();
+	static ReviewModel reviewModel = new ReviewModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -59,6 +60,14 @@ public class DetailsControl extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		// caricamento recensioni
+		try {
+			LinkedList<ReviewBean> listaRecensioni = (LinkedList<ReviewBean>) reviewModel.doRetriveReviewsByProd(prodotto.getId());
+			request.setAttribute("listaRecensioni", listaRecensioni);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 		// sezione per l'abilitazione al commento
 		/* 
@@ -93,7 +102,7 @@ public class DetailsControl extends HttpServlet {
 	 * @param prodotto
 	 * @return
 	 */
-	private boolean checkBought(UserBean user, ProductBean prodotto) {
+	public static boolean checkBought(UserBean user, ProductBean prodotto) {
 		LinkedList<OrderBean> listaOrdini = null;
 		try {
 			listaOrdini = (LinkedList<OrderBean>) orderModel.doRetrieveOrders(user);			

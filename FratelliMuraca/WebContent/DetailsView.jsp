@@ -5,6 +5,13 @@
 <%
 // inizializzo l'unico prodotto di cui si vogliono vedere le info
 ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
+
+UserBean user = (UserBean)session.getAttribute("user");
+Boolean canCommentBool = (Boolean) request.getAttribute("canComment"); // dont use me 
+boolean canComment = (canCommentBool != null) ? canCommentBool.booleanValue() : false; // use me
+
+LinkedList<ReviewBean> listaRecensioni = (LinkedList<ReviewBean>) request.getAttribute("listaRecensioni");
+if (listaRecensioni == null) listaRecensioni = new LinkedList<ReviewBean>();
 %>
 
 <!DOCTYPE html>
@@ -16,6 +23,32 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
 
 <body>
 <%@ include file="parts/navbar.jsp" %>
+
+
+<%
+String opStatus = request.getParameter("status");
+
+// NESSUNA OPERAZIONE EFFETTUATA
+if (opStatus == null) {
+%>
+<%
+	}
+
+// OPERAZIONE ANDATA A BUON FINE
+else if (opStatus.equals("success")) {
+%>
+	<div class="p-3 mb-2 bg-success text-white">Commento inserito correttamente</div>
+<%
+	}
+
+else if (opStatus.equals("failure")) {
+%>
+	<div class="p-3 mb-2 bg-danger text-white">Errore durante l'inserimento del commento</div>
+<%
+	}
+%>
+
+
 
 <!-- layout orizzontale -->
 <div class="container mt-5">
@@ -104,33 +137,32 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
     
     
     
-    
-    
     <div class="container mt-5 mb-4" id="review-panel">
     	<div class="card p-3">
-        <form id="review-panel">
-            <% 
-			    UserBean user = (UserBean)session.getAttribute("user");
-            	Boolean canCommentBool = (Boolean) request.getAttribute("canComment"); // dont use me 
-            	boolean canComment = (canCommentBool != null) ? canCommentBool.booleanValue() : false; // use me
-            	if (canComment) {
-			    %>
-				    <h1 class="text-success">SEI AUTORIZZATO A COMMENTARE</h1>
-            		<p>metti qui tutto il codice per commentare con il form e la roba</p>
-            		
-            		
-            	<%}
-            	else {%>
-            		<h1 class="text-danger">rip non puoi commentare :-( <%= (user == null) ? "Entra" : "Acquista il prodotto"%> </h1>
-            		<p>fai che non si riesca a scrivere nell'input box (è sempre necessario fare il controllo backend 
-            		se l'utente puo effettivamente scrivere il commento perché il frontend può essere manomesso facilmente)</p>
-            	<%}
-            %>
+    	<% 
+           	if (canComment) {
+		    %>
+			    <h4 class="font-weight-light font-italic text-success">Scrivi la tua recensione a <%= prodotto.getNome() %></h4>
+           	<%}
+           	else {%>
+           		<h4 class="font-weight-light font-italic text-danger">
+           		<% if (user == null) {%>
+          			Devi effettuare il login per commentare <a class="font-italic" style="text-decoration: underline;" href="login">Entra Subito!</a>           			
+           		<% }
+           		   else {%>
+        			Devi aver acquistato il prodotto per commentare
+           			
+           		   <% }%>
+           		</h4>
+           	<%}
+           %>
+        <form id="review-panel" class="<%= canComment ? "" : "blur-effect" %>" action="<%= canComment ? "addReview" : "" %>" method="POST">
+            <input type="hidden" name="idProdotto" value="<%= prodotto.getId() %>">
             
 			<br>
             <!-- Star Rating -->
             <div class="mb-3">
-                <label class="form-label">Valutazione</label>
+                <label class="form-label" style="margin: 0px">Valutazione</label>
                 <div class="star-rating">
                     <input id="star5" name="rating" type="radio" value="5">
                     <label for="star5" title="5 stelle">&#9733;</label>
@@ -146,15 +178,24 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
                 
             </div>
             
+			<!-- Textbox per il titolo della recensione -->
+            <div class="mb-3">
+                <label for="reviewTitle" class="form-label">Titolo</label>
+                <input name="title" type="text" class="form-control" id="reviewTitle" maxlength="100" placeholder="Scrivi il titolo..." <%= canComment ? "" : "disabled" %>>
+                <small id="charCountTitle" class="form-text text-muted">Max 100 caratteri.</small>
+            </div>
 
             <!-- Textbox per il contenuto della recensione -->
             <div class="mb-3">
                 <label for="reviewContent" class="form-label">Recensione</label>
-                <textarea class="form-control" id="reviewContent" rows="3" placeholder="Scrivi la tua recensione qui..."></textarea>
+                <textarea name="content" class="form-control" id="reviewContent" maxlength="800" rows="3" placeholder="Scrivi la tua recensione qui..." <%= canComment ? "" : "disabled" %>></textarea>
+                <small id="charCountContent" class="form-text text-muted">Max 800 caratteri.</small>
             </div>
 
+			<% if (canComment) { %>
             <!-- Pulsante di invio -->
-            <button type="submit" class="btn btn-primary" style="background-color: #5f720f;">Invia Recensione</button>
+            <button type="submit" class="btn btn-success">Invia Recensione</button>
+			<% } %>
         </form>
         </div>
     </div>
@@ -164,127 +205,82 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
   
   <div class="container">
     <div id="reviews" class="review-section">
+	<% if (listaRecensioni.size() > 0) {%>
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h4 class="m-0">4 Reviews</h4>
+            <h4 class="m-0 font-italic"><%= listaRecensioni.size() %> Recensioni</h4>
         </div>
-
+		
         <div class="review-list">
             <ul>
-                <!-- Review 1 -->
-                <li>
+		<% for (ReviewBean recensione : listaRecensioni) {%>
+			<li>
                     <div class="d-flex">
                         <div class="left">
                             <span>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="profile-pict-img img-fluid" alt="" />
+                                <img src="https://bootdey.com/img/Content/avatar/avatar<%= (recensione.getUser().getId() % 9) + 1 %>.png" class="profile-pict-img img-fluid" alt="imgUser" />
                             </span>
                         </div>
                         <div class="right">
-                            <h4>Askbootstrap
+                            <h4><%= recensione.getTitolo() %>
                                 <span class="gig-rating text-body-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
                                         <path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path>
-                                    </svg> 5.0
+                                    </svg> <%= recensione.getRating() %>
                                 </span>
                             </h4>
                             <div class="review-description">
                                 <p>
-                                    The process was smooth, after providing the required info, Pragyesh sent me an outstanding packet of wireframes. Thank you a lot!
+                                    <%= recensione.getContent() %>
                                 </p>
                             </div>
-                            <span class="publish py-3 d-inline-block w-100">Published 4 weeks ago</span>
+                            <span class="publish py-3 d-inline-block w-100"><%= recensione.getUser().getNome() %> <%= recensione.getDate() %></span>
                         </div>
                     </div>
                 </li>
                 <hr>
-
-                <!-- Review 2 -->
-                <li>
-                    <div class="d-flex">
-                        <div class="left">
-                            <span>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="profile-pict-img img-fluid" alt="" />
-                            </span>
-                        </div>
-                        <div class="right">
-                            <h4>Jane Doe
-                                <span class="gig-rating text-body-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
-                                        <path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path>
-                                    </svg> 4.0
-                                </span>
-                            </h4>
-                            <div class="review-description">
-                                <p>
-                                    I received quick and efficient service. The quality was good but could use some improvements. Overall, a positive experience.
-                                </p>
-                            </div>
-                            <span class="publish py-3 d-inline-block w-100">Published 2 weeks ago</span>
-                        </div>
-                    </div>
-                </li>
-                <hr>
-
-                <!-- Review 3 -->
-                <li>
-                    <div class="d-flex">
-                        <div class="left">
-                            <span>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="profile-pict-img img-fluid" alt="" />
-                            </span>
-                        </div>
-                        <div class="right">
-                            <h4>John Smith
-                                <span class="gig-rating text-body-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
-                                        <path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path>
-                                    </svg> 3.0
-                                </span>
-                            </h4>
-                            <div class="review-description">
-                                <p>
-                                    The service was average. It took longer than expected to get the final product, and there were some issues with the initial design.
-                                </p>
-                            </div>
-                            <span class="publish py-3 d-inline-block w-100">Published 1 week ago</span>
-                        </div>
-                    </div>
-                </li>
-                <hr>
-
-                <!-- Additional Review -->
-                <li>
-                    <div class="d-flex">
-                        <div class="left">
-                            <span>
-                                <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="profile-pict-img img-fluid" alt="" />
-                            </span>
-                        </div>
-                        <div class="right">
-                            <h4>Mary Johnson
-                                <span class="gig-rating text-body-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
-                                        <path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path>
-                                    </svg> 4.5
-                                </span>
-                            </h4>
-                            <div class="review-description">
-                                <p>
-                                    Excellent service overall. The communication was clear, and the final product exceeded my expectations. Highly recommended!
-                                </p>
-                            </div>
-                            <span class="publish py-3 d-inline-block w-100">Published 3 days ago</span>
-                        </div>
-                    </div>
-                </li>
+		<%}%>
             </ul>
         </div>
+	<%}
+	else {%>
+		<h1 class="font-italic font-weight-light">non sono presenti recensioni per questo prodotto</h1>
+	<%}%>
+            
     </div>
 </div>
-
 </div>
 
+
+
+
+
 <script>
-$("#myForm :input").prop('readonly', true);
+        // Funzione per aggiornare il contatore di caratteri
+        function updateCharCount(element, countElement, maxLength) {
+            const currentLength = element.value.length;
+            countElement.textContent = "Caratteri usati: " + currentLength + " su " + maxLength + " (Max: " + maxLength + ")";
+        }
+
+        // Aggiungi eventi di input per aggiornare i contatori in tempo reale
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const titleInput = document.getElementById('reviewTitle');
+            const contentTextarea = document.getElementById('reviewContent');
+            const titleCount = document.getElementById('charCountTitle');
+            const contentCount = document.getElementById('charCountContent');
+
+            // Aggiorna i contatori all'avvio
+            updateCharCount(titleInput, titleCount, 100);
+            updateCharCount(contentTextarea, contentCount, 800);
+
+            // Aggiungi eventi di input per aggiornare i contatori in tempo reale
+            titleInput.addEventListener('input', () => {
+                updateCharCount(titleInput, titleCount, 100);
+            });
+
+            contentTextarea.addEventListener('input', () => {
+                updateCharCount(contentTextarea, contentCount, 800);
+            });
+        });
 </script>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

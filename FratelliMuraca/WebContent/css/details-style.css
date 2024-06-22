@@ -166,3 +166,9 @@ ul, ul li {
     align-items: center;
     font-weight: 700;
 }
+
+
+/* Definisci la classe blur */
+.blur-effect {
+    filter: blur(1.5px); /* Puoi regolare l'intensità della sfocatura cambiando il valore in pixel */
+}

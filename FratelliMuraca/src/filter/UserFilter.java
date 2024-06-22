@@ -20,6 +20,7 @@ public class UserFilter implements Filter {
 		pagineUserVisibili.add("/account");
 		pagineUserVisibili.add("/order");
 		pagineUserVisibili.add("/modificaDati");
+		pagineUserVisibili.add("/addReview");
 	}
 	
 	private static final Set<String> pagineUserHidden = new HashSet<String>();
