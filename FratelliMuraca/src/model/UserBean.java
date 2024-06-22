@@ -15,6 +15,18 @@ public class UserBean implements Serializable {
 	private String cognome;
 	private Date ddn;
 	private String phone;
+	private boolean disabled;
+	
+	public UserBean(int id, String email, String password, String nome, String cognome, Date ddn, String phone, boolean disabled) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.ddn = ddn;
+		this.phone = phone;
+		this.disabled = disabled;
+	}
 	
 	public UserBean(int id, String email, String password, String nome, String cognome, Date ddn, String phone) {
 		this.id = id;
@@ -24,6 +36,7 @@ public class UserBean implements Serializable {
 		this.cognome = cognome;
 		this.ddn = ddn;
 		this.phone = phone;
+		this.disabled = false;
 	}
 	
 	public UserBean(String email, String password, String nome, String cognome, Date ddn, String phone) {
@@ -33,6 +46,8 @@ public class UserBean implements Serializable {
 		this.cognome = cognome;
 		this.ddn = ddn;
 		this.phone = phone;
+		this.disabled = false;
+
 	}
 	
 	public UserBean() {}
@@ -138,10 +153,20 @@ public class UserBean implements Serializable {
 		return true;
 	}
 	
+	
+
 	@Override
 	public String toString() {
-		return "UserBean [id=" + id + ", email=" + email + ", password=" + password + ", nome=" + nome + ", cognome=" + cognome + ", ddn="
-				+ ddn + ", phone=" + phone + "]";
+		return "UserBean [id=" + id + ", email=" + email + ", password=" + password + ", nome=" + nome + ", cognome="
+				+ cognome + ", ddn=" + ddn + ", phone=" + phone + ", disabled=" + disabled + "]";
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
 	}
 	
 }

@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
     pageEncoding="UTF-8"%>
+<% LinkedList<UserBean> userList = (LinkedList<UserBean>) request.getAttribute("userList"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,25 +46,47 @@
             </form>
         </div>
     </div>
+	
+	</div>
+<div class="central-container" id="dashboard-container">
+	<a class="go-back" href="admin">&#171 Dashboard</a>
 
-
-    
-     
-    <!-- Show User Panel -->
-    <!--  TO DO SHOW USERS AND/OR CONFIRM MESSAGE -->
-    <!-- 
-       <div class="card mb-4">
-        <div class="card-header">
-            Lista Utenti
-        </div>
-        <div class="card-body">
-           
-        </div>
-    </div>
-    -->
+	<body>
+	<h2> Gestione User </h2>
+	<p> lista degli User</p>
+	<table border="1">
+	    <tr>
+	        <th>Id</th>
+	        <th>Email</th>
+	        <th>Nome</th>
+	        <th>Cognome</th>
+	        <th>DDN</th>
+	        <th>Telefono</th>
+	        <th>Disabilitato</th>
+	        <!-- <th>Modifica</th> -->
+	        <th>Disabilita(PERMANENTE)</th>
+	    </tr>
+	    <% if (userList != null && !userList.isEmpty()) {
+	          for (UserBean externalUser : userList) {%>
+	    <tr>
+	        <td><%= externalUser.getId() %></td>
+	        <td><%= externalUser.getEmail() %></td>
+	        <td><%= externalUser.getNome() %></td>
+	        <td><%= externalUser.getCognome() %></td>
+	        <td><%= externalUser.getDdn() %></td>
+	        <td><%= externalUser.getPhone() %></td>
+	        <td><%= externalUser.isDisabled() %></td>
+            <td><a href="admin?action=users&op=remove&id=<%= externalUser.getId() %> ">!DISABILITA!</a></td>
+	    </tr>
+	    <% } %>
+	    <% } %>
+	 
+	</table>
+	
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+

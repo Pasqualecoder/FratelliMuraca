@@ -55,13 +55,18 @@ public interface UserModel {
 	 * @return null
 	 * @throws SQLException
 	 */
+	
+	/*
 	public void doDeleteUser(UserBean userDaRimuovere) throws SQLException;
+	*/
 	
 	/**
 	 * rimuove l'user scelto (da id)
 	 * @return null
 	 * @throws SQLException
 	 */
+	
+	
 	public void doDeleteUserById(String id) throws SQLException;
 
 	/*

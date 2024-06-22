@@ -113,9 +113,7 @@ public class AdminControl extends HttpServlet {
 				
 				
 				if(opModifica != null){
-					if( (id != null) && opModifica.equals("remove")){
-						System.out.println("db cancella admin id = " + id);
-						
+					if( (id != null) && opModifica.equals("remove")){						
 						adminModel.doDeleteAdminById(id);
 					}
 					/*
@@ -143,8 +141,8 @@ public class AdminControl extends HttpServlet {
 				
 				if(opModifica != null){
 					if( (id != null) && opModifica.equals("remove")){
-						System.out.println("db cancella user id = " + id);			
 						userModel.doDeleteUserById(id);
+						//response.sendRedirect(request.getContextPath() + "admin?users");
 					}
 				}
 				
