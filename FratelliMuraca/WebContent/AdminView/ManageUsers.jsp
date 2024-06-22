@@ -46,57 +46,7 @@
         </div>
     </div>
 
-    <!-- Modify User Panel -->
-    <div class="card mb-4">
-        <div class="card-header">
-            Modifica Utente
-        </div>
-        <div class="card-body">
-            <form id="modifyUserForm">
-                <div class="form-group">
-                    <label for="modifyEmail">Email</label>
-                    <input type="email" class="form-control" id="modifyEmail" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="modifyPassword">Password</label>
-                    <input type="password" class="form-control" id="modifyPassword" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="modifyName">Nome</label>
-                    <input type="text" class="form-control" id="modifyName" placeholder="Nome">
-                </div>
-                <div class="form-group">
-                    <label for="modifySurname">Cognome</label>
-                    <input type="text" class="form-control" id="modifySurname" placeholder="Cognome">
-                </div>
-                <div class="form-group">
-                    <label for="modifyDnn">DNN</label>
-                    <input type="text" class="form-control" id="modifyDnn" placeholder="DNN">
-                </div>
-                <div class="form-group">
-                    <label for="modifyPhone">Telefono</label>
-                    <input type="tel" class="form-control" id="modifyPhone" placeholder="Telefono">
-                </div>
-                <button type="submit" class="btn btn-warning">Modifica</button>
-            </form>
-        </div>
-    </div>
 
-    <!-- Remove User Panel -->
-    <div class="card mb-4">
-        <div class="card-header">
-            Rimuovi Utente
-        </div>
-        <div class="card-body">
-            <form id="removeUserForm">
-                <div class="form-group">
-                    <label for="removeEmail">Email</label>
-                    <input type="email" class="form-control" id="removeEmail" placeholder="Enter email">
-                </div>
-                <button type="submit" class="btn btn-danger">Rimuovi</button>
-            </form>
-        </div>
-    </div>
     
      
     <!-- Show User Panel -->
