@@ -167,8 +167,22 @@ ul, ul li {
     font-weight: 700;
 }
 
-
 /* Definisci la classe blur */
 .blur-effect {
-    filter: blur(1.5px); /* Puoi regolare l'intensità della sfocatura cambiando il valore in pixel */
+    filter: blur(1.5px); /* Puoi regolare l'intensitï¿½ della sfocatura cambiando il valore in pixel */
+  
+}
+.heart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.heart-button:focus {
+  outline: none;
+}
+
+.heart-button.clicked {
+  color: red; /* Cambia il colore quando cliccato */
 }

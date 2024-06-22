@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 public interface ProductModel {
 	// solo per l'admin consente la creazione di un nuovo prodotto
@@ -38,6 +39,8 @@ public interface ProductModel {
 	public Collection<ProductBean> doRetrieveAllProducts(String order) throws SQLException;
 
 	
+	public void doUpdateProduct(ProductBean product) throws SQLException;
+	
 	
 	public byte[] doRetrieveImage(int imgId) throws SQLException;
 	
@@ -46,6 +49,7 @@ public interface ProductModel {
 	
 	public void doDeleteImage(int id) throws SQLException;
 	
+	public List<Integer> doRetrieveImagesKey(int idProd) throws SQLException;
 	
 	// private LinkedList<ImageBean> doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException; 
 	

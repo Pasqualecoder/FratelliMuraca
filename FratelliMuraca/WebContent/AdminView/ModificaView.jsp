@@ -7,10 +7,11 @@ LinkedList<Integer> immagini = prodotto.getImmagini();
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="./css/admin_style.css">
 </head>
 <body>
-
-	<form action="createProduct" method="POST" enctype="multipart/form-data">
+	<div class="central-container" id="edit-product-container">
+	<form action="editProduct" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <label for="nome">Nome</label>
         <input type="text" name="nome" class="form-control" value="<%= prodotto.getNome() %>" required>
@@ -41,7 +42,7 @@ LinkedList<Integer> immagini = prodotto.getImmagini();
     </div>
     <div class="form-group">
         <label for="tipo">È cosmetico?</label>
-        <input name="tipo" type="checkbox" class="form-check-input"  <%= prodotto.getTipo()? "checked": "" %>>
+        <input name="tipo" type="checkbox" class="form-check-input"  <%= prodotto.getTipo() ? "checked": "" %>>
     </div>
     <div class="form-group">
         <label for="categoria">Categoria</label>
@@ -64,10 +65,12 @@ LinkedList<Integer> immagini = prodotto.getImmagini();
         <input type="file" id="immagine" class="form-control-file" name="foto[]" accept="image/png, image/gif, image/jpeg" multiple>
         
     </div>
+     <input type="hidden" id="id_prodotto" name="postId" value="<%= prodotto.getId() %>" />
     <button type="submit" class="btn btn-primary">Invia</button>
-    
+ 
     
 </form>
+
 <% for(int idImg : immagini) { %>
 	<img src="imageServlet?img=<%=idImg%>" alt="<%= prodotto.getNome() %>" width="50%">
 	<a href="./admin?action=catalogo&op=deleteImage&img=<%= idImg %>&prodotto=<%= prodotto.getId() %>">rimuovi</a>
@@ -75,5 +78,6 @@ LinkedList<Integer> immagini = prodotto.getImmagini();
         	<input type="submit" class="btn btn-primary" value="rimuovi">
     	</form> -->
 		<% } %>
+</div>
 </body>
 </html>

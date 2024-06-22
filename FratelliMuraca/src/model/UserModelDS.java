@@ -98,7 +98,8 @@ public class UserModelDS implements UserModel {
 				String cognome = rs.getString("cognome");
 				Date ddn = rs.getDate("ddn");
 				String phone = rs.getString("phone");
-				bean = new UserBean(id, emailUser, passwordUser, nome, cognome, ddn, phone);
+				boolean disabled = rs.getBoolean("disabled");
+				bean = new UserBean(id, emailUser, passwordUser, nome, cognome, ddn, phone, disabled);
 			}
 		} finally {
 			try {
@@ -261,7 +262,7 @@ public class UserModelDS implements UserModel {
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				UserBean user = new UserBean(rs.getInt("id"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), (Date)rs.getDate("ddn"), rs.getString("phone"));
+				UserBean user = new UserBean(rs.getInt("id"), rs.getString("email"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"), (Date)rs.getDate("ddn"), rs.getString("phone"), rs.getBoolean("disabled"));
 				users.add(user);
 			}
 		} finally {
@@ -277,6 +278,7 @@ public class UserModelDS implements UserModel {
 		return users;
 	}
 	
+	/*
 	@Override
 	public synchronized void doDeleteUser(UserBean userDaRimuovere) throws SQLException{
 		Connection connection = null;
@@ -300,6 +302,38 @@ public class UserModelDS implements UserModel {
 					connection.close();
 			}
 		}		
+	}
+	*/
+	
+	@Override
+	public synchronized void doDeleteUserById(String idUser) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    if (idUser == null || idUser.isEmpty()) {
+	        return; // Controllo id
+	    }
+	    int id = Integer.parseInt(idUser);
+	    if (id < 1) {
+	        return; // Controllo id invalidi
+	    }
+	    String updateSQL = "UPDATE " + TABLE_NAME + " SET disabled = ? WHERE ID = ?";
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(updateSQL);
+	        preparedStatement.setBoolean(1, true); // Set disabled to true
+	        preparedStatement.setInt(2, id);
+
+	        preparedStatement.executeUpdate();
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }   
 	}
 	
 	/*

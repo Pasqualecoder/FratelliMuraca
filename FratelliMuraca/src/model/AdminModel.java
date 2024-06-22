@@ -66,6 +66,12 @@ public interface AdminModel {
 	 */
 	public void doAddAdmin(AdminBean adminDaAggiungere) throws SQLException;
 	
+	/**
+	 * Aggiunge l'admin indicato dall utente (tramite username e password)
+	 * @param String nome, String password
+	 * @throws SQLException
+	 */
+	public void doAddAdminByNameAndPwd(String nome, String password) throws SQLException;
 	
 
 	

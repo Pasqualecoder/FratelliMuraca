@@ -21,6 +21,7 @@ public class AdminControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private static AdminModel adminModel = new AdminModelDS();
+	private static UserModel userModel = new UserModelDS();
 	private static ProductModel productModel = new ProductModelDS();
 	
     /**
@@ -73,6 +74,8 @@ public class AdminControl extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				response.sendRedirect(request.getContextPath() + "/admin?action=catalogo");
+				return;
 			}
 			else if(operazione.equals("modifica")) {
 				try {
@@ -110,9 +113,7 @@ public class AdminControl extends HttpServlet {
 				
 				
 				if(opModifica != null){
-					if( (id != null) && opModifica.equals("remove")){
-						System.out.println("db cancella admin id = " + id);
-						
+					if( (id != null) && opModifica.equals("remove")){						
 						adminModel.doDeleteAdminById(id);
 					}
 					/*
@@ -125,6 +126,29 @@ public class AdminControl extends HttpServlet {
 				//importante, dopo if sennò non carica l'update
 				Collection <AdminBean> adminList  = (Collection<AdminBean>) adminModel.doRetrieveAllAdmins();
 				request.setAttribute("adminList", adminList);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(action.equals("users")){
+			try {
+				redirect = "ManageUsers.jsp";
+				
+				String opModifica = request.getParameter("op");
+				String id = request.getParameter("id");
+				
+				
+				if(opModifica != null){
+					if( (id != null) && opModifica.equals("remove")){
+						userModel.doDeleteUserById(id);
+						//response.sendRedirect(request.getContextPath() + "admin?users");
+					}
+				}
+				
+				//importante, dopo if sennò non carica l'update
+				Collection <UserBean> userList  = (Collection<UserBean>) userModel.doRetrieveAllUsers();
+				request.setAttribute("userList", userList);
 			}
 			catch (SQLException e) {
 				e.printStackTrace();

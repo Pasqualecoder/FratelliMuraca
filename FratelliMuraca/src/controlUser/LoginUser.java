@@ -51,7 +51,7 @@ public class LoginUser extends HttpServlet {
 		
 		try {
 			UserBean user = userModel.doRetrieveUser(email, password);
-			if(user != null) {
+			if(user != null && user.isDisabled() == false) {
 				session.setAttribute("user", user);
 				response.sendRedirect(request.getContextPath() + "/account");
 			}

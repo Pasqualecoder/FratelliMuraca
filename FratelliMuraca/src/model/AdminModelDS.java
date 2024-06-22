@@ -252,6 +252,7 @@ public class AdminModelDS implements AdminModel {
 	        connection = ds.getConnection();
 
 	        // Imposta i parametri del PreparedStatement
+	        preparedStatement = connection.prepareStatement(insertSQL);
 	        preparedStatement.setString(1, adminDaAggiungere.getUsername());
 	        preparedStatement.setString(2, adminDaAggiungere.getPassword());
 
@@ -272,5 +273,40 @@ public class AdminModelDS implements AdminModel {
 	    }
 	}
 	
+	@Override
+	public synchronized void doAddAdminByNameAndPwd(String nome, String password) throws SQLException{
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    int id;
+	    String insertSQL = "INSERT INTO " + TABLE_NAME
+	            + " (username, password) "
+	            + "VALUES (?, SHA2(?,256))";
+
+	    try {
+	        // Ottieni la connessione dal datasource
+	        connection = ds.getConnection();
+
+	        // Imposta i parametri del PreparedStatement
+	        preparedStatement = connection.prepareStatement(insertSQL);
+	        preparedStatement.setString(1, nome);
+	        preparedStatement.setString(2, password);
+
+	        // Inserimento admin
+	        preparedStatement.executeUpdate();
+
+	        // Conferma la transazione
+	        // connection.commit();
+	    }
+	    finally {
+	    	try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                if (connection != null)
+                    connection.close();
+            }
+	    }
+	}
 
 }

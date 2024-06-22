@@ -7,11 +7,13 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="./css/admin_style.css">
 <meta charset="UTF-8">
 <title>Modifica Catalogo Admin - Fratelli Muraca</title>
 </head> 
 <body>
-
+	<div class="central-container" id="edit-product-container">
+	<h3>Nuovo Prodotto</h3>
 	<form action="createProduct" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <label for="nome">Nome</label>
@@ -67,8 +69,9 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
     </div>
     <button type="submit" class="btn btn-primary">Invia</button>
 </form>
+</div>
 	<div class="product-table">
-        <h2>Tabella Utenti</h2>
+        <h3>Tabella Prodotti</h3>
         <table>
             <thead>
                 <tr>
@@ -124,6 +127,5 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
             </tbody>
         </table>
     </div>
-
 </body>
 </html>

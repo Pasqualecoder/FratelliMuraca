@@ -5,11 +5,13 @@ import java.util.LinkedList;
 
 public interface FavoriteModel {
 	
-	public void doDeleteFavorite(FavoriteBean favorite) throws SQLException;
+	public void doAddFavorite(FavoriteBean favorite) throws SQLException;
 	
-	public void doAddFavorite() throws SQLException;
+	public LinkedList<FavoriteBean> doRetrieveAllFavorites(int userId) throws SQLException;
 	
-	public LinkedList<FavoriteBean> doRetrieveAllFavorites(UserBean user) throws SQLException;
+	public FavoriteBean doRetrieveFavorite(int idFav) throws SQLException;
 	
+	public void doDeleteFavorite(int idFav) throws SQLException;
 	
+	public FavoriteBean doRetrieveFavorite(int userId, int productId) throws SQLException;
 }
