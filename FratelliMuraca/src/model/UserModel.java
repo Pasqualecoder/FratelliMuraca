@@ -23,6 +23,12 @@ public interface UserModel {
 	public UserBean doRetrieveUser(String email, String password) throws SQLException;
 	
 	/**
+	 * @return
+	 * @throws SQLException
+	 */
+	public UserBean doRetrieveUserByKey(int id) throws SQLException;
+	
+	/**
 	 * UPDATE delle info dell'utente tra cui la password
 	 * @param userNuovo
 	 * @throws SQLException

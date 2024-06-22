@@ -114,6 +114,45 @@ public class UserModelDS implements UserModel {
 		return bean;
 	}
 
+	public synchronized UserBean doRetrieveUserByKey(int id) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		UserBean bean = null;
+		
+		String insertSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?;";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1, id);
+			
+
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int idUser = rs.getInt("id");
+				String emailUser = rs.getString("email");
+				String passwordUser = rs.getString("password");
+				String nome = rs.getString("nome");
+				String cognome = rs.getString("cognome");
+				Date ddn = rs.getDate("ddn");
+				String phone = rs.getString("phone");
+				bean = new UserBean(idUser, emailUser, passwordUser, nome, cognome, ddn, phone);
+				// AGGIUNGERE DISABLED
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return bean;
+	}
+	
+	
 	
 	@Override
 	public synchronized Collection<String> doRetrieveAllEmail() throws SQLException {
