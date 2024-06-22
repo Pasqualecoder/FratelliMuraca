@@ -62,10 +62,22 @@ public class CreateProductControl extends HttpServlet {
             // Ottenere i parametri del form
             String nome = request.getParameter("nome");
             String descrizione = request.getParameter("descrizione");
-            float prezzo = Float.parseFloat(request.getParameter("prezzo"));
-            int sconto = Integer.parseInt(request.getParameter("sconto"));
-            int iva = Integer.parseInt(request.getParameter("iva"));
-            int quantita = Integer.parseInt(request.getParameter("quantita"));
+            float prezzo = 999999;
+            int sconto = 0;
+            int iva = 22; 
+            int quantita = 1;
+            
+            try{
+            	prezzo = Float.parseFloat(request.getParameter("prezzo"));
+                sconto = Integer.parseInt(request.getParameter("sconto"));
+                iva = Integer.parseInt(request.getParameter("iva"));
+                quantita = Integer.parseInt(request.getParameter("quantita"));
+            }
+            catch(NumberFormatException e){
+            	e.printStackTrace();
+            	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "tipo invalido");
+            }
+            
             String dimensione = request.getParameter("dimensione");
             boolean tipo = request.getParameter("tipo") != null;
             ProductCategorie categoria = ProductCategorie.fromString(request.getParameter("categoria"));
