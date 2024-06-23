@@ -3,6 +3,7 @@ package controlAdmin;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,8 +24,12 @@ public class AdminControl extends HttpServlet {
 	private static AdminModel adminModel = new AdminModelDS();
 	private static UserModel userModel = new UserModelDS();
 	private static ProductModel productModel = new ProductModelDS();
+<<<<<<< HEAD
 	private static ReviewModel reviewModel = new ReviewModelDS();
 	
+=======
+	private static OrderModel orderModel = new OrderModelDS();
+>>>>>>> 3d61977ad3bde4a31308dda859183bb73ece78ec
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -150,6 +155,7 @@ public class AdminControl extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+<<<<<<< HEAD
 		else if(action.equals("review")){
 			try {
 				redirect = "ManageReview.jsp";
@@ -172,6 +178,18 @@ public class AdminControl extends HttpServlet {
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+=======
+		else if(action.equals("orders")) {
+			redirect = "ManageOrderView.jsp";
+			
+			LinkedList<OrderBean> orderList = null;
+			try {
+				orderList = (LinkedList<OrderBean>) orderModel.doRetrieveAllOrders();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("orderList", orderList);
+>>>>>>> 3d61977ad3bde4a31308dda859183bb73ece78ec
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(subfolder + redirect);

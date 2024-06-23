@@ -8,7 +8,11 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
 
 UserBean user = (UserBean)session.getAttribute("user");
 Boolean canCommentBool = (Boolean) request.getAttribute("canComment"); // dont use me 
+Boolean hasReviewBool = (Boolean) request.getAttribute("hasReview"); // dont use me 
+Boolean isFavoriteBool = (Boolean) request.getAttribute("isFavorite");
 boolean canComment = (canCommentBool != null) ? canCommentBool.booleanValue() : false; // use me
+boolean hasReview = (hasReviewBool != null) ? hasReviewBool.booleanValue() : false;
+boolean isFavorite = (isFavoriteBool != null) ? isFavoriteBool.booleanValue() : false;
 
 Integer avg = (Integer) request.getAttribute("avg");
 
@@ -121,15 +125,18 @@ else if (opStatus.equals("failure")) {
 
       <p><%= prodotto.getDescrizione() %></p>
       
-       <form method="POST" action="favorites">
+<form method="POST" id="favoriteForm">
     <input type="hidden" id="id" name="id_prodotto" value="<%= prodotto.getId() %>">
     <button id="heartButton" type="submit" class="btn btn-outline-danger">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16" id="heartIcon">
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"></path>
         </svg>
-        Aggiungi Ai Preferiti
+        <span id="buttonText">Aggiungi Ai Preferiti</span>
     </button>
+    <input type="hidden" id="isFavorite" value="<%= isFavorite %>">
 </form>
+
+
 <br>
 	
       <form method="get" action="cart">
@@ -160,70 +167,76 @@ else if (opStatus.equals("failure")) {
     
     
     
-    
+    <% if (!hasReview) { %> <!-- Aggiungi questa riga -->
     <div class="container mt-5 mb-4" id="review-panel">
     	<div class="card p-3">
     	<% 
            	if (canComment) {
 		    %>
 			    <h4 class="font-weight-light font-italic text-success">Scrivi la tua recensione a <%= prodotto.getNome() %></h4>
-           	<%}
-           	else {%>
+           	<%} else {%>
            		<h4 class="font-weight-light font-italic text-danger">
            		<% if (user == null) {%>
-          			Devi effettuare il login per commentare <a class="font-italic" style="text-decoration: underline;" href="login">Entra Subito!</a>           			
-           		<% }
-           		   else {%>
-        			Devi aver acquistato il prodotto per commentare
+    
+          			Devi effettuare il login per commentare <a class="font-italic" style="text-decoration: underline;" href="login">Entra Subito!</a>           	
+    	
+           		<% } else {%>
+           		   <% if (hasReview) { %>
+           				Hai già recensito questo prodotto!
+           			<% } else {%>
            			
-           		   <% }%>
+        			Devi aver acquistato il prodotto per commentare
+           			<% } %>
            		</h4>
-           	<%}
+           		<% } %>
+           	<% }
            %>
-        <form id="review-panel" class="<%= canComment ? "" : "blur-effect" %>" action="<%= canComment ? "addReview" : "" %>" method="POST">
-            <input type="hidden" name="idProdotto" value="<%= prodotto.getId() %>">
-            
-			<br>
-            <!-- Star Rating -->
-            <div class="mb-3">
-                <label class="form-label" style="margin: 0px">Valutazione</label>
-                <div class="star-rating">
-                    <input id="star5" name="rating" type="radio" value="5">
-                    <label for="star5" title="5 stelle">&#9733;</label>
-                    <input id="star4" name="rating" type="radio" value="4">
-                    <label for="star4" title="4 stelle">&#9733;</label>
-                    <input id="star3" name="rating" type="radio" value="3">
-                    <label for="star3" title="3 stelle">&#9733;</label>
-                    <input id="star2" name="rating" type="radio" value="2">
-                    <label for="star2" title="2 stelle">&#9733;</label>
-                    <input id="star1" name="rating" type="radio" value="1">
-                    <label for="star1" title="1 stella">&#9733;</label>
-                </div>
-                
-            </div>
-            
-			<!-- Textbox per il titolo della recensione -->
-            <div class="mb-3">
-                <label for="reviewTitle" class="form-label">Titolo</label>
-                <input name="title" type="text" class="form-control" id="reviewTitle" maxlength="100" placeholder="Scrivi il titolo..." <%= canComment ? "" : "disabled" %>>
-                <small id="charCountTitle" class="form-text text-muted">Max 100 caratteri.</small>
-            </div>
+        <form id="review-panel" class="<%= canComment ? "" : "blur-effect" %>" action="<%= canComment ? "addReview" : "" %>" method="POST" onsubmit="return validateForm()">
+    <input type="hidden" name="idProdotto" value="<%= prodotto.getId() %>">
 
-            <!-- Textbox per il contenuto della recensione -->
-            <div class="mb-3">
-                <label for="reviewContent" class="form-label">Recensione</label>
-                <textarea name="content" class="form-control" id="reviewContent" maxlength="800" rows="3" placeholder="Scrivi la tua recensione qui..." <%= canComment ? "" : "disabled" %>></textarea>
-                <small id="charCountContent" class="form-text text-muted">Max 800 caratteri.</small>
-            </div>
+    <br>
+    <!-- Star Rating -->
+    <div class="mb-3">
+        <label class="form-label" style="margin: 0px">Valutazione</label>
+        <div class="star-rating">
+            <input id="star5" name="rating" type="radio" value="5">
+            <label for="star5" title="5 stelle">&#9733;</label>
+            <input id="star4" name="rating" type="radio" value="4">
+            <label for="star4" title="4 stelle">&#9733;</label>
+            <input id="star3" name="rating" type="radio" value="3">
+            <label for="star3" title="3 stelle">&#9733;</label>
+            <input id="star2" name="rating" type="radio" value="2">
+            <label for="star2" title="2 stelle">&#9733;</label>
+            <input id="star1" name="rating" type="radio" value="1">
+            <label for="star1" title="1 stella">&#9733;</label>
+        </div>
+        <div id="ratingError" class="text-danger" style="display: none;"></div>
+    </div>
 
-			<% if (canComment) { %>
-            <!-- Pulsante di invio -->
-            <button type="submit" class="btn btn-success">Invia Recensione</button>
-			<% } %>
-        </form>
+    <!-- Textbox per il titolo della recensione -->
+    <div class="mb-3">
+        <label for="reviewTitle" class="form-label">Titolo</label>
+        <input name="title" type="text" class="form-control" id="reviewTitle" maxlength="100" placeholder="Scrivi il titolo..." <%= canComment ? "" : "disabled" %>>
+        <small id="charCountTitle" class="form-text text-muted">Max 100 caratteri.</small>
+        <div id="titleError" class="text-danger" style="display: none;"></div>
+    </div>
+
+    <!-- Textbox per il contenuto della recensione -->
+    <div class="mb-3">
+        <label for="reviewContent" class="form-label">Recensione</label>
+        <textarea name="content" class="form-control" id="reviewContent" maxlength="800" rows="3" placeholder="Scrivi la tua recensione qui..." <%= canComment ? "" : "disabled" %>></textarea>
+        <small id="charCountContent" class="form-text text-muted">Max 800 caratteri.</small>
+        <div id="contentError" class="text-danger" style="display: none;"></div>
+    </div>
+
+    <% if (canComment) { %>
+        <!-- Pulsante di invio -->
+        <button type="submit" class="btn btn-success">Invia Recensione</button>
+    <% } %>
+</form>
         </div>
     </div>
-    
+<% } %>
   </div>
   
   
@@ -305,6 +318,67 @@ else if (opStatus.equals("failure")) {
                 updateCharCount(contentTextarea, contentCount, 800);
             });
         });
+        
+        function validateForm() {
+            let isValid = true;
+
+            // Pulizia dei messaggi di errore precedenti
+            document.getElementById("ratingError").style.display = "none";
+            document.getElementById("titleError").style.display = "none";
+            document.getElementById("contentError").style.display = "none";
+
+            // Validazione del rating
+            let rating = document.querySelector('input[name="rating"]:checked');
+            if (!rating) {
+                document.getElementById("ratingError").textContent = "Per favore, scegli una valutazione.";
+                document.getElementById("ratingError").style.display = "block";
+                isValid = false;
+            }
+
+            // Validazione del titolo
+            let title = document.getElementById("reviewTitle").value;
+            if (!title) {
+                document.getElementById("titleError").textContent = "Per favore, inserisci un titolo.";
+                document.getElementById("titleError").style.display = "block";
+                isValid = false;
+            } else if (title.length > 100) {
+                document.getElementById("titleError").textContent = "Il titolo non può superare i 100 caratteri.";
+                document.getElementById("titleError").style.display = "block";
+                isValid = false;
+            }
+
+            // Validazione del contenuto
+            let content = document.getElementById("reviewContent").value;
+            if (!content) {
+                document.getElementById("contentError").textContent = "Per favore, inserisci una recensione.";
+                document.getElementById("contentError").style.display = "block";
+                isValid = false;
+            } else if (content.length > 800) {
+                document.getElementById("contentError").textContent = "La recensione non può superare i 800 caratteri.";
+                document.getElementById("contentError").style.display = "block";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var isFavorite = document.getElementById("isFavorite").value === "true";
+        var form = document.getElementById("favoriteForm");
+        var button = document.getElementById("heartButton");
+        var buttonText = document.getElementById("buttonText");
+
+        if (isFavorite) {
+            form.action = "favorites?action=removeFavorite&id=<%= prodotto.getId() %>";
+            button.classList.remove("btn-outline-danger");
+            button.classList.add("btn-danger");
+            buttonText.textContent = "Rimuovi Dai Preferiti";
+        } else {
+            form.action = "favorites";
+        }
+    });
 </script>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
