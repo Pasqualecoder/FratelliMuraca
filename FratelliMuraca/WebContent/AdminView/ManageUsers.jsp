@@ -62,12 +62,12 @@
 	        <th>Cognome</th>
 	        <th>DDN</th>
 	        <th>Telefono</th>
-	        <th>Disabilitato</th>
-	        <!-- <th>Modifica</th> -->
-	        <th>Disabilita(PERMANENTE)</th>
+	        <th>ELIMINA UTENTE</th>
 	    </tr>
 	    <% if (userList != null && !userList.isEmpty()) {
-	          for (UserBean externalUser : userList) {%>
+	          for (UserBean externalUser : userList) 
+	          { if(externalUser.isDisabled() == false)
+	          	{%>
 	    <tr>
 	        <td><%= externalUser.getId() %></td>
 	        <td><%= externalUser.getEmail() %></td>
@@ -75,9 +75,9 @@
 	        <td><%= externalUser.getCognome() %></td>
 	        <td><%= externalUser.getDdn() %></td>
 	        <td><%= externalUser.getPhone() %></td>
-	        <td><%= externalUser.isDisabled() %></td>
-            <td><a href="admin?action=users&op=remove&id=<%= externalUser.getId() %> ">!DISABILITA!</a></td>
+            <td><a href="admin?action=users&op=remove&id=<%= externalUser.getId() %> ">ELIMINA UTENTE</a></td>
 	    </tr>
+	    <% } %>
 	    <% } %>
 	    <% } %>
 	 
