@@ -21,6 +21,7 @@
 	        <th>Dettagli</th>
 	        <th>InfoProdotto</th>
 	        <th>Stato</th>
+	        <th>ModificaStato</th>
 	    </tr>
 	    <% if (orderList != null && !orderList.isEmpty()) {
 	          for (OrderBean externalOrder : orderList) 
@@ -30,7 +31,9 @@
 	        <td><%= externalOrder.getId_cliente() %></td>
 	        <td><%= externalOrder.getDetails() %></td>
 	        <td><%= externalOrder.getProdotti() %></td>
-	        <td><%= externalOrder.getStato() %></td>	    
+	        <td><%= externalOrder.getStato() %></td>	
+	        <td><select><% for (StatoOrdine stato : StatoOrdine.values()) { %><option value="<%= stato %>" <%= stato == externalOrder.getStato() ? "selected" : "" %>><%= stato %></option><% } %></select></td>
+  
 	    </tr>
 	    <% } %>
 	    <% } %>	 
