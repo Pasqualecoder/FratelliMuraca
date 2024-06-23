@@ -35,7 +35,7 @@ public class FavoriteModelDS implements FavoriteModel {
 	
 
 	@Override
-	public void doAddFavorite(FavoriteBean favorite) throws SQLException {
+	public synchronized void doAddFavorite(FavoriteBean favorite) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 
@@ -47,17 +47,9 @@ public class FavoriteModelDS implements FavoriteModel {
 	        preparedStatement.setInt(1, favorite.getUserId());
 	        preparedStatement.setInt(2, favorite.getProductId());
 
-	        int rowsInserted = preparedStatement.executeUpdate();
-	        if (rowsInserted > 0) {
-	            System.out.println("Nuovo preferito aggiunto con successo.");
-	        } else {
-	            System.out.println("Errore durante l'aggiunta del nuovo preferito.");
-	        }
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        throw e;
-	    } finally {
+	        preparedStatement.executeUpdate();
+	    }
+	    finally {
 	        try {
 	            if (preparedStatement != null)
 	                preparedStatement.close();
@@ -71,7 +63,7 @@ public class FavoriteModelDS implements FavoriteModel {
 	}
 
 	@Override
-	public LinkedList<FavoriteBean> doRetrieveAllFavorites(int userId) throws SQLException {
+	public synchronized LinkedList<FavoriteBean> doRetrieveAllFavorites(int userId) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -89,19 +81,14 @@ public class FavoriteModelDS implements FavoriteModel {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
-			
 				int id = rs.getInt("id");
 				int idCliente = rs.getInt("id_cliente");
 				int idProdotto = rs.getInt("id_prodotto");
-				
 				
 				FavoriteBean preferito = new FavoriteBean(id, idCliente, idProdotto);
 				
 				preferiti.add(preferito);
 			}
-
-		} catch (Exception e){
-			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -117,7 +104,7 @@ public class FavoriteModelDS implements FavoriteModel {
 	}
 
 	@Override
-	public FavoriteBean doRetrieveFavorite(int idFav) throws SQLException {
+	public synchronized FavoriteBean doRetrieveFavorite(int idFav) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -143,9 +130,6 @@ public class FavoriteModelDS implements FavoriteModel {
 				
 				preferito = new FavoriteBean(id, idCliente, idProdotto);
 			}
-
-		} catch (Exception e){
-			e.printStackTrace();
 		}
 		finally {
 			try {
@@ -161,7 +145,7 @@ public class FavoriteModelDS implements FavoriteModel {
 	}
 
 	@Override
-	public void doDeleteFavorite(int idFav) throws SQLException {
+	public synchronized void doDeleteFavorite(int idFav) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 
@@ -172,16 +156,7 @@ public class FavoriteModelDS implements FavoriteModel {
 	        preparedStatement = connection.prepareStatement(deleteSQL);
 	        preparedStatement.setInt(1, idFav);
 
-	        int rowsDeleted = preparedStatement.executeUpdate();
-	        if (rowsDeleted > 0) {
-	            System.out.println("Record eliminato correttamente.");
-	        } else {
-	            System.out.println("Nessun record trovato con ID = " + idFav);
-	        }
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        throw e;
+	        preparedStatement.executeUpdate();
 	    } finally {
 	        try {
 	            if (preparedStatement != null)
@@ -196,15 +171,15 @@ public class FavoriteModelDS implements FavoriteModel {
 	}
 	
 	@Override
-	public FavoriteBean doRetrieveFavorite(int userId, int productId) throws SQLException {
+	public synchronized FavoriteBean doRetrieveFavorite(int userId, int productId) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    ResultSet rs = null; // ResultSet variable to retrieve query results
+	    ResultSet rs = null;
 
 	    FavoriteBean preferito = null;
 
 	    String selectSQL = "SELECT id, id_cliente, id_prodotto FROM " + TABLE_NAME +
-	                       " WHERE id_prodotto = ? AND id_cliente = ?"; // Corrected SQL query
+	                       " WHERE id_prodotto = ? AND id_cliente = ?";
 
 	    try {
 	        connection = ds.getConnection();
@@ -221,10 +196,6 @@ public class FavoriteModelDS implements FavoriteModel {
 
 	            preferito = new FavoriteBean(id, idCliente, idProdotto);
 	        }
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        throw e; // Re-throw SQLException to handle it in caller method or class
 	    } finally {
 	        try {
 	            if (rs != null) {
@@ -250,7 +221,4 @@ public class FavoriteModelDS implements FavoriteModel {
 	    }
 	    return preferito;
 	}
-	
-	
-	
 }

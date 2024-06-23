@@ -34,22 +34,14 @@
                         <% for (ProductBean prodotto : preferiti) { %>
                             <tr>
                                 <td>
-                                    <img src="imageServelt?img=<%= prodotto.getImmagini().getFirst() %>" alt="<%= prodotto.getNome() %>" class="img-fluid" style="max-width: 100px;">
+                                    <img src="imageServlet?img=<%= prodotto.getImmagini().getFirst() %>" alt="<%= prodotto.getNome() %>" class="img-fluid" style="max-width: 100px;">
                                 </td>
                                 <td>
                                     <a href="details?id=<%= prodotto.getId() %>" class="text-decoration-none"><%= prodotto.getNome() %></a>
                                 </td>
                                 <td><%= prodotto.getDescrizione() %></td>
                                 <td>
-                                    <% 
-                                        float prezzoFinale;
-                                        if (prodotto.getSalePerc() > 0) {
-                                            prezzoFinale = prodotto.getPrezzoScontato();
-                                        } else {
-                                            prezzoFinale = prodotto.getPrezzoIva();
-                                        }
-                                    %>
-                                    € <%= String.format("%.2f", prezzoFinale) %>
+                                    €<%= String.format("%.2f", prodotto.getPrezzoScontato()) %>
                                 </td>
                                 <td><%= prodotto.getCategoria() %></td>
                                 <td>

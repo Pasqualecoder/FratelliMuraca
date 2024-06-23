@@ -10,6 +10,8 @@ UserBean user = (UserBean)session.getAttribute("user");
 Boolean canCommentBool = (Boolean) request.getAttribute("canComment"); // dont use me 
 boolean canComment = (canCommentBool != null) ? canCommentBool.booleanValue() : false; // use me
 
+Integer avg = (Integer) request.getAttribute("avg");
+
 LinkedList<ReviewBean> listaRecensioni = (LinkedList<ReviewBean>) request.getAttribute("listaRecensioni");
 if (listaRecensioni == null) listaRecensioni = new LinkedList<ReviewBean>();
 %>
@@ -95,12 +97,24 @@ else if (opStatus.equals("failure")) {
       <h2><%= prodotto.getNome() %></h2>
       <h3 class="text-muted font-italic"><%= prodotto.getCategoria() %></h3>
       <h3 class="text-uppercase font-italic"><%= prodotto.getDimensione() %></h3>
+      <% 
+      for (int i = 1; i <= 5; i++) { %>
+      <span class="gig-rating text-body-2" style="color: <%= (avg > 0) ? "#ffbf00" : "grey" %>;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" width="15" height="15">
+              <path fill="currentColor" d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path>
+          </svg>
+      </span>
+      <%
+      	avg--;
+      }
+      %>
       
       <!-- Product price-->
 	  <% if (prodotto.isOnSale()) { // controllo se ha un prezzo scontato per far vedere la percentuale e il vecchio prezzo %>
 	  <h6 class="text-danger text-uppercase font-weight-bold font-italic"><%= prodotto.getSalePerc() %>% off</h6>
 	  <span class="text-muted text-decoration-line-through" style="display: inline;">&euro;<%= prodotto.getPrezzoIva() %></span>
 	  <%} //endif (prodotto.isOnSale()) %>
+	  <br>
 	  <h5 class="text-uppercase font-weight-bold" style="display: inline;">&euro;<%= prodotto.getPrezzoScontato() %> <%/* qui faccio vedere in ogni caso il prezzo scontato perché anche se non c'è sconto questa varibile è piena*/ %></h5>
 
 	  <p class="text-muted">Disponibili in magazzino: <%= prodotto.getQuantita() %></p>
@@ -116,6 +130,7 @@ else if (opStatus.equals("failure")) {
         Aggiungi Ai Preferiti
     </button>
 </form>
+<br>
 	
       <form method="get" action="cart">
       	<input type="hidden" id="action" name="action" value="addC">
@@ -123,7 +138,7 @@ else if (opStatus.equals("failure")) {
       	
         <div class="form-group">
           <label for="quantity">Quantità</label>
-          <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1">
+          <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" max="<%= prodotto.getQuantita() %>">
         </div>
         <button type="submit" class="btn btn-success">Add to Cart</button>
       </form>

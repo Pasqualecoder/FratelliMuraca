@@ -132,4 +132,35 @@ public class ReviewModelDS implements ReviewModel {
 		throw new UnsupportedOperationException("Questa funzione non è ancora implementata.");
 	}
 
+	@Override
+	public int getAvgByProd(ProductBean prodotto) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int media = 0;
+		
+		String sqlString = "SELECT id_prodotto, AVG(rating) AS media_rating FROM " + TABLE_NAME
+				+ " WHERE id_prodotto = ? " + "GROUP BY id_prodotto;";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(sqlString);
+			
+			preparedStatement.setInt(1, prodotto.getId());
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				media = rs.getInt("media_rating");
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return media;
+	}
+
 }

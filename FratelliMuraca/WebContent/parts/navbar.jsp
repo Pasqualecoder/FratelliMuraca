@@ -224,7 +224,7 @@
             <% } else { %>
                 <a href="account">Account</a>
                 <a href="order">Ordini</a>
-                <a href="preferiti">Preferiti</a>
+                <a href="favorites">Preferiti</a>
                 <a href="logout">Log Out</a>
             <% } %> 
         </div>

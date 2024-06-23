@@ -16,5 +16,7 @@ public interface ReviewModel {
 	public Collection<ReviewBean> doRetriveReviewsByUser(int idUser) throws SQLException;
 
 	public Collection<ReviewBean> doRetriveAllReviews() throws SQLException;
+
+	public int getAvgByProd(ProductBean prodotto) throws SQLException;
 	
 }

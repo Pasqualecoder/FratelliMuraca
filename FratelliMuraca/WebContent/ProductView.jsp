@@ -52,15 +52,6 @@ if (products == null || products.size() == 0) {%>
 					<div class="text-center">
 						<!-- Product name-->
 						<h5 class="fw-bolder"><%= prodotto.getNome() %></h5>
-						<!-- TODO: Product reviews-->
-						<div class="d-flex justify-content-center small text-warning mb-2">
-							<div class="bi-star-fill"></div>
-							<div class="bi-star-fill"></div>
-							<div class="bi-star-fill"></div>
-							<div class="bi-star-fill"></div>
-							<div class="bi-star-fill"></div>
-						</div>
-						
 						
 						<!-- Product price-->
 						<% if (prodotto.isOnSale()) { // controllo se ha un prezzo scontato per far vedere la percentuale e il vecchio prezzo %>

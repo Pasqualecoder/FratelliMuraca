@@ -64,6 +64,8 @@ public class DetailsControl extends HttpServlet {
 		try {
 			LinkedList<ReviewBean> listaRecensioni = (LinkedList<ReviewBean>) reviewModel.doRetriveReviewsByProd(prodotto.getId());
 			request.setAttribute("listaRecensioni", listaRecensioni);
+			int average = reviewModel.getAvgByProd(prodotto);
+			request.setAttribute("avg", average);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

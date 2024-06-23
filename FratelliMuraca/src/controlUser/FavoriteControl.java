@@ -65,11 +65,11 @@ public class FavoriteControl extends HttpServlet {
 			int id_favorite = Integer.parseInt(id);
 			try {
 				favoriteModel.doDeleteFavorite(id_favorite);
+				response.sendRedirect(request.getContextPath() + "/favorites");
+				return;
 			} catch (SQLException e) {
-				
 				e.printStackTrace();
 			}
-			
 		}
 		else {
 			try {
@@ -104,7 +104,6 @@ public class FavoriteControl extends HttpServlet {
 		try {
 			favoriteModel.doAddFavorite(favorite);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
