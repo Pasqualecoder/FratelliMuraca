@@ -23,6 +23,7 @@ public class AdminControl extends HttpServlet {
 	private static AdminModel adminModel = new AdminModelDS();
 	private static UserModel userModel = new UserModelDS();
 	private static ProductModel productModel = new ProductModelDS();
+	private static ReviewModel reviewModel = new ReviewModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -116,11 +117,6 @@ public class AdminControl extends HttpServlet {
 					if( (id != null) && opModifica.equals("remove")){						
 						adminModel.doDeleteAdminById(id);
 					}
-					/*
-					else if(opModifica.equals("aggiungi"))
-					{
-						System.out.println("db aggiungi admin");
-					}*/
 				}
 				
 				//importante, dopo if sennò non carica l'update
@@ -149,6 +145,29 @@ public class AdminControl extends HttpServlet {
 				//importante, dopo if sennò non carica l'update
 				Collection <UserBean> userList  = (Collection<UserBean>) userModel.doRetrieveAllUsers();
 				request.setAttribute("userList", userList);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(action.equals("review")){
+			try {
+				redirect = "ManageReview.jsp";
+				
+				String opModifica = request.getParameter("op");
+				String id = request.getParameter("id");
+				
+				
+				if(opModifica != null){
+					if( (id != null) && opModifica.equals("remove")){
+						reviewModel.doDeleteReview(id);
+						//response.sendRedirect(request.getContextPath() + "admin?users");
+					}
+				}
+				
+				//importante, dopo if sennò non carica l'update
+				Collection <ReviewBean> reviewList  = (Collection<ReviewBean>) reviewModel.doRetriveAllReviews();
+				request.setAttribute("reviewList", reviewList);
 			}
 			catch (SQLException e) {
 				e.printStackTrace();

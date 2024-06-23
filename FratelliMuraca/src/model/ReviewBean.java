@@ -84,7 +84,7 @@ public class ReviewBean implements Serializable {
 		return product;
 	}
 
-	public void setProduct(ProductBean product) {
+	public void setProductID(ProductBean  product) {
 		this.product = product;
 	}
 

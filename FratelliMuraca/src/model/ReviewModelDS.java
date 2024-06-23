@@ -12,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import model.ProductModelDS;
+import model.UserModelDS;
 
 
 public class ReviewModelDS implements ReviewModel {
@@ -34,7 +36,7 @@ public class ReviewModelDS implements ReviewModel {
 	
 	
 	@Override
-	public void doSaveReview(ReviewBean reviewBean) throws SQLException {
+	public synchronized void doSaveReview(ReviewBean reviewBean) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -67,45 +69,69 @@ public class ReviewModelDS implements ReviewModel {
 	}
 
 	@Override
-	public void doDeleteReview(int idReview) throws SQLException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Questa funzione non è ancora implementata.");
-	}
-
-	@Override
-	public void doDeleteReview(ReviewBean reviewBean) throws SQLException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Questa funzione non è ancora implementata.");
-	}
-
-	@Override
-	public Collection<ReviewBean> doRetriveReviewsByProd(int idProdotto) throws SQLException {
+	public synchronized void doDeleteReview(String idReview) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		LinkedList<ReviewBean> recensioni = new LinkedList<ReviewBean>();
+		int id = Integer.parseInt(idReview);
 		
-		String insertSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id_prodotto = ?;";
+		if(id > 0) //controllo id valido
+		{
+			String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE ID = ?";
+			try {
+				connection = ds.getConnection();
+				preparedStatement = connection.prepareStatement(deleteSQL);
+				preparedStatement.setInt(1, id);
+	
+				preparedStatement.executeUpdate();
+	
+			} finally {
+				try {
+					if (preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if (connection != null)
+						connection.close();
+				}
+			}
+		}
+	}
+
+	@Override
+	public synchronized void doDeleteReview(ReviewBean reviewBean) throws SQLException {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Questa funzione non ï¿½ ancora implementata.");
+	}
+
+	@Override
+	public synchronized Collection<ReviewBean> doRetriveReviewsByProd(int idProdotto) throws SQLException {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Questa funzione non ï¿½ ancora implementata.");
+	}
+
+	@Override
+	public synchronized Collection<ReviewBean> doRetriveReviewsByUser(int idUser) throws SQLException {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Questa funzione non ï¿½ ancora implementata.");
+	}
+
+	@Override
+	public synchronized Collection<ReviewBean> doRetriveAllReviews() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		LinkedList<ReviewBean> reviews = new LinkedList<ReviewBean>();
+		
+		UserModel userModel = new UserModelDS();
+		ProductModel productModel = new ProductModelDS();
+		
+		String insertSQL = "SELECT * FROM " + TABLE_NAME + ";";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			
-			preparedStatement.setInt(1, idProdotto);
-			
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int idRec = rs.getInt("id");
-				String titolo = rs.getString("titolo");
-				String content = rs.getString("content");
-				int rating = rs.getInt("rating");
-				Date date = rs.getDate("date");
-				int idUser = rs.getInt("id_utente");
-				int idProd = rs.getInt("id_prodotto");
-				
-				UserBean userBean = (new UserModelDS()).doRetrieveUserByKey(idUser);
-				ProductBean prodottoBean = (new ProductModelDS()).doRetrieveProductByKey(idProd);
-				
-				ReviewBean review = new ReviewBean(idRec, titolo, content, rating, date, userBean, prodottoBean);
-				recensioni.add(review);
+				ReviewBean review = new ReviewBean(rs.getInt("id"), rs.getString("titolo"), rs.getString("content"), rs.getInt("rating"), (Date)rs.getDate("date"), userModel.doRetrieveUserByKey(rs.getInt("id_utente")), productModel.doRetrieveProductByKey(rs.getInt("id_prodotto")));
+				reviews.add(review);
 			}
 		} finally {
 			try {
@@ -117,23 +143,11 @@ public class ReviewModelDS implements ReviewModel {
 			}
 		}
 		
-		return recensioni;
+		return reviews;
 	}
 
 	@Override
-	public Collection<ReviewBean> doRetriveReviewsByUser(int idUser) throws SQLException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Questa funzione non è ancora implementata.");
-	}
-
-	@Override
-	public Collection<ReviewBean> doRetriveAllReviews() throws SQLException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Questa funzione non è ancora implementata.");
-	}
-
-	@Override
-	public int getAvgByProd(ProductBean prodotto) throws SQLException {
+	public synchronized int getAvgByProd(ProductBean prodotto) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		int media = 0;

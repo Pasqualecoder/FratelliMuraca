@@ -7,7 +7,11 @@ public interface ReviewModel {
 	
 	public void doSaveReview(ReviewBean reviewBean) throws SQLException;
 
-	public void doDeleteReview(int idReview) throws SQLException;
+	//rimuove una recensione partendo dall id
+	// return: void
+	// parametro: idReview (string)
+	// throws: SQLException
+	public void doDeleteReview(String idReview) throws SQLException;
 
 	public void doDeleteReview(ReviewBean reviewBean) throws SQLException;
 	

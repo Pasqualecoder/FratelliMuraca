@@ -23,6 +23,7 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
             <% } %>
             <li><a href="./admin?action=catalogo">Gestione catalogo</a></li>
             <li><a href="./admin?action=users">Gestione utenti</a></li>
+            <li><a href="./admin?action=review">Gestione recensioni</a></li>
             <li><a href="logout"><b>Logout</b></a></li>
         </ul>
     </div>
