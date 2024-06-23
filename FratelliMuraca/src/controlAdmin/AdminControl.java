@@ -24,12 +24,8 @@ public class AdminControl extends HttpServlet {
 	private static AdminModel adminModel = new AdminModelDS();
 	private static UserModel userModel = new UserModelDS();
 	private static ProductModel productModel = new ProductModelDS();
-<<<<<<< HEAD
 	private static ReviewModel reviewModel = new ReviewModelDS();
-	
-=======
 	private static OrderModel orderModel = new OrderModelDS();
->>>>>>> 3d61977ad3bde4a31308dda859183bb73ece78ec
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -155,7 +151,6 @@ public class AdminControl extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-<<<<<<< HEAD
 		else if(action.equals("review")){
 			try {
 				redirect = "ManageReview.jsp";
@@ -178,9 +173,9 @@ public class AdminControl extends HttpServlet {
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
-=======
+		}
 		else if(action.equals("orders")) {
-			redirect = "ManageOrderView.jsp";
+			redirect = "VisualizzaOrdini.jsp";
 			
 			LinkedList<OrderBean> orderList = null;
 			try {
@@ -189,8 +184,8 @@ public class AdminControl extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.setAttribute("orderList", orderList);
->>>>>>> 3d61977ad3bde4a31308dda859183bb73ece78ec
 		}
+		
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(subfolder + redirect);
 		dispatcher.forward(request, response);
