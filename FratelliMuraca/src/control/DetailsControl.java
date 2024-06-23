@@ -22,6 +22,7 @@ public class DetailsControl extends HttpServlet {
 	static ProductModel productModel = new ProductModelDS();
 	static OrderModel orderModel = new OrderModelDS();
 	static ReviewModel reviewModel = new ReviewModelDS();
+	static FavoriteModel favoriteModel = new FavoriteModelDS();
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -78,16 +79,26 @@ public class DetailsControl extends HttpServlet {
 		 * l'attributo request.getAttribute("canComment") da usare nel frontend
 		 */
 		boolean canComment = false;
+		boolean isFavorite = false;
+		boolean hasReview = false;
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
 		if (user != null) {
 			canComment = checkBought(user, prodotto);
+			hasReview = checkReview(user, prodotto);
+			isFavorite = checkFavorite(user, prodotto);
 		}
 		
-		request.setAttribute("canComment", canComment);
+		
+		request.setAttribute("canComment", canComment && !hasReview);
+		request.setAttribute("isFavorite", isFavorite);
+		request.setAttribute("hasReview", hasReview);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/DetailsView.jsp");
 		dispatcher.forward(request, response);
 	}
 	
+	
+	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -95,7 +106,17 @@ public class DetailsControl extends HttpServlet {
 		doGet(request, response);
 	}
 	
-
+	public boolean checkReview(UserBean user, ProductBean prodotto) {
+		try {
+			if(reviewModel.doRetrieveReview(user.getId(), prodotto.getId()) != null) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	/**
 	 * per ogni ordine effettuato dall'utente
@@ -125,4 +146,19 @@ public class DetailsControl extends HttpServlet {
 		return toReturn;
 	}
 	
+	
+	public boolean checkFavorite(UserBean user, ProductBean prodotto) {
+		try {
+			if(favoriteModel.doRetrieveFavorite(user.getId(), prodotto.getId()) != null) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+		
+	}
+
 }

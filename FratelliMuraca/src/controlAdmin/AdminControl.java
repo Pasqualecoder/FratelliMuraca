@@ -3,6 +3,7 @@ package controlAdmin;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class AdminControl extends HttpServlet {
 	private static AdminModel adminModel = new AdminModelDS();
 	private static UserModel userModel = new UserModelDS();
 	private static ProductModel productModel = new ProductModelDS();
-	
+	private static OrderModel orderModel = new OrderModelDS();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -153,6 +154,17 @@ public class AdminControl extends HttpServlet {
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+		else if(action.equals("orders")) {
+			redirect = "ManageOrderView.jsp";
+			
+			LinkedList<OrderBean> orderList = null;
+			try {
+				orderList = (LinkedList<OrderBean>) orderModel.doRetrieveAllOrders();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.setAttribute("orderList", orderList);
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(subfolder + redirect);

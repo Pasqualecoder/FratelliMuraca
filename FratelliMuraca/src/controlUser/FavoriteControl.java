@@ -50,8 +50,13 @@ public class FavoriteControl extends HttpServlet {
 			action = "";
 		}
 		String id = null;
+
 		try {
-			id = String.valueOf(((favoriteModel.doRetrieveFavorite(user.getId(), Integer.parseInt(request.getParameter("id")))).getId())); // PASQUALE NON GUARDARE
+			int userId = user.getId();
+			int requestId = Integer.parseInt(request.getParameter("id"));
+			FavoriteBean favorite = favoriteModel.doRetrieveFavorite(userId, requestId);
+			int favoriteId = favorite.getId();
+			id = String.valueOf(favoriteId);
 		} catch (SQLException | NumberFormatException e ) {
 			e.printStackTrace();
 		}

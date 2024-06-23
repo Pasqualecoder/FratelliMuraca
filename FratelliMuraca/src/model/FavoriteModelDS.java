@@ -196,6 +196,9 @@ public class FavoriteModelDS implements FavoriteModel {
 
 	            preferito = new FavoriteBean(id, idCliente, idProdotto);
 	        }
+	        else {
+	        	return null;
+	        }
 	    } finally {
 	        try {
 	            if (rs != null) {
