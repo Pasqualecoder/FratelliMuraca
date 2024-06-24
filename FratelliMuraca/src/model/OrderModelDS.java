@@ -123,6 +123,51 @@ public class OrderModelDS implements OrderModel {
 		return ordini;
 	}
 	
+	@Override
+	public synchronized OrderBean doRetrieveOrder(int idOrdine, int idCliente) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		OrderBean ordine = null;
+		int userOwner = idCliente;
+
+		String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id_cliente = ? AND id = ?";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, userOwner);
+			preparedStatement.setInt(2, idOrdine);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int idUser = rs.getInt("id_cliente");
+				String details = rs.getString("details");
+				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
+				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
+
+				ordine = new OrderBean(id, idUser, details, prodotti, stato);
+			}
+
+		} catch (IOException | ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+
+		return ordine;
+	}
+
+	
 	
 	@Override
 	public synchronized Collection<OrderBean> doRetrieveOrders(UserBean user) throws SQLException {
@@ -167,6 +212,62 @@ public class OrderModelDS implements OrderModel {
 			}
 		}
 		return ordini;
+	}
+
+
+	@Override
+	public synchronized OrderBean doRetrieveOrder(int idOrdine) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		OrderBean ordine = null;
+
+		String selectSQL = "SELECT * " + "FROM ordini, utenti " + 
+				"WHERE id_cliente = utenti.id AND ordini.id = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			preparedStatement.setInt(1, idOrdine);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				// campi ordine
+				int id = rs.getInt("ordini.id");
+				int idCliente = rs.getInt("id_cliente");
+				String details = rs.getString("details");
+				CartBean prodotti = CartBean.deserialize(rs.getBytes("prodotti"));
+				StatoOrdine stato = StatoOrdine.fromString(rs.getString("stato"));
+				
+				// campi utente
+				int idUser = rs.getInt("utenti.id");
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				String nome = rs.getString("nome");
+				String cognome = rs.getString("cognome");
+				Date ddn = rs.getDate("ddn");
+				String phone = rs.getString("phone");
+				
+				UserBean user = new UserBean(idUser, email, password, nome, cognome, ddn, phone);
+				OrderBean ordineBean = new OrderBean(id, idCliente, user, details, prodotti, stato);
+				ordine = ordineBean;
+			}
+
+		} catch (IOException | ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return ordine;
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,29 +31,8 @@ public class Test extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// test error
-		// response.sendError(sc);
-		/*
-		UserModel userModel = new UserModelDS();
-		long unixTimestamp = 1059170400000L;
-		Date data = new Date(unixTimestamp);
-		UserBean userBean = new UserBean(
-				"email1", "password", "nome", "cognome", data, "123"
-		);
-		try {
-			userModel.doSaveUser(userBean);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		*/
-		AdminModel adminModel = new AdminModelDS();
-		AdminBean bean = new AdminBean("boss6", "a");
-		try {
-			adminModel.doChangeAdmin(bean);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("home");
+		dispatcher.forward(request, response);
 	}
 
 	/**

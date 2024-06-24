@@ -111,7 +111,7 @@ public class OrderBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", id_cliente=" + id_cliente + ", prodotti=" + prodotti + 
+		return "Order [id=" + id + ", id_cliente=" + id_cliente + ", user=" + user + ", prodotti=" + prodotti + 
 				"details=" + (!details.isBlank() ? "presenti" : "assenti") 
 				+ ", stato=" + stato + "]";
 	}

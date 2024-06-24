@@ -54,6 +54,7 @@ if (ordini == null || ordini.size() <= 0) {
 <div class="card mb-4">
     <div class="card-body">
 		<h4>Ordine #<%=or.getId()%></h4>
+		<a href="receipt?id=<%=or.getId()%>"><i>Ricevuta Fiscale</i></a>
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">

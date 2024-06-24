@@ -69,7 +69,7 @@
 
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block" style="background-color: #5f720f;" id="submit-button"> Registrati</button>
+                        <button type="submit" class="btn btn-success btn-block" id="submit-button"> Registrati</button>
                     </div> <!-- form-group// -->      
                     <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>                                          
                 </form>

@@ -104,8 +104,44 @@ public class ReviewModelDS implements ReviewModel {
 
 	@Override
 	public synchronized Collection<ReviewBean> doRetriveReviewsByProd(int idProdotto) throws SQLException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Questa funzione non � ancora implementata.");
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		LinkedList<ReviewBean> recensioni = new LinkedList<ReviewBean>();
+		
+		String insertSQL = "SELECT * FROM " + TABLE_NAME + " WHERE id_prodotto = ?;";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			
+			preparedStatement.setInt(1, idProdotto);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int idRec = rs.getInt("id");
+				String titolo = rs.getString("titolo");
+				String content = rs.getString("content");
+				int rating = rs.getInt("rating");
+				Date date = rs.getDate("date");
+				int idUser = rs.getInt("id_utente");
+				int idProd = rs.getInt("id_prodotto");
+				
+				UserBean userBean = (new UserModelDS()).doRetrieveUserByKey(idUser);
+				ProductBean prodottoBean = (new ProductModelDS()).doRetrieveProductByKey(idProd);
+				
+				ReviewBean review = new ReviewBean(idRec, titolo, content, rating, date, userBean, prodottoBean);
+				recensioni.add(review);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return recensioni;
 	}
 
 	@Override

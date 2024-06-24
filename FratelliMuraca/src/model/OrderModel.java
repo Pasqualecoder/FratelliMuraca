@@ -22,6 +22,22 @@ public interface OrderModel {
 	 */
 	public Collection<OrderBean> doRetrieveOrders(UserBean user) throws SQLException;
 	
+	/**
+	 * retrives a single order given the id
+	 * @param idOrdine
+	 * @return
+	 * @throws SQLException
+	 */
+	public OrderBean doRetrieveOrder(int idOrdine) throws SQLException;
+	
+	/**
+	 * retrives a single order given the id and the owner (check incrociato)
+	 * @param idOrdine
+	 * @return
+	 * @throws SQLException
+	 */
+	public OrderBean doRetrieveOrder(int idOrdine, int idCliente) throws SQLException;
+	
 	
 	/**
 	 * admin only: retrives all orders with the field user filled
