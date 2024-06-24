@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
-
 <%@ include file="../init/cartinit.jsp" %>
 
 <!DOCTYPE html>
 <html>
+<head>
+<title>Ordini - Fratelli Muraca</title>
 <%@ include file="../parts/head.jsp" %>
-
+</head>
 <body>
-
 <%@ include file="../parts/navbar.jsp" %>
 
 <h1 class="font-italic text-center">Ultimi ordini</h1>
 <%
-	Boolean opStatus = (Boolean) request.getAttribute("opStatus");
+Boolean opStatus = (Boolean) request.getAttribute("opStatus");
 
 // NESSUNA OPERAZIONE EFFETTUATA
 if (opStatus == null) {

@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="central-container" id="dashboard-container">
-	<a class="go-back" href="admin">&#171 Dashboard</a>
+	<a class="go-back" href="admin">&#171; Dashboard</a>
 
 	<h2> Gestione Ordini </h2>
 	<p> lista Ordini</p>

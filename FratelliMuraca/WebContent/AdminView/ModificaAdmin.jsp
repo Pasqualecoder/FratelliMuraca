@@ -13,7 +13,7 @@
     Gestione Admin
 </div>
 <div class="central-container" id="dashboard-container">
-	<a class="go-back" href="admin">&#171 Dashboard</a>
+	<a class="go-back" href="admin">&#171; Dashboard</a>
 
 	<body>
 	<h2> Gestione admin </h2>

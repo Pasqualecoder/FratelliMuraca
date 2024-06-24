@@ -3,73 +3,9 @@
 <%@ include file="init/cartinit.jsp" %>
 <html>
 <head>
-    <style>
-        /* Stile per il banner con logo centrato */
-        .banner {
-            background-color: #607244; /* Colore di sfondo */
-            padding: 50px 0; /* Spaziatura interna */
-        }
-
-        .banner img {
-            max-width: 100%; /* Immagine del logo al massimo della larghezza del contenitore */
-            max-height: 500px; /* Altezza massima dell'immagine del logo */
-        }
-
-        /* Stile per le categorie di prodotti */
-        .categories {
-            padding: 50px 0; /* Spaziatura interna */
-        }
-
-        .categories img {
-            width: 100%; /* Immagini delle categorie larghe al 100% */
-            border-radius: 5px; /* Bordo arrotondato */
-            margin-bottom: 20px; /* Spaziatura inferiore */
-        }
-		
-		/* Stile per i card con immagine e testo in overlay */
-		.card {
-			position: relative;
-			margin-bottom: 30px;
-			border: none;
-			height: 400px; /* Altezza dei card */
-		}
-		
-		.card img {
-			border-radius: 5px;
-			width: 100%; /* Larghezza immagine al 100% del card */
-			height: 100%; /* Altezza immagine al 100% del card */
-			object-fit: cover; /* Copertura immagine */
-			transition: transform .2s;
-		}
-		
-		.card img:hover {
-			transform: scale(1.05);
-		}
-		
-		.card .card-img-overlay {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			color: white;
-			opacity: 0;
-			background-color: rgba(0, 0, 0, 0.7);
-			border-radius: 5px;
-			transition: opacity .3s;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		
-		.card:hover .card-img-overlay {
-			opacity: 1;
-		}
-	
-	
-		
-    </style>
-    <%@ include file="parts/head.jsp" %>
+<title>Home - Fratelli Muraca</title>
+<link rel="stylesheet" href="css/home-style.css">
+<%@ include file="parts/head.jsp" %>
 </head>
 <body>
     <%@ include file="parts/navbar.jsp" %>

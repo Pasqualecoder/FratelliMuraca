@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
-
-
 <%@ include file="init/cartinit.jsp" %>
 <%@ include file="init/productsinit.jsp" %>
 
@@ -17,9 +15,8 @@
 // se non ci sono elementi nel db da mostrare abort
 if (products == null || products.size() == 0) {%> 
 	<h1>Store attualmente non diponibile! Torna più tardi</h1>	
-<%return;}%>
-
-
+<%return;
+}%>
 
 <!-- SEZIONE PRODOTTI -->
 <section class="py-5">
@@ -71,12 +68,7 @@ if (products == null || products.size() == 0) {%>
 				<!-- end CARD -->
 			<%} // endfor 
 			%>
-			
-
-	
 </section> 
-
-
 
 <%@ include file="parts/footer.jsp" %>
 </body>
