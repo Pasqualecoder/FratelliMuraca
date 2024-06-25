@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -231,7 +232,17 @@ public class UserModelDS implements UserModel {
 			preparedStatement.setString(1, userNuovo.getEmail());
 			preparedStatement.setString(2, userNuovo.getNome());
 			preparedStatement.setString(3, userNuovo.getCognome());
-			preparedStatement.setDate(4, userNuovo.getDdn()); // QUA CI STA L'ERRORE CHE TOGLIE UN GIORNO OOOO MA CHE E'
+			
+			//DEBUG
+			java.sql.Date sqlDate = userNuovo.getDdn();
+			System.out.println(userNuovo.getDdn());
+			System.out.println("Date to be set: " + sqlDate);
+			LocalDate DATA_CORRETTA_FUSO_ORARIO = userNuovo.getDdn().toLocalDate();
+			java.sql.Date sqlDateFUSO_ORARIO = java.sql.Date.valueOf(DATA_CORRETTA_FUSO_ORARIO);
+			System.out.println(sqlDateFUSO_ORARIO);
+			//DEBUG
+
+			preparedStatement.setDate(4, java.sql.Date.valueOf(DATA_CORRETTA_FUSO_ORARIO)); // QUA CI STA L'ERRORE CHE TOGLIE UN GIORNO OOOO MA CHE E'
 			preparedStatement.setString(5, userNuovo.getPhone());
 			preparedStatement.setInt(6, userNuovo.getId());
 
