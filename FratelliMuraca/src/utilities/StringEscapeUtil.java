@@ -21,4 +21,20 @@ public class StringEscapeUtil {
         }
         return sb.toString();
     }
+    
+    public static String newLineToBr(final String input) {
+    	String clone = new String(input);
+    	StringBuilder ret = new StringBuilder();
+    	for (int i = 0; i < clone.length(); i++) {
+    		char c = clone.charAt(i);
+    		if (c == '\n') {
+    			ret.append("<br>");
+    		}
+    		else {
+    			ret.append(c);
+    		}
+    	}
+    	return ret.toString();
+    }
+    
 }

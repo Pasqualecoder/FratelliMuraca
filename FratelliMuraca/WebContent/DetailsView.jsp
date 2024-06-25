@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*,utilities.StringEscapeUtil" pageEncoding="UTF-8" %>
 
 
 <%@ include file="init/cartinit.jsp" %>
@@ -23,6 +23,7 @@ if (listaRecensioni == null) listaRecensioni = new LinkedList<ReviewBean>();
 <!DOCTYPE html>
 <html>
 <head>
+<title><%= prodotto.getNome() %> - Fratell Muraca</title>
 <link rel="stylesheet" href="css/details-style.css">
 </head>
 <%@ include file="parts/head.jsp" %>
@@ -121,7 +122,7 @@ else if (opStatus.equals("failure")) {
 
 	  <p class="text-muted">Disponibili in magazzino: <%= prodotto.getQuantita() %></p>
 
-      <p><%= prodotto.getDescrizione() %></p>
+      <p><%= StringEscapeUtil.newLineToBr(prodotto.getDescrizione()) %></p>
       
 <form method="POST" id="favoriteForm">
     <input type="hidden" id="id" name="id_prodotto" value="<%= prodotto.getId() %>">

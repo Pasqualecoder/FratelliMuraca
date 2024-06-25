@@ -203,6 +203,7 @@ function populateOrderDetails(orderDetails) {
     const transactionId = orderDetails.purchase_units[0].payments.captures[0].id;
     const paymentStatus = orderDetails.status;
     const paymentMethod = "PayPal";
+    const paymentTotal = orderDetails.purchase_units[0].amount.value;
     const payeeEmail = orderDetails.purchase_units[0].payee.email_address;
     const orderDescription = orderDetails.purchase_units[0].description;
     const productName = orderDetails.purchase_units[0].items[0].name;
@@ -225,7 +226,7 @@ function populateOrderDetails(orderDetails) {
     document.getElementById('payment-status').textContent = paymentStatus;
     document.getElementById('payment-method').textContent = paymentMethod;
     document.getElementById('payment-date').textContent = paymentDate;
-    document.getElementById('payment-total').textContent = paymentTotal;
+    // document.getElementById('payment-total').textContent = paymentTotal;
     document.getElementById('payer-email').textContent = payerEmail;
     document.getElementById('payer-name').textContent = payerName;
     document.getElementById('payee-email').textContent = payeeEmail;
