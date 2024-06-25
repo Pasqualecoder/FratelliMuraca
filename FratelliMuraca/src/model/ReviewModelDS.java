@@ -215,8 +215,63 @@ public class ReviewModelDS implements ReviewModel {
 
 	@Override
 	public ReviewBean doRetrieveReview(int userId, int productId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
+
+	    ReviewBean review = null;
+
+	    String selectSQL = "SELECT * FROM " + TABLE_NAME +
+	                       " WHERE id_prodotto = ? AND id_utente = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setInt(1, productId);
+	        preparedStatement.setInt(2, userId);
+
+	        rs = preparedStatement.executeQuery();
+
+	        if (rs.next()) {
+	            int id = rs.getInt("id");
+	            String titolo = rs.getString("titolo");
+	            String content = rs.getString("content");
+	            int rating = rs.getInt("rating");
+	            Date date = rs.getDate("date");
+	            int idUtente = rs.getInt("id_utente");
+	            int idProdotto = rs.getInt("id_prodotto");
+	            
+	            UserBean user = new UserModelDS().doRetrieveUserByKey(idUtente);
+	            ProductBean product = new ProductModelDS().doRetrieveProductByKey(idProdotto);
+	            review= new ReviewBean(id, titolo, content, rating, date, user, product);
+	        }
+	        else {
+	        	return null;
+	        }
+	    } finally {
+	        try {
+	            if (rs != null) {
+	                rs.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	            if (connection != null) {
+	                connection.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return review;
 	}
 
 }

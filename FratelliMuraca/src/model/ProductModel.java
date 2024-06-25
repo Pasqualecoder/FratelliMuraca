@@ -38,6 +38,7 @@ public interface ProductModel {
 	 */
 	public Collection<ProductBean> doRetrieveAllProducts(String order) throws SQLException;
 
+	public Collection<ProductBean> doRetrieveAllProductsFiltered(String order, String priceMin, String priceMax, String productType) throws SQLException;
 	
 	public void doUpdateProduct(ProductBean product) throws SQLException;
 	

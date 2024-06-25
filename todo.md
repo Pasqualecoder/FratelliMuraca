@@ -8,29 +8,14 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 ## Implementazione Account e Pagina Amministratore
 
 2. **Pagina Amministratore**
-	Struttura dell'amministratore:
-		Webcontent:
-			admin/login.jsp
-			admin/dashboard.jsp
-		Java:
-			AdminControl.java
-				doGet()
-					se non loggato (reindirizza)-> admin/login.jsp
-					se loggato
-						if ?action="catalogo" -> admin/catalogo dove si può modificare o eliminare
-						if ?action="orders" -> admin/orders.jsp visualizzare gli ordini e modificare lo stato
-					
-   - **Gestione Catalogo**
-     - Aggiungere, modificare e rimuovere prodotti dal catalogo.
+
+						
+	if ?action="orders" -> admin/orders.jsp visualizzare gli ordini e modificare lo stato
    - **Gestione Ordini**
 
 ## Utente
 4. **Modifica Campi Utente**
    - Correggere i bug relativi alla modifica dei campi del profilo utente. (date salvato con un giorno in meno)
-
-5. **Gestione Utente**
-   - **Recensioni Prodotti**
-     - Permettere agli utenti di lasciare recensioni sui prodotti acquistati direttamente dalla pagina dei dettagli del prodotto (implementare il backend (db) per le recensioni).
 
 ## Sito Responsive
 6. **Responsive Design**
@@ -50,18 +35,9 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 ## Funzionalità Aggiuntive
 PDF negli ordini
 
-
-8. **Preferiti**
-   - Implementare una funzionalità che permetta agli utenti di aggiungere prodotti ai preferiti. (Gia' iniziata vedere FavoriteBean, FavoriteModel, FavoriteView e le due servlet)
-
-
 9. **Selezione Tipologia Prodotti**
    - Aggiungere la possibilità di selezionare la tipologia dei prodotti in `ProductView` utilizzando AJAX.
    - Filtraggio prodotti (valutare se far filtrare al db)
-
-
-## Bug
-
 
 ## Grafica
 3. **Aggiornare pagina home**

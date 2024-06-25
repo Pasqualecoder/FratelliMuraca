@@ -169,7 +169,7 @@ OrderBean order = (OrderBean) request.getAttribute("order");
                 for (Map.Entry<ProductBean, Integer> pr : prodotti.entrySet()) { // per ogni prodotto all'interno della mappa
                     ProductBean key = pr.getKey();
                     Integer value = pr.getValue();
-                    prezzoTotale += key.getPrezzoScontato();
+                    prezzoTotale += ProductBean.arrotondaDueDecimali(key.getPrezzoScontato() * value);
                     %>
                     <tr>
                         <td id="product-description"><%= key.getNome() + " (id:" + key.getId() + ") " %></td>
@@ -177,7 +177,7 @@ OrderBean order = (OrderBean) request.getAttribute("order");
                         <td id="product-unit-price">€<%= key.getPrezzoNetto() %></td>
                         <td id="product-iva-perc"><%= key.getIvaPerc() %>%</td>
                         <td id="product-sale-perc"><%= key.getSalePerc() %>%</td>
-                        <td id="product-total-price">€<%= key.getPrezzoScontato() %></td>
+                        <td id="product-total-price">€<%= ProductBean.arrotondaDueDecimali(key.getPrezzoScontato() * value) %></td>
                     </tr>
                 <%}
                 %>
@@ -203,7 +203,6 @@ function populateOrderDetails(orderDetails) {
     const transactionId = orderDetails.purchase_units[0].payments.captures[0].id;
     const paymentStatus = orderDetails.status;
     const paymentMethod = "PayPal";
-    const paymentTotal = orderDetails.purchase_units[0].amount.value;
     const payeeEmail = orderDetails.purchase_units[0].payee.email_address;
     const orderDescription = orderDetails.purchase_units[0].description;
     const productName = orderDetails.purchase_units[0].items[0].name;

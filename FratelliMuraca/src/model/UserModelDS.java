@@ -231,7 +231,7 @@ public class UserModelDS implements UserModel {
 			preparedStatement.setString(1, userNuovo.getEmail());
 			preparedStatement.setString(2, userNuovo.getNome());
 			preparedStatement.setString(3, userNuovo.getCognome());
-			preparedStatement.setDate(4, userNuovo.getDdn());
+			preparedStatement.setDate(4, userNuovo.getDdn()); // QUA CI STA L'ERRORE CHE TOGLIE UN GIORNO OOOO MA CHE E'
 			preparedStatement.setString(5, userNuovo.getPhone());
 			preparedStatement.setInt(6, userNuovo.getId());
 

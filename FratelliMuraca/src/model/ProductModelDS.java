@@ -273,7 +273,76 @@ public class ProductModelDS implements ProductModel {
 		}
 		return products;
 	}
+	
+	public synchronized Collection<ProductBean> doRetrieveAllProductsFiltered(String order, String priceMin, String priceMax, String productType) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
 
+	    Collection<ProductBean> products = new LinkedList<ProductBean>();
+
+	    String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE 1=1";
+
+	    if (priceMin != null && !priceMin.isEmpty()) {
+	        selectSQL += " AND prezzo >= ?";
+	    }
+	    if (priceMax != null && !priceMax.isEmpty()) {
+	        selectSQL += " AND prezzo <= ?";
+	    }
+	    if (productType != null && !productType.isEmpty()) {
+	        selectSQL += " AND categoria = ?";
+	    }
+	    if (order != null && !order.isEmpty()) {
+	    	
+	        selectSQL += " ORDER BY " + order;
+	    }
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+
+	        int paramIndex = 1;
+	        if (priceMin != null && !priceMin.isEmpty()) {
+	            preparedStatement.setFloat(paramIndex++, Float.parseFloat(priceMin));
+	        }
+	        if (priceMax != null && !priceMax.isEmpty()) {
+	            preparedStatement.setFloat(paramIndex++, Float.parseFloat(priceMax));
+	        }
+	        if (productType != null && !productType.isEmpty()) {
+	            preparedStatement.setString(paramIndex++, productType);
+	        }
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            int id = rs.getInt("id");
+	            String nome = rs.getString("nome");
+	            String descrizione = rs.getString("descrizione");
+	            float prezzo = rs.getFloat("prezzo");
+	            int salePerc = rs.getInt("sale_perc");
+	            int ivaPerc = rs.getInt("iva_perc");
+	            int quantita = rs.getInt("quantita");
+	            String dimensione = rs.getString("dimensione");
+	            boolean tipo = rs.getBoolean("tipo");
+	            ProductCategorie categoria = ProductCategorie.fromString(rs.getString("categoria"));
+	            String anno = rs.getString("anno");
+	            String ingredienti = rs.getString("ingredienti");
+	            LinkedList<Integer> immagini = (LinkedList<Integer>) doRetrieveImagesKey(id);
+
+	            ProductBean bean = new ProductBean(id, nome, descrizione, prezzo, ivaPerc, salePerc, quantita, dimensione, tipo, categoria, anno, ingredienti, immagini);
+	            products.add(bean);
+	        }
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+	    return products;
+	}
 	
 	
 	/**
