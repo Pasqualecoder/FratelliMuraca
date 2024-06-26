@@ -51,7 +51,7 @@ public class ProductFilter extends HttpServlet {
         }
         
         for(int i = 0; i < prodotti.size(); i++) {
-        	productsJSON.append(prodotti.get(i).toJSON());
+        	productsJSON.append(prodotti.get(i).toJSONNoDesc());
         	if( i != prodotti.size() - 1) {
         		productsJSON.append(",");
         	}
