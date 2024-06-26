@@ -8,10 +8,8 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 ## Implementazione Account e Pagina Amministratore
 
 2. **Pagina Amministratore**
-
-						
-	if ?action="orders" -> admin/orders.jsp visualizzare gli ordini e modificare lo stato
-   - **Gestione Ordini**
+   2. fare il coso con ajax su  gestione ordini
+   
 
 ## Utente
 4. **Modifica Campi Utente**
@@ -20,10 +18,7 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 ## Sito Responsive
 6. **Responsive Design**
    - Assicurarsi che le seguenti sezioni del sito siano responsive:
-     - Footer
-     - Carrello
-     - Login
-     - Registrazione
+     - navbar
 
 # Pagina Registrazione/Login
 
@@ -32,18 +27,6 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 2. **Rimuovere le info di debug da error.jsp**
 3. **Nascondere le pagine di errore di default sempre per nascondere le info di debug**
 
-## Funzionalità Aggiuntive
-PDF negli ordini
-
-9. **Selezione Tipologia Prodotti**
-   - Aggiungere la possibilità di selezionare la tipologia dei prodotti in `ProductView` utilizzando AJAX.
-   - Filtraggio prodotti (valutare se far filtrare al db)
-
-## Grafica
-3. **Aggiornare pagina home**
-  - inserire pulsante all'inzio per andare ai prodotti(shop.oliocirulli.com)
-4. **Fixare footer**
-fixare la distanza tra icona del carrello e numero
 
 
 # prima della presentazione

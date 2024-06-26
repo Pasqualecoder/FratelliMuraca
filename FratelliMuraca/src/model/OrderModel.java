@@ -45,4 +45,6 @@ public interface OrderModel {
 	 * @throws SQLException
 	 */
 	public Collection<OrderBean> doRetrieveAllOrders() throws SQLException;
+
+	public void doChangeOrderState(OrderBean order, String stato) throws SQLException;
 }

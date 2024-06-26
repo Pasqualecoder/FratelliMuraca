@@ -460,6 +460,8 @@ public class ProductModelDS implements ProductModel {
 	}
 	
 	
+	
+	
 	private synchronized void doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException {
 		if (immagini == null || immagini.size() == 0) {
 			return;
@@ -536,6 +538,7 @@ public class ProductModelDS implements ProductModel {
 		}
 		
 	}
+	
 	
 	
 }

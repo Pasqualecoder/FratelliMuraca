@@ -3,8 +3,8 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/56e0e93fe4.js" crossorigin="anonymous"></script>
   <style>
-  
   	.navbar-nav .nav-link .fa-user fa-home {
   	font-size: 1.5rem; /* Increase size */
   	color: white; /* Color of the icon */
@@ -18,14 +18,27 @@
       color: white !important; /* White text for links */
     }
     .navbar-brand:hover, .nav-link:hover {
-      color: #d4edda !important; /* Lighter green on hover */
+      color:  !important; /* Lighter green on hover */
     }
+    .navbar-brand {
+    padding: 8px; /* Adjust the padding to reduce space around the icons */
+    margin-right: 10px; /* Optional: Adjust margin if needed */
+	}
+
+	.navbar-brand.position-relative {
+	    padding-right: 0; /* Remove padding on the right for position-relative elements */
+	}
+	
+	.nav-link.ml-auto {
+	    margin-left: 5px; /* Adjust margin to separate user icon from search bar */
+	}
+
     /* Side panel styles */
     .sidepanel {
       height: 100%; /* Full-height */
       width: 0; /* Initial width 0 */
       position: fixed; /* Fixed side panel */
-      z-index: 1; /* Stay on top */
+      z-index: 30000; /* Stay on top */
       top: 0;
       right: 0;
       background-color: #607244; /* Green background */
@@ -59,7 +72,13 @@
       margin: 10px 20px;
     }
     .navbar-toggler {
-      border-color: rgba(255, 255, 255, 0.1);
+      border: 0;
+      background: none;
+    }
+    
+    .navbar-toggler:focus {
+      border: 0;
+      background: none;
     }
     /* Badge styles */
     .badge {
@@ -70,25 +89,27 @@
     }
     
     .nav-link {
-    	color: white; !important
-    	text-decoration: none; !important
+    	color: white; 
+    	text-decoration: none; 
     }
     
      .nav-link:hover {
-    	color: yellow; !important
-    	text-decoration: none; !important
+    	color: 	#8eb027; 
+    	text-decoration: none; 
     }
     
     .nav-item {
+   	  
       position: relative;
+      padding: 0 10px !important;
     }
     
     .nav-item::before {
       content: '';
       position: absolute;
       width: 100%;
-      height: 4px;
-      border-radius: 4px;
+      height: 0.5px;
+      border-radius: 0px;
       background-color: white;
       bottom: 0;
       left: 0;
@@ -102,93 +123,132 @@
       transform: scaleX(1);
     }
     
-.search-results {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    display: none;
-    position: absolute;
-    top: 50px;
-    z-index: 1;
-    transition: max-height 0.3s ease-in-out;
-}
+	.search-results {
+	    background-color: white;
+	    border: 1px solid #ccc;
+	    padding: 20px;
+	    border-radius: 4px;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	    overflow-y: auto;
+	    display: none;
+	    position: absolute;
+	    top: 50px;
+	    z-index: 1;
+	    transition: max-height 0.3s ease-in-out;
+	    width: 400px;
+	   
+	}
 
-.search-result {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer; /* Mostra il puntatore quando passi sopra il risultato di ricerca */
-    transition: background-color 0.3s; /* Animazione di sfondo al passaggio del mouse */
-}
+	.search-result {
+	    display: flex;
+	    align-items: center;
+	    padding: 10px;
+	    border-bottom: 1px solid #eee;
+	    cursor: pointer; /* Mostra il puntatore quando passi sopra il risultato di ricerca */
+	    transition: background-color 0.3s; /* Animazione di sfondo al passaggio del mouse */
+	}
 
-.search-result:hover {
-    background-color: #f0f0f0; /* Cambia il colore di sfondo al passaggio del mouse */
-}
+	.search-result:hover {
+	    background-color: #f0f0f0; /* Cambia il colore di sfondo al passaggio del mouse */
+	}
 
 
-.search-result:last-child {
-    border-bottom: none;
-}
-
-.search-result:hover {
-    background-color: #f0f0f0;
-}
-
-.product-image {
-    width: 80px; /* Larghezza desiderata per l'immagine */
-    height: auto;
-    border-radius: 4px;
-    margin-right: 10px;
-    
-}
-
-.product-name {
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-    margin-bottom: 5px; /* Spazio inferiore tra nome del prodotto e prezzo */
-}
-
-.product-price {
-    color: #666;
-    font-size: 14px;
-    margin: 0;
-}
+	.search-result:last-child {
+	    border-bottom: none;
+	}
+	
+	.search-result:hover {
+	    background-color: #f0f0f0;
+	}
+	
+	.product-image {
+	    width: 80px; /* Larghezza desiderata per l'immagine */
+	    height: auto;
+	    border-radius: 4px;
+	    margin-right: 10px;
+	    
+	}
+	
+	.product-name {
+	    font-weight: bold;
+	    color: #333;
+	    text-decoration: none;
+	    margin-bottom: 5px; /* Spazio inferiore tra nome del prodotto e prezzo */
+	}
+	
+	.product-price {
+	    color: #666;
+	    font-size: 14px;
+	    margin: 0;
+	}
 
 
 /* Mostra il div quando ci sono risultati di ricerca */
-.search-results.active {
-    display: block;
-}
-
-.user-dropdown {
-    display: none; /* Initially hide the dropdown */
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.user-dropdown a {
-    color: #000;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.user-dropdown a:hover {
-    background-color: #f1f1f1;
-}
-
-
-.home-icon {
+	.search-results.active {
+	    display: block;
+	}
 	
-}
-
+	.user-dropdown {
+	    display: none; /* Initially hide the dropdown */
+	    position: absolute;
+	    background-color: #fff;
+	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	    z-index: 3000;
+	    top: 50px;
+	    right: 13%;
+	}
+	
+	.user-dropdown a {
+	    color: #000;
+	    padding: 12px 16px;
+	    text-decoration: none;
+	    display: block;
+	}
+	
+	.user-dropdown a:hover {
+	    background-color: #f1f1f1;
+	}
+	
+	
+	#searchResults {
+	    position: absolute;
+	    top: 100%; /* Position below the search input */
+	    z-index: 1000; /* Ensure results are on top of other elements */
+	}
+	
+	/* Search bar styles from CodePen */
+	.search {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  height: 40px;
+	  width: 200px;
+	  background: white;
+	  border-radius: 50px;
+	  padding: 10px;
+	  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	  position: relative;
+	}
+	
+	.search input {
+	  border: none;
+	  outline: none;
+	  background: none;
+	  font-size: 16px;
+	  color: #333;
+	  width: 100%;
+	  margin-left: 10px;
+	}
+	
+	.search button {
+	  border: none;
+	  background: none;
+	  cursor: pointer;
+	  font-size: 16px;
+	  color: #333;
+	}
+	
+	
   </style>
 </head>
 <% UserBean user1 = (UserBean)session.getAttribute("user"); %>
@@ -196,25 +256,43 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top">
-	<!-- Home Icon -->
-    <a class="navbar-brand position-relative nav-link" href="home">
-    	<i class="fas fa-home home-icon"></i>
+	
+	<a class="navbar-brand position-relative nav-link" href="home">
+    	<i class="fa fa-home" aria-hidden="true"></i>
     </a>
+	<div class="collapse navbar-collapse justify-content-start">
+        <ul class="navbar-nav">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="product">Prodotti</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="home?page=about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="home?page=contacts">Contatti</a>
+            </li>
+        </ul>
+    </div>
+	
+	<!-- Home Icon -->
+  	
+    
     
     <!-- Cart Icon with Badge -->
-    <a class="navbar-brand position-relative nav-link" href="cart">
-		<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="white" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607L1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4a2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4a2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2a1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2a1 1 0 0 1 0-2"/></svg>
-        <span id="cartBadge" class="badge badge badge-warning" style="font-size: 12px; color: white;"><%= cart.getSize() %></span>
-    </a>
-    <!-- Search Bar -->
-    <form class="form-inline mr-auto">
-        <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" onkeyup="searchProducts()">
-        <!-- Div for Search Results -->
-        <div id="searchResults" class="search-results"></div>
-    </form>
-    <!-- User Icon -->
+   <a class="navbar-brand position-relative nav-link" href="cart">
+    <div class="position-relative">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span id="cartBadge" class="badge badge-warning" style="font-size: 12px; color: white; position: absolute; top: -8px; right: -8px;">
+            <%= cart.getSize() %>
+        </span>
+    </div>
+</a>
+
+
+    
     <div class="nav-link ml-auto">
-        <i class="fas fa-user user-icon"></i>
+        <i class="fa fa-user fa-lg" aria-hidden="true"></i>
         <div class="user-dropdown">
             <% if(user1 == null) { %>
                 <a href="login">Log In</a>
@@ -227,33 +305,27 @@
             <% } %> 
         </div>
     </div>
+    <!-- Search Bar -->
+    <div class="search mr-3">
+    <input id="searchInput" type="search" placeholder="Search..." aria-label="Search" onkeyup="searchProducts()">
+    <button type="button"><i class="fas fa-search"></i></button>
+    <!-- Div for Search Results -->
+    <div id="searchResults" class="search-results"></div>
+</div>
+    <!-- User Icon -->
+    
    
     
     <!-- Toggler Button for Side Panel -->
+    
     <button class="navbar-toggler" type="button" onclick="openCloseNav()">
-        <span class="navbar-toggler-icon">
-            <!-- Add an icon inside the span for custom icon (optional) -->
-            <!-- Example using Bootstrap's icon -->
-            <img src="https://img.icons8.com/ios-filled/24/ffffff/menu.png" alt="Menu">
-        </span>
-    </button>
-    <!-- Navbar links (hidden on smaller screens) -->
-    <div class="collapse navbar-collapse justify-content-end">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="home">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="product">Prodotti</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="home?page=about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="home?page=contacts">Contatti</a>
-            </li>
-        </ul>
-    </div>
+    <span class="navbar-toggler-icon">
+        <!-- Use your custom icon here if needed -->
+        <img src="https://img.icons8.com/ios-filled/24/ffffff/menu.png" alt="Menu">
+    </span>
+</button>
+    
+    
 </nav>
 
 <!-- Side Panel -->
@@ -275,9 +347,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const userIcon = document.querySelector(".user-icon");
+	const userIcon = document.querySelector(".fa-user");
     const userDropdown = document.querySelector(".user-dropdown");
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
 
+    	
     if (userIcon && userDropdown) {
         userIcon.addEventListener("click", function() {
             userDropdown.style.display = userDropdown.style.display === "block" ? "none" : "block";
@@ -290,71 +365,98 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-});
 
-
-	
-    /* Open the side panel */
-    function openCloseNav() {
-        if(document.getElementById("mySidepanel").style.width == "250px"){
-            document.getElementById("mySidepanel").style.width = "0px";
-        }
-        else {
-            document.getElementById("mySidepanel").style.width = "250px";
-        }
-    }
-    
-    function searchProducts() {
-        var query = document.getElementById('searchInput').value;
-
-        if (query.length === 0) {
-            searchResults.classList.remove('active');
-            document.getElementById('searchResults').innerHTML = '';
-            return;
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'search?query=' + encodeURIComponent(query), true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var products = JSON.parse(xhr.responseText);
-                var results = document.getElementById('searchResults');
-                results.innerHTML = '';
-				
-                for (var i = 0; i < products.length; i++) {
-                    var product = products[i];
-
-                    // Creazione dell'elemento del prodotto
-                    var productDiv = document.createElement('div');
-                    productDiv.className = 'search-result';
-
-                    // Creazione dell'immagine del prodotto
-                    var img = document.createElement('img');
-                    img.src = 'imageServlet?img=' + product.immagini[0]; // Utilizza la prima immagine
-                    img.alt = product.nome;
-                    img.className = 'product-image';
-
-                    // Creazione del nome del prodotto come link
-                    var nameLink = document.createElement('a');
-                    nameLink.href = 'details?id=' + product.id;
-                    nameLink.innerText = product.nome;
-                    nameLink.className = 'product-name';
-
-                    // Aggiungere tutti gli elementi al div del prodotto
-                    productDiv.appendChild(img);
-                    productDiv.appendChild(nameLink);
-
-                    // Aggiungere il div del prodotto ai risultati
-                    results.appendChild(productDiv);
-                }
-
+    if (searchInput && searchResults) {
+        searchInput.addEventListener("focus", function() {
+            if (searchResults.innerHTML !== '') {
                 searchResults.classList.add('active');
             }
-        };
+        });
 
-        xhr.send();
+        // Close search results if user clicks outside of it
+        document.addEventListener("click", function(event) {
+            if (!searchResults.contains(event.target) && event.target !== searchInput) {
+                searchResults.classList.remove('active');
+                searchResults.innerHTML = '';
+            }
+        });
     }
+});
+
+/* Open the side panel */
+function openCloseNav() {
+    if(document.getElementById("mySidepanel").style.width == "250px"){
+        document.getElementById("mySidepanel").style.width = "0px";
+    }
+    else {
+        document.getElementById("mySidepanel").style.width = "250px";
+    }
+}
+
+function searchProducts() {
+    var query = document.getElementById('searchInput').value;
+
+    if (query.length === 0) {
+        searchResults.classList.remove('active');
+        document.getElementById('searchResults').innerHTML = '';
+        return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'search?query=' + encodeURIComponent(query), true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var products = JSON.parse(xhr.responseText);
+            var results = document.getElementById('searchResults');
+            results.innerHTML = '';
+
+            if (products.length === 0) {
+                results.innerHTML = '<p>Nessun prodotto trovato</p>';
+                searchResults.classList.add('active');
+                return;
+            }
+            
+            for (var i = 0; i < products.length; i++) {
+                var product = products[i];
+
+                // Create a link element that wraps the product div
+                var productLink = document.createElement('a');
+                productLink.href = 'details?id=' + product.id;
+                productLink.className = 'product-link';
+
+                // Create product element
+                var productDiv = document.createElement('div');
+                productDiv.className = 'search-result';
+
+                // Create product image
+                var img = document.createElement('img');
+                img.src = 'imageServlet?img=' + product.immagini[0]; // Use the first image
+                img.alt = product.nome;
+                img.className = 'product-image';
+
+                // Create product name as a span
+                var nameSpan = document.createElement('span');
+                nameSpan.innerText = product.nome;
+                nameSpan.className = 'product-name';
+
+                // Append image and name span to product div
+                productDiv.appendChild(img);
+                productDiv.appendChild(nameSpan);
+
+                // Append product div to the link
+                productLink.appendChild(productDiv);
+
+                // Append the link to results
+                results.appendChild(productLink);
+            }
+
+            searchResults.classList.add('active');
+        }
+    };
+
+    xhr.send();
+}
    	
 </script>
 </body>

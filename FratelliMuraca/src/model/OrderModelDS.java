@@ -271,4 +271,32 @@ public class OrderModelDS implements OrderModel {
 	}
 	
 	
+	@Override
+	public synchronized void doChangeOrderState(OrderBean order, String stato) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		
+		String insertSQL = "UPDATE " + TABLE_NAME + " SET stato = ? WHERE id = ?"; 
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, stato);
+			preparedStatement.setInt(2, order.getId());
+			
+
+			preparedStatement.executeUpdate();
+			connection.commit();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
 }
