@@ -46,6 +46,8 @@ public class AdminModelDS implements AdminModel {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
+		if (username == null || password == null || username.isEmpty() || password.isEmpty()) return null;
+		
 		AdminBean bean = null;
 		
 		String insertSQL = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = SHA2(?, 256);";

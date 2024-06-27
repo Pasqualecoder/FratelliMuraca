@@ -16,6 +16,8 @@ public interface ProductModel {
 	 */
 	public void doSaveProduct(ProductBean product, LinkedList<ImageBean> images) throws SQLException;
 	
+	public void doSaveProduct(ProductBean product) throws SQLException;
+	
 
 	/* solo per l'admin, consente l'eleminazione di un prodotto dal catalogo
 	public boolean doDeleteProduct(int code) throws SQLException;
@@ -51,6 +53,14 @@ public interface ProductModel {
 	public void doDeleteImage(int id) throws SQLException;
 	
 	public List<Integer> doRetrieveImagesKey(int idProd) throws SQLException;
+	
+	
+	/**
+	 * 	QUESTA FUNZIONE NON RIEMPIE CON I BEAN DI BLOB
+	 */
+	public LinkedList<ImageBean> doRetriveAllImages() throws SQLException;
+	
+	public void doSaveImage(ImageBean img) throws SQLException;
 	
 	// private LinkedList<ImageBean> doSaveImages(int prodottoFk, LinkedList<ImageBean> immagini) throws SQLException; 
 	
