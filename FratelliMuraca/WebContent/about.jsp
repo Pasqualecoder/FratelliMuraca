@@ -114,16 +114,26 @@
 
 <section class="custom-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <h2 class="section-title">Estrazione</h2>
-                <p class="section-content">L’estrazione dell’olio ha inizio portando subito le olive al frantoio, dopo la fase della raccolta che avviene nel momento in cui il frutto raggiunge la maturazione ideale, mediante l’utilizzo di mezzi meccanici senza stress per le piante secolari e garantendo l’integrità del frutto, assicurandone così le caratteristiche organolettiche. Nello specifico la molitura che avviene entro poche ore dalla raccolta, viene svolta attraverso impianti tecnologici del tipo a ciclo continuo, rigorosamente a freddo sotto i 25°, al fine di ottenere maggiore qualità.</p>
-                <img src="media/olio_pressatura.jpg" alt="pressatura" class="img-responsive">
+        <div class="row mb-4">
+            <div class="col-lg-6 order-lg-2 d-flex align-items-center">
+                <div>
+                    <h2 class="section-title text-center">Estrazione</h2>
+                    <p class="section-content">L’estrazione dell’olio ha inizio portando subito le olive al frantoio, dopo la fase della raccolta che avviene nel momento in cui il frutto raggiunge la maturazione ideale, mediante l’utilizzo di mezzi meccanici senza stress per le piante secolari e garantendo l’integrità del frutto, assicurandone così le caratteristiche organolettiche. Nello specifico la molitura che avviene entro poche ore dalla raccolta, viene svolta attraverso impianti tecnologici del tipo a ciclo continuo, rigorosamente a freddo sotto i 25°, al fine di ottenere maggiore qualità.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <img src="media/olio_pressatura.jpg" alt="pressatura" class="img-fluid rounded mr-lg-4" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-lg-6 d-flex align-items-center">
+                <div>
+                    <h2 class="section-title text-center">Stoccaggio</h2>
+                    <p class="section-content text-center">L’olio prodotto viene poi trasferito nei magazzini aziendali, stoccato in appositi contenitori di acciaio inox, in assenza di luce, ossigeno e fonti di calore, al fine di conservarne i composti fenolici e le qualità organolettiche.</p>
+                </div>
             </div>
             <div class="col-lg-6">
-                <h2 class="section-title text-center">Stoccaggio</h2>
-                <p class="section-content text-center">L’olio prodotto viene poi trasferito nei magazzini aziendali, stoccato in appositi contenitori di acciaio inox, in assenza di luce, ossigeno e fonti di calore, al fine di conservarne i composti fenolici e le qualità organolettiche.</p>
-                <img src="media/camion_muraca.jpg" alt="Stoccaggio" class="img-responsive">
+                <img src="media/camion_muraca.jpg" alt="Stoccaggio" class="img-fluid rounded ml-lg-4" style="max-width: 100%; height: auto;">
             </div>
         </div>
     </div>
@@ -148,13 +158,23 @@
     </div>
 </section>
 
-<section class="custom-section">
+<section class="custom-section text-center">
     <div class="container">
-        <h2 class="section-title text-center">Agricoltura Biologica</h2>
-        <p class="section-content text-center">La Società applicando le linee guida dell’agricoltura biologica, priva dell’utilizzo di prodotti di sintesi, segue tutte le fasi produttive ovvero dalla coltivazione delle olive all’estrazione e confezionamento dell’olio.</p>
+        <div class="row justify-content-center align-items-center mb-4">
+            <div class="col-lg-6">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h2 class="section-title">Agricoltura Biologica</h2>
+                    <p class="section-content">La Società applicando le linee guida dell’agricoltura biologica, priva dell’utilizzo di prodotti di sintesi, segue tutte le fasi produttive ovvero dalla coltivazione delle olive all’estrazione e confezionamento dell’olio.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="d-flex justify-content-center">
+                    <img src="media/marchio_bio_ue.png" alt="marchio_bio_ue.png" class="img-fluid rounded" style="max-width: 50%; height: auto;">
+                </div>
+            </div>
+        </div>
     </div>
 </section>
-
 <%@ include file="parts/footer.jsp" %>
 </body>
 </html>
