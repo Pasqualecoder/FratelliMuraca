@@ -10,47 +10,59 @@
     <link rel="stylesheet" href="css/home-style.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-        .section-title {
-            font-size: 2.5em;
-            margin-bottom: 1em;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-        .section-content {
-            font-size: 1.2em;
-            line-height: 1.8;
-            margin-bottom: 2em;
-        }
-        .bg-light {
-            background-color: #f8f9fa !important;
-        }
-        .u-custom-color-2 {
-            background-color: #e9ecef;
-        }
-        .u-text-palette-1-base {
-            color: #007bff;
-        }
-        .contact-icons a {
-            margin: 15px;
-            color: #007bff;
-            font-size: 3.5em; /* Increased icon size */
-        }
-        .contact-icons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px; /* Added margin for spacing */
-        }
-        .contact-info {
-            text-align: center;
-        }
-    </style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+    }
+    .section-title {
+        font-size: 2.5em;
+        margin-bottom: 1em;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .section-content {
+        font-size: 1.2em;
+        line-height: 1.8;
+        margin-bottom: 2em;
+    }
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+    .u-custom-color-2 {
+        background-color: #607244;
+        color: #fff; /* White text color for section below */
+    }
+    .u-text-palette-1-base {
+        color: #007bff;
+    }
+    .contact-icons a {
+        margin: 15px;
+        color: #007bff;
+        font-size: 3.5em; /* Increased icon size */
+    }
+    .contact-icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px; /* Added margin for spacing */
+    }
+    .contact-info {
+        text-align: center;
+        background-color: #fff; /* White background for the outer section */
+        color: #333; /* Black text color */
+        padding: 20px; /* Padding around the content */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Shadow for depth */
+    }
+    .inner-content {
+        background-color: #607244; /* Green background color */
+        color: #fff; /* White text color */
+        padding: 20px; /* Padding around the content */
+        border-radius: 10px; /* Rounded corners */
+    }
+</style>
 </head>
 
 <body class="bg-light">
