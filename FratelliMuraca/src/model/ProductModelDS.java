@@ -319,13 +319,15 @@ public class ProductModelDS implements ProductModel {
 
 	    Collection<ProductBean> products = new LinkedList<ProductBean>();
 
-	    String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE 1=1";
+	    String selectSQL = "SELECT *, "
+	    		+ "ROUND(prezzo * (1 - IFNULL(sale_perc, 0) / 100) * (1 + iva_perc / 100), 2) AS prezzo_finale "
+	    		+ " FROM " + ProductModelDS.TABLE_NAME + " WHERE 1=1";
 
 	    if (priceMin != null && !priceMin.isEmpty()) {
-	        selectSQL += " AND prezzo >= ?";
+	        selectSQL += " AND prezzo_finale >= ?";
 	    }
 	    if (priceMax != null && !priceMax.isEmpty()) {
-	        selectSQL += " AND prezzo <= ?";
+	        selectSQL += " AND prezzo_finale <= ?";
 	    }
 	    if (productType != null && !productType.isEmpty()) {
 	        selectSQL += " AND categoria = ?";

@@ -78,7 +78,7 @@ if (products == null || products.size() == 0) {%>
                         <h6 class="card-subtitle mb-2 text-danger font-weight-bold"><%= prodotto.getSalePerc() %>% off</h6>
                         <p class="card-text"><span class="text-muted text-decoration-line-through">&euro;<%= prodotto.getPrezzoIva() %></span></p>
                     <% } %>
-                    <p class="card-text">&euro;<%= prodotto.getPrezzoScontato() %></p>
+                    <h4 class="card-text">&euro;<%= prodotto.getPrezzoScontato() %></h4>
                 </div>
             </div>
             <!-- Product actions-->
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     var card = document.createElement("div");
                     card.className = "col mb-5";
                     
-                    var cardContent = '<a href="details?id=' + prodotto.id + '">' +
+                    var cardContent = '<a href="details?id=' + prodotto.id + '" class="text-decoration-none text-dark">' +
                                           '<div class="card h-100">';
                     
                     if (prodotto.isOnSale) {
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                        '<span class="text-muted text-decoration-line-through">&euro;' + prodotto.prezzoIva + '</span>';
                     }
                     
-                    cardContent += '<h6 class="text-uppercase font-weight-bold">&euro;' + prodotto.prezzoScontato + '</h6>' +
+                    cardContent += '<h4 class="text-uppercase font-weight-bold">&euro;' + prodotto.prezzoScontato + '</h4>' +
                                    '</div>' +
                                    '</div>' +
                                    '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">' +

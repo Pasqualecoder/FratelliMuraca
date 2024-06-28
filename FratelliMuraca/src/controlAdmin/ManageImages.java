@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.ImageBean;
+import model.ProductBean;
 import model.ProductModel;
 import model.ProductModelDS;
 
@@ -52,6 +53,15 @@ public class ManageImages extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+
+		LinkedList<ProductBean> listaProdotti = null;
+		try {
+			listaProdotti = (LinkedList<ProductBean>) productModel.doRetrieveAllProducts(null);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("listaProdotti", listaProdotti);
+		
 		
 		LinkedList<ImageBean> listaImmagini = null;
 		try {
