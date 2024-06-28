@@ -1,6 +1,6 @@
 # To-Do List Progetto
 
-TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
+TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:( //ma anche no, due anni
 
 # Testare le vulnerabilita' di Spike
 
@@ -9,18 +9,6 @@ TOGLIERE I TAG STYLE DALLE PAGINE .JSP >:(
 
 2. **Pagina Amministratore**
    2. fare il coso con ajax su  gestione ordini
-   
-
-## Utente
-4. **Modifica Campi Utente**
-   - Correggere i bug relativi alla modifica dei campi del profilo utente. (date salvato con un giorno in meno)
-
-## Sito Responsive
-6. **Responsive Design**
-   - Assicurarsi che le seguenti sezioni del sito siano responsive:
-     - navbar
-
-# Pagina Registrazione/Login
 
 # Sicurezza
 1. **Content-Security Policy**
