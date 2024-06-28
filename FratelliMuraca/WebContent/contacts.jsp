@@ -43,7 +43,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Enter your message" required></textarea>
+                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Scrivi qui il tuo messaggio" required></textarea>
                             </div>
                             <button type="submit" class="btn u-custom-color-5">Submit</button>
                         </form>
@@ -52,11 +52,11 @@
             </div>
         </section>
 
-        <section class="container my-5">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://maps.google.com/maps?output=embed&amp;q=Manhattan%2C%20New%20York&amp;z=10&amp;t=m"></iframe>
-            </div>
-        </section>
+		<section class="container my-5">
+		    <div class="embed-responsive embed-responsive-16by9">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3102.1341553974507!2d16.27606152637361!3d38.966604592616974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133fe5b9026eb951%3A0x4ae99a21a20554ee!2sPiazza%205%20Dicembre%2C%2088046%20Lamezia%20Terme%20CZ!5e0!3m2!1sen!2sit!4v1719519092382!5m2!1sen!2sit" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>		    </div>
+		</section>
+
 
     </main>
 
