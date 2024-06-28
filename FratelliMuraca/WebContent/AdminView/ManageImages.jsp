@@ -9,7 +9,7 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Gestione immagini</title>
+<title>Gestione Immagini Admin - Fratelli Muraca</title>
 <style>
   /* Aggiungi un po' di stile per l'area di drag-and-drop */
   #drop-area {

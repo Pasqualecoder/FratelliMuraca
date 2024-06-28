@@ -28,7 +28,7 @@ public class AdminFilter implements Filter {
 		pagineAdminVisibili.add("/admin/catalogo");
 		pagineAdminVisibili.add("/admin/modificaProdotto");
 		pagineAdminVisibili.add("/admin/manageImages");
-
+		pagineAdminVisibili.add("/admin/manageAdmin");
 	}
 	
 	private static final Set<String> pagineAdminHidden = new HashSet<String>();
@@ -40,14 +40,12 @@ public class AdminFilter implements Filter {
      * Default constructor. 
      */
     public AdminFilter() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -96,7 +94,6 @@ public class AdminFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }

@@ -20,10 +20,10 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
         <ul class="action-links">
             <li><a href="./catalogo">Gestione <strong>Catalogo</strong></a></li>
             <li><a href="./manageImages">Gestione <strong>Immagini</strong></a></li>
-			<br><br><br>
             <% if (admin.getId() == 1) { %>
-                <li><a href="./admin?action=modificaAdmin">Gestione admin</a></li>
+                <li><a href="./manageAdmin">Gestione <strong>Admin</strong></a></li>
             <% } %>
+            <br><br><br>
             <li><a href="./admin?action=users">Gestione utenti</a></li>
             <li><a href="./admin?action=review">Gestione recensioni</a></li>
             <li><a href="./admin?action=orders">Gestione Ordini</a></li>
