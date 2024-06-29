@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*, model.*" pageEncoding="UTF-8"%>
-<%-- Import statements and page directives --%>
 
 <%
 // Assuming LinkedList<OrderBean> orderList is populated elsewhere in your servlet or JSP
-LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("orderList");
+LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("listaOrdini");
 %>
 
 <!DOCTYPE html>
@@ -14,7 +13,7 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
 </head>
 <body>
 <div class="central-container" id="dashboard-container">
-    <a class="go-back" href="admin">&#171; Dashboard</a>
+    <a class="go-back" href="/FratelliMuraca/admin">&#171; Dashboard</a>
     <h2>Gestione Ordini</h2>
     <p>Lista Ordini</p>
     <table border="1">

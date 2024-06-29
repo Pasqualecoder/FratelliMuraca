@@ -3,7 +3,9 @@ package controlAdmin;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,35 +16,51 @@ import model.UserBean;
 import model.UserModel;
 import model.UserModelDS;
 
-
 /**
- * Servlet implementation class AddUser
+ * Servlet implementation class ManageUser
  */
-@WebServlet("/addUser")
-public class AddUser extends HttpServlet {
+@WebServlet("/admin/manageUser")
+public class ManageUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static UserModel userModel = new UserModelDS();
-   
 	
+	private static UserModel userModel = new UserModelDS();
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddUser() {
+    public ManageUser() {
         super();
-       }
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "metodo get non supportato");
+		String idStr = request.getParameter("delete");
+		if (idStr != null) {
+			try {
+				userModel.doDeleteUserById(idStr);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		LinkedList<UserBean> listaUtenti = null;
+		try {
+			listaUtenti = (LinkedList<UserBean>) userModel.doRetrieveAllUsers();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("listaUtenti", listaUtenti);
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AdminView/ManageUsers.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String nome = request.getParameter("nome");
@@ -58,8 +76,7 @@ public class AddUser extends HttpServlet {
 			e.printStackTrace();
 		}
 	
-		response.sendRedirect(request.getContextPath() + "/admin?action=users");
-		return;
+		doGet(request, response);
 	}
-}
 
+}

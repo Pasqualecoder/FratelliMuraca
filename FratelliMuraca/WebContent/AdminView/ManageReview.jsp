@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
     pageEncoding="UTF-8"%>
-<% LinkedList<ReviewBean> reviewList = (LinkedList<ReviewBean>) request.getAttribute("reviewList"); %>
+<% LinkedList<ReviewBean> reviewList = (LinkedList<ReviewBean>) request.getAttribute("listaReview"); %>
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Gestione Review Admin - Fratelli Muraca</title>
 </head>
 <body>
 <div class="central-container" id="dashboard-container">
-	<a class="go-back" href="admin">&#171; Dashboard</a>
+	<a class="go-back" href="/FratelliMuraca/admin">&#171; Dashboard</a>
 
 	<h2> Gestione Review </h2>
 	<p> lista Review</p>
@@ -40,7 +40,7 @@
 	        <td><%= externalReview.getUser().getEmail() %></td>
 	        <td><%= externalReview.getProduct().getId() %></td>
 	        <td><%= externalReview.getProduct().getNome() %></td>
-            <td><a href="admin?action=review&op=remove&id=<%= externalReview.getId() %> ">ELIMINA RECENSIONE</a></td>
+            <td><a href="./manageReview?delete=<%= externalReview.getId() %> ">ELIMINA RECENSIONE</a></td>
 	    </tr>
 	    <% } %>
 	    <% } %>	 

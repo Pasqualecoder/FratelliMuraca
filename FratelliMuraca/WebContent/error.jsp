@@ -21,13 +21,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Error <%= statusCode %> - Fratelli Muraca</title>
-  <link rel="stylesheet" href="css/navbar-style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="/FratelliMuraca/css/navbar-style.css">
 </head>
 <body>
 	<!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top">
 	<!-- Home Icon -->
-    <a class="navbar-brand position-relative nav-link" href="home">
+    <a class="navbar-brand position-relative nav-link" href="/FratelliMuraca/home">
     	<i class="fas fa-home home-icon"></i>
     </a>
     
@@ -35,16 +36,16 @@
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="home">Home</a>
+                <a class="nav-link" href="/FratelliMuraca/home">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="product">Prodotti</a>
+                <a class="nav-link" href="/FratelliMuraca/product">Prodotti</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="home?page=about">About</a>
+                <a class="nav-link" href="/FratelliMuraca/home?page=about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="home?page=contacts">Contatti</a>
+                <a class="nav-link" href="/FratelliMuraca/home?page=contacts">Contatti</a>
             </li>
         </ul>
     </div>
@@ -53,7 +54,7 @@
 	
 	
 	<h1 class="text-danger font-italic text-center">Si è verificato un errore</h1>
-	<a href="home"><h3 class="font-italic text-center">Torna al sicuro</h3></a>
+	<a href="/FratelliMuraca/home"><h3 class="font-italic text-center">Torna al sicuro</h3></a>
     <h2>Error <%= statusCode %></h2>
     <p><strong>Messaggio di Errore:</strong> <%= errorMessage %></p>
     <p><strong>URI Richiesta:</strong> <%= requestUri %></p>
@@ -67,6 +68,5 @@
 
     <img alt="huh?" src="https://i.kym-cdn.com/entries/icons/original/000/046/895/huh_cat.jpg" width="500px">
     <br><br><br>
-     <%@ include file="parts/footer.jsp" %>
 </body>
 </html>

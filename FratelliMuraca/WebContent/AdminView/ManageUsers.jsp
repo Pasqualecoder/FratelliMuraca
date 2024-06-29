@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
     pageEncoding="UTF-8"%>
-<% LinkedList<UserBean> userList = (LinkedList<UserBean>) request.getAttribute("userList"); %>
+<% LinkedList<UserBean> userList = (LinkedList<UserBean>) request.getAttribute("listaUtenti"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +17,7 @@
             Aggiungi Utente
         </div>
         <div class="card-body">
-            <form id="addUserForm" method = "post" action = "addUser">
+            <form id="addUserForm" method = "post" action = "manageUser">
                 <div class="form-group">
                     <label for="addEmail">Email</label>
                     <input type="email" name = "email" class="form-control" id="addEmail" placeholder="Enter email">
@@ -75,7 +75,7 @@
 	        <td><%= externalUser.getCognome() %></td>
 	        <td><%= externalUser.getDdn() %></td>
 	        <td><%= externalUser.getPhone() %></td>
-            <td><a href="admin?action=users&op=remove&id=<%= externalUser.getId() %> ">ELIMINA UTENTE</a></td>
+            <td><a href="manageUser?delete=<%= externalUser.getId() %>">ELIMINA UTENTE</a></td>
 	    </tr>
 	    <% } %>
 	    <% } %>

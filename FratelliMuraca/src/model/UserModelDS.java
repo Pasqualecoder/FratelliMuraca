@@ -136,8 +136,8 @@ public class UserModelDS implements UserModel {
 				String cognome = rs.getString("cognome");
 				Date ddn = rs.getDate("ddn");
 				String phone = rs.getString("phone");
-				bean = new UserBean(idUser, emailUser, passwordUser, nome, cognome, ddn, phone);
-				// AGGIUNGERE DISABLED
+				boolean isDisabled = rs.getBoolean("disabled");
+				bean = new UserBean(idUser, emailUser, passwordUser, nome, cognome, ddn, phone, isDisabled);
 			}
 		} finally {
 			try {

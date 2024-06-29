@@ -33,6 +33,45 @@ public class ProductModelDS implements ProductModel {
 	private static final String TABLE_NAME = "prodotti";
 
 	@Override
+	public synchronized void doSaveProduct(ProductBean product) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String insertSQL = "INSERT INTO " + TABLE_NAME
+	            + " (nome, descrizione, prezzo, sale_perc, iva_perc, quantita, dimensione, tipo, categoria, anno, ingredienti) "
+	            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+
+			preparedStatement.setString(1, product.getNome());
+	        preparedStatement.setString(2, product.getDescrizione());
+	        preparedStatement.setFloat(3, product.getPrezzoNetto());
+	        preparedStatement.setInt(4, product.getSalePerc());
+	        preparedStatement.setInt(5, product.getIvaPerc());
+	        preparedStatement.setInt(6, product.getQuantita());
+	        preparedStatement.setString(7, product.getDimensione());
+	        preparedStatement.setBoolean(8, product.getTipo());
+	        preparedStatement.setString(9, product.getCategoria().toString());
+	        preparedStatement.setString(10, product.getAnno());
+	        preparedStatement.setString(11, product.getIngredienti());
+			
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+	}
+	
+	
+	@Override
 	public synchronized void doSaveProduct(ProductBean product, LinkedList<ImageBean> images) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
@@ -280,13 +319,15 @@ public class ProductModelDS implements ProductModel {
 
 	    Collection<ProductBean> products = new LinkedList<ProductBean>();
 
-	    String selectSQL = "SELECT * FROM " + ProductModelDS.TABLE_NAME + " WHERE 1=1";
+	    String selectSQL = "SELECT *, "
+	    		+ "ROUND(prezzo * (1 - IFNULL(sale_perc, 0) / 100) * (1 + iva_perc / 100), 2) AS prezzo_finale "
+	    		+ " FROM " + ProductModelDS.TABLE_NAME + " WHERE 1=1";
 
 	    if (priceMin != null && !priceMin.isEmpty()) {
-	        selectSQL += " AND prezzo >= ?";
+	        selectSQL += " AND prezzo_finale >= ?";
 	    }
 	    if (priceMax != null && !priceMax.isEmpty()) {
-	        selectSQL += " AND prezzo <= ?";
+	        selectSQL += " AND prezzo_finale <= ?";
 	    }
 	    if (productType != null && !productType.isEmpty()) {
 	        selectSQL += " AND categoria = ?";
@@ -427,7 +468,7 @@ public class ProductModelDS implements ProductModel {
 		PreparedStatement preparedStatement = null;
 		
 		
-		String insertSQL = "UPDATE " + TABLE_NAME + " SET nome = ?, descrizione = ?, prezzo = ?, sale_perc = ?, iva_perc = ?, quantita = ?, dimensione = ?, tipo = ?, categoria = ?, anno = ?, ingredienti = ?, WHERE id = ?"; 
+		String insertSQL = "UPDATE " + TABLE_NAME + " SET nome = ?, descrizione = ?, prezzo = ?, sale_perc = ?, iva_perc = ?, quantita = ?, dimensione = ?, tipo = ?, categoria = ?, anno = ?, ingredienti = ? WHERE id = ?"; 
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
@@ -537,6 +578,80 @@ public class ProductModelDS implements ProductModel {
 			}
 		}
 		
+	}
+
+	/**
+	 * 	QUESTA FUNZIONE NON RIEMPIE CON I BEAN DI BLOB
+	 */
+	@Override
+	public synchronized LinkedList<ImageBean> doRetriveAllImages() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		LinkedList<ImageBean> immagini = new LinkedList<ImageBean>();
+		
+		String selectSQL = "SELECT id, prod_fk FROM " + "images";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int prodFK = rs.getInt("prod_fk");
+				ImageBean img = new ImageBean(id, null, prodFK);
+				immagini.add(img);
+			}
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+		return immagini;
+	}
+
+
+	@Override
+	public void doSaveImage(ImageBean img) throws SQLException {
+		if (img == null || img.getDati() == null) {
+			return;
+		}
+
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    String insertSQL = "INSERT INTO " + "images " + "(imageblob, prod_fk) VALUES (?, ?)";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(insertSQL);
+	        
+	        byte[] imageData = img.getDati();
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+
+            // Imposta il Blob nell'istruzione preparata
+            preparedStatement.setBlob(1, inputStream);
+
+            // Imposta l'ID del prodotto esterno (prodottoFk)
+            preparedStatement.setInt(2, img.getProductId());
+
+            // Esegui l'inserimento
+            preparedStatement.executeUpdate();
+	    } finally {
+	        // Chiusura delle risorse
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
 	}
 	
 	

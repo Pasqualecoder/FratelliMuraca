@@ -1,29 +1,33 @@
 package controlAdmin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.*;
+import model.OrderBean;
+import model.OrderModel;
+import model.OrderModelDS;
 
 /**
- * Servlet implementation class EditOrderStateControl
+ * Servlet implementation class ManageOrder
  */
-@WebServlet("/admin/editOrderState")
-public class EditOrderStateControl extends HttpServlet {
+@WebServlet("/admin/manageOrder")
+public class ManageOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private static OrderModel orderModel = new OrderModelDS();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditOrderStateControl() {
+    public ManageOrder() {
         super();
     }
 
@@ -31,25 +35,24 @@ public class EditOrderStateControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String order_id =  request.getParameter("id");
-        String state = request.getParameter("state");
+		LinkedList<OrderBean> listaOrdini = null;
+		try {
+			listaOrdini = (LinkedList<OrderBean>) orderModel.doRetrieveAllOrders();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-        try { 
-        	OrderBean order = orderModel.doRetrieveOrder(Integer.parseInt(order_id));
-        	orderModel.doChangeOrderState(order, state);
-        	
-        }
-        catch(Exception e){
-        	e.printStackTrace();
-        }
-        
+		request.setAttribute("listaOrdini", listaOrdini);
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AdminView/ManageOrder.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }
