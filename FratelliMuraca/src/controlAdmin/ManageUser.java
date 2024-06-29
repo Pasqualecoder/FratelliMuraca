@@ -1,6 +1,11 @@
 package controlAdmin;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,30 +16,45 @@ import model.UserBean;
 import model.UserModel;
 import model.UserModelDS;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
-
 /**
- * Servlet implementation class modifyUser
+ * Servlet implementation class ManageUser
  */
-@WebServlet("/modifyUser")
-public class ModifyUser extends HttpServlet {
+@WebServlet("/admin/manageUser")
+public class ManageUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static UserModel userModel = new UserModelDS();
 	
+	private static UserModel userModel = new UserModelDS();
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModifyUser() {
-        super();    
+    public ManageUser() {
+        super();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "metodo get non supportato");
+		String idStr = request.getParameter("delete");
+		if (idStr != null) {
+			try {
+				userModel.doDeleteUserById(idStr);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		LinkedList<UserBean> listaUtenti = null;
+		try {
+			listaUtenti = (LinkedList<UserBean>) userModel.doRetrieveAllUsers();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("listaUtenti", listaUtenti);
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AdminView/ManageUsers.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -51,12 +71,12 @@ public class ModifyUser extends HttpServlet {
 		UserBean user = new UserBean(email, password, nome, cognome, DDN, telefono);
 
 		try {
-			userModel.doChangeUser(user);
+			userModel.doSaveUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	
-		response.sendRedirect(request.getContextPath() + "/admin?action=users");
-		return;
+		doGet(request, response);
 	}
+
 }

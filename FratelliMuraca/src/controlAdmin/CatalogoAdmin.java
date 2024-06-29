@@ -29,7 +29,6 @@ public class CatalogoAdmin extends HttpServlet {
      */
     public CatalogoAdmin() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

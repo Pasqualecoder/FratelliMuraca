@@ -23,8 +23,8 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
             <% if (admin.getId() == 1) { %>
                 <li><a href="./manageAdmin">Gestione <strong>Admin</strong></a></li>
             <% } %>
+            <li><a href="./manageUser">Gestione <strong>Utenti</strong></a></li>
             <br><br><br>
-            <li><a href="./admin?action=users">Gestione utenti</a></li>
             <li><a href="./admin?action=review">Gestione recensioni</a></li>
             <li><a href="./admin?action=orders">Gestione Ordini</a></li>
             <li><a href="/FratelliMuraca/logout"><b>Logout</b></a></li>
