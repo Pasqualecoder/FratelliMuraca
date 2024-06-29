@@ -57,7 +57,7 @@ public class ManageAdmin extends HttpServlet {
 		}
 		request.setAttribute("listaAdmin", listaAdmin);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AdminView/ModificaAdmin.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AdminView/ManageAdmin.jsp");
 		dispatcher.forward(request, response);
 	}
 

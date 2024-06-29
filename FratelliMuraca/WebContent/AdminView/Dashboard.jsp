@@ -24,9 +24,9 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
                 <li><a href="./manageAdmin">Gestione <strong>Admin</strong></a></li>
             <% } %>
             <li><a href="./manageUser">Gestione <strong>Utenti</strong></a></li>
-            <br><br><br>
-            <li><a href="./admin?action=review">Gestione recensioni</a></li>
-            <li><a href="./admin?action=orders">Gestione Ordini</a></li>
+            <li><a href="./manageReview">Gestione <strong>Recensioni</strong></a></li>
+            <li><a href="./manageOrder">Gestione <strong>Ordini</strong></a></li>
+			<br><br>
             <li><a href="/FratelliMuraca/logout"><b>Logout</b></a></li>
         </ul>
     </div>
