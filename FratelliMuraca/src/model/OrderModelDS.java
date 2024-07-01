@@ -78,7 +78,7 @@ public class OrderModelDS implements OrderModel {
 		Collection<OrderBean> ordini = new LinkedList<OrderBean>();
 
 		String selectSQL = "SELECT * " + "FROM ordini, utenti " + 
-				"WHERE id_cliente = utenti.id";
+				"WHERE id_cliente = utenti.id ORDER BY ordini.id DESC";
 
 		try {
 			connection = ds.getConnection();

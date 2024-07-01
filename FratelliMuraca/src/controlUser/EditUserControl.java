@@ -1,5 +1,8 @@
 package controlUser;
+
 import  model.*;
+import utilities.StringEscapeUtil;
+
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -63,6 +66,11 @@ public class EditUserControl extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request, non tutti i campi sono stati compilati");
 		    return;
 		}
+		
+		email = StringEscapeUtil.escapeHtml(email);
+		nome = StringEscapeUtil.escapeHtml(nome);
+		surname = StringEscapeUtil.escapeHtml(surname);
+		phone = StringEscapeUtil.escapeHtml(phone);
 		
 		
 		if (passwordNuova.equals(passwordVecchia)) {

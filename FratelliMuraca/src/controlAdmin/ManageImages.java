@@ -20,6 +20,8 @@ import model.ProductBean;
 import model.ProductModel;
 import model.ProductModelDS;
 
+import utilities.StringEscapeUtil;
+
 /**
  * Servlet implementation class ManageImages
  */
@@ -80,6 +82,8 @@ public class ManageImages extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idStr = request.getParameter("idProdotto");
+		idStr = StringEscapeUtil.escapeHtml(idStr);
+		
 		Part filePart = request.getPart("immagine");
 		
 		if (idStr == null || idStr.isEmpty() || filePart == null || filePart.getSize() == 0) {

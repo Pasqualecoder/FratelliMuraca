@@ -15,6 +15,8 @@ import model.AdminBean;
 import model.AdminModel;
 import model.AdminModelDS;
 
+import utilities.StringEscapeUtil;;
+
 /**
  * Servlet implementation class ManageAdmin
  */
@@ -73,6 +75,8 @@ public class ManageAdmin extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		username = StringEscapeUtil.escapeHtml(username);
+		password = StringEscapeUtil.escapeHtml(password);
 		AdminBean nuovo = new AdminBean(username, password);
 		try {
 			adminModel.doAddAdmin(nuovo);

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import control.DetailsControl;
 import model.*;
+import utilities.StringEscapeUtil;
 
 
 /**
@@ -68,6 +69,8 @@ public class AddReview extends HttpServlet {
 			return;
 		}
 		
+		titolo = StringEscapeUtil.escapeHtml(titolo);
+		content = StringEscapeUtil.escapeHtml(content);
 		
 		// controllo se l'id inserito corrisponde a un prodotto nel db
 		try {

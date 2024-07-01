@@ -15,6 +15,14 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
 <div class="central-container" id="dashboard-container">
     <a class="go-back" href="/FratelliMuraca/admin">&#171; Dashboard</a>
     <h2>Gestione Ordini</h2>
+    
+    <div>
+    	<h4>Filtraggio</h4>
+		id cliente <input type="text"> <br>
+		data inizio <input type="date"> <br> 
+		data fine <input type="date"> <br>
+    </div>
+    
     <p>Lista Ordini</p>
     <table border="1">
         <tr>

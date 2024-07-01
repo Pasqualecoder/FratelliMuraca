@@ -16,6 +16,8 @@ import model.UserBean;
 import model.UserModel;
 import model.UserModelDS;
 
+import utilities.StringEscapeUtil;
+
 /**
  * Servlet implementation class ManageUser
  */
@@ -61,12 +63,12 @@ public class ManageUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String nome = request.getParameter("nome");
-		String cognome = request.getParameter("cognome");
-		Date DDN = Date.valueOf(request.getParameter("DDN"));
-		String telefono = request.getParameter("telefono");
+		String email = StringEscapeUtil.escapeHtml(request.getParameter("email"));
+		String password = StringEscapeUtil.escapeHtml(request.getParameter("password"));
+		String nome = StringEscapeUtil.escapeHtml(request.getParameter("nome"));
+		String cognome = StringEscapeUtil.escapeHtml(request.getParameter("cognome"));
+		Date DDN = Date.valueOf(StringEscapeUtil.escapeHtml(request.getParameter("DDN")));
+		String telefono = StringEscapeUtil.escapeHtml(request.getParameter("telefono"));
 		
 		UserBean user = new UserBean(email, password, nome, cognome, DDN, telefono);
 

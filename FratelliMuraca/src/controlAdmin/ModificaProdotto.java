@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.*;
+import utilities.StringEscapeUtil;
 
 /**
  * Servlet implementation class ModificaProdotto
@@ -80,6 +81,14 @@ public class ModificaProdotto extends HttpServlet {
 			ProductCategorie categoria = ProductCategorie.fromString(request.getParameter("categoria"));
 			String anno = request.getParameter("anno");
 			String ingredienti = request.getParameter("ingredienti");
+			
+			strId = StringEscapeUtil.escapeHtml(strId);
+			nome = StringEscapeUtil.escapeHtml(nome);
+			descrizione = StringEscapeUtil.escapeHtml(descrizione);
+			dimensione = StringEscapeUtil.escapeHtml(dimensione);
+			anno = StringEscapeUtil.escapeHtml(anno);
+			ingredienti = StringEscapeUtil.escapeHtml(ingredienti);
+			
 			
 			ProductBean prodotto = null;
 			if (strId != null) { // vogliamo modificare

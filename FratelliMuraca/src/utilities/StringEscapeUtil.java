@@ -21,20 +21,54 @@ public class StringEscapeUtil {
         }
         return sb.toString();
     }
-    
+
     public static String newLineToBr(final String input) {
-    	String clone = new String(input);
-    	StringBuilder ret = new StringBuilder();
-    	for (int i = 0; i < clone.length(); i++) {
-    		char c = clone.charAt(i);
-    		if (c == '\n') {
-    			ret.append("<br>");
-    		}
-    		else {
-    			ret.append(c);
-    		}
-    	}
-    	return ret.toString();
+        StringBuilder ret = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == '\n') {
+                ret.append("<br>");
+            } else {
+                ret.append(c);
+            }
+        }
+        return ret.toString();
     }
-    
+
+    /*
+     * Metodo per eseguire l'escaping di caratteri HTML per prevenire XSS
+     */
+    public static String escapeHtml(String input) {
+        if (input == null) {
+            return null;
+        }
+        
+        StringBuilder escaped = new StringBuilder(input.length());
+        for (char c : input.toCharArray()) {
+            switch (c) {
+                case '<':
+                    escaped.append("&lt;");
+                    break;
+                case '>':
+                    escaped.append("&gt;");
+                    break;
+                case '&':
+                    escaped.append("&amp;");
+                    break;
+                case '"':
+                    escaped.append("&quot;");
+                    break;
+                case '\'':
+                    escaped.append("&#x27;");
+                    break;
+                case '/':
+                    escaped.append("&#x2F;");
+                    break;
+                default:
+                    escaped.append(c);
+                    break;
+            }
+        }
+        return escaped.toString();
+    }
 }

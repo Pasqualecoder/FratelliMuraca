@@ -1,6 +1,5 @@
-	package controlUser;
+package controlUser;
 
-import model.*;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,10 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import control.CartControl;
-import model.CartBean;
-import model.ProductModel;
-import model.ProductModelDS;
-import model.UserBean;
+import model.*;
+
+import utilities.StringEscapeUtil;
+
 
 /**
  * Servlet implementation class LoginUser
@@ -60,6 +59,11 @@ public class RegisterUser extends HttpServlet {
 		String cognome = request.getParameter("cognome");
 		Date ddn = Date.valueOf(request.getParameter("ddn"));
 		String telefono = request.getParameter("phone");
+		
+		email = StringEscapeUtil.escapeHtml(email);
+		nome = StringEscapeUtil.escapeHtml(nome);
+		cognome = StringEscapeUtil.escapeHtml(cognome);
+		telefono = StringEscapeUtil.escapeHtml(telefono);
 		
 		// Controlla che tutti i parametri obbligatori siano forniti
 		if (isNullOrEmpty(email) || isNullOrEmpty(password) 
