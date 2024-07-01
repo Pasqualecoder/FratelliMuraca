@@ -44,7 +44,7 @@
 				<td>
 					<h5><%= prodotto.getNome() %></h5>
 					<h6 class="text-muted font-italic"><%= prodotto.getCategoria() %></h6>
-					<h5 class="text-uppercase font-italic"><%= prodotto.getDimensione() %></h5>
+					<h5 class="font-italic"><%= prodotto.getDimensione() %></h5>
 				</td>
 				<td><h6 class="font-italic font-weight-normal">&euro;<%= prodotto.getPrezzoScontato() %></h6></td>
 				<td>

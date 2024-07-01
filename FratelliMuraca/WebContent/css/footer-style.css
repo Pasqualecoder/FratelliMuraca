@@ -51,27 +51,35 @@ body {
 }
 
 /* Hover effects per ogni social network */
-.social-icons a.facebook:hover {
+a.facebook:hover {
     color: #3b5998; /* Colore blu di Facebook */
 }
 
-.social-icons a.twitter:hover {
+a.whatsapp:hover {
+    color: green;
+}
+
+a.phone:hover {
+    color: blue;
+}
+
+a.twitter:hover {
     color: #1da1f2; /* Colore azzurro di Twitter */
 }
 
-.social-icons a.instagram:hover {
+a.instagram:hover {
     color: #e1306c; /* Colore rosa di Instagram */
 }
 
-.social-icons a.linkedin:hover {
+a.linkedin:hover {
     color: #0077b5; /* Colore blu di LinkedIn */
 }
 
-.social-icons a.youtube:hover {
+a.youtube:hover {
     color: #ff0000; /* Colore rosso di YouTube */
 }
 
-.social-icons a.pinterest:hover {
+a.pinterest:hover {
     color: #bd081c; /* Colore rosso di Pinterest */
 }
 

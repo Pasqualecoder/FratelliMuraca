@@ -35,7 +35,7 @@
                 <div class="col-md-6 mx-auto"> <!-- Center the column -->
                     <h5>I nostri contatti</h5>
                     <ul class="social-icons">
-                        <li><a href="tel:+393384578681" class="whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+                        <li><a href="https://wa.me/393384578681" class="whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
                         <li><a href="tel:+393384578681" class="phone" aria-label="Phone"><i class="fas fa-phone"></i></a></li>
                         <li><a href="https://www.facebook.com/FratelliMuraca/" class="facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                         <li><a href="https://www.instagram.com" class="instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>

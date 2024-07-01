@@ -8,8 +8,7 @@
     <%@ include file="parts/head.jsp" %>
     <title>Pagina 1 - Fratelli Muraca</title>
     <link rel="stylesheet" href="css/home-style.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/footer-style.css">
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -83,10 +82,10 @@
                     <p><strong>Email:</strong> <a href="mailto:agricolamuraca@pec.it" class="u-text-palette-1-base">agricolamuraca@pec.it</a></p>
                     <p><strong>Facebook:</strong> <a href="https://www.facebook.com/FratelliMuraca/" target="_blank" class="u-text-palette-1-base">https://www.facebook.com/FratelliMuraca/</a></p>
                     <div class="contact-icons">
-                        <a href="https://wa.me/393384578681" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="tel:+393384578681" target="_blank"><i class="fas fa-phone"></i></a>
-                        <a href="https://www.facebook.com/FratelliMuraca/" target="_blank"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a class="whatsapp" href="https://wa.me/393384578681" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a class="phone" href="tel:+393384578681" target="_blank"><i class="fas fa-phone"></i></a>
+                        <a class="facebook" href="https://www.facebook.com/FratelliMuraca/" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a class="instagram" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

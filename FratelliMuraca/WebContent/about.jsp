@@ -11,7 +11,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
         }
@@ -54,7 +53,7 @@
         .align-items-center {
             align-items: center;
         }
-        .justify-content-center {
+        .justify-content-center{
             justify-content: center;
         }
         .py-5 {

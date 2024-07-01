@@ -5,6 +5,57 @@
 <head>
     <title>Home - Fratelli Muraca</title>
     <link rel="stylesheet" href="css/home-style.css">
+    <style type="text/css">
+    /* Stili per le immagini nelle card */
+    .card-img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        width: auto;
+    }
+
+    .card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Aggiunge una transizione per l'effetto hover */
+    }
+
+    /* Effetto hover su tutte le card */
+    .card:hover {
+        transform: scale(1.05); /* Effetto di ingrandimento al passaggio del mouse */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aggiunge un'ombra per dare un effetto di sollevamento */
+    }
+
+    /* Stili specifici per la card "Oli Classici" */
+    .card-classici {
+        flex: 1.5; /* Fa sì che questa card prenda il 50% di spazio in più rispetto alle altre */
+        border: 2px solid #ffc107; /* Aggiunge un bordo dorato per farla risaltare */
+        background-color: rgba(255, 193, 7, 0.1); /* Sfondo leggero giallo */
+    }
+
+    /* Regole specifiche per diversi schermi per migliorare la visualizzazione */
+    @media (max-width: 992px) {
+        .col-lg-4 {
+            max-width: 50%;
+            margin-bottom: 20px;
+        }
+
+        .card-img-overlay h5 {
+            font-size: 1.2rem;
+        }
+
+        .card-img-overlay p {
+            font-size: 0.9rem;
+        }
+        
+        /* La card "Oli Classici" diventa ancora più prominente su schermi più piccoli */
+        .card-classici {
+            flex: 1.7; /* La card diventa più grande su schermi più piccoli */
+        }
+    }
+    </style>
     <%@ include file="parts/head.jsp" %>
 </head>
 <body>
@@ -21,63 +72,47 @@
         </div>
     </header>
 
-    <!-- Categories of products -->
-    <section class="categories">
+    <br><br><br>
+
+    <section class="text-center">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="prodotti-aromatizzati">
-                        <img src="media/groot.png" alt="Oli Aromatizzati" class="img-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 mb-4">
+                    <a href="./product?categoria=aromatizzati">
+                        <div class="card">
+                            <img src="media/aromatizzati.jpg" class="card-img img-fluid" alt="aromatizzati">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title">Oli Aromatizzati</h5>
+                                <p class="card-text">Un'esplosione di sapori mediterranei: scopri come i nostri oli aromatizzati possono trasformare ogni piatto.</p>
+                            </div>
+                        </div>
                     </a>
                 </div>
-                <div class="col-md-4">
-                    <a href="prodotti-classici">
-                        <img src="media/groot.png" alt="Oli Classici" class="img-fluid">
-                    </a>
+                <div class="col-lg-4 mb-4">
+	                   <div class="card card-classici">
+		                    <a href="./product?categoria=classici">
+	                            <img src="media/classici.jpg" class="card-img img-fluid" alt="classici">
+	                            <div class="card-img-overlay">
+	                                <h5 class="card-title">Oli Classici</h5>
+	                                <p class="card-text">Dal cuore della Calabria, l'essenza pura dell'extravergine: scopri il nostro olio che parla di tradizione.</p>
+	                            </div>
+		                    </a>
+                       </div>
                 </div>
-                <div class="col-md-4">
-                    <a href="cosmetici">
-                        <img src="media/groot.png" alt="Oli Cosmetici" class="img-fluid">
+                <div class="col-lg-4 mb-4">
+                    <a href="./product?categoria=cosmetici">
+                        <div class="card">
+                            <img src="media/cosmetici.jpg" class="card-img img-fluid" alt="cosmetici">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title">Cosmetici</h5>
+                                <p class="card-text">Riscopri il segreto di una pelle radiosa con i nostri cosmetici all'olio d'oliva: pura cura per una bellezza autentica.</p>
+                            </div>
+                        </div>
                     </a>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Bootstrap cards with image and text overlay -->
-   <section class="text-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-4 mb-4">
-                <div class="card">
-                    <img src="media/logo.png" class="card-img" alt="Immagine della carta">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title">Titolo della Carta 1</h5>
-                        <p class="card-text">Testo esempio per mostrare il contenuto.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card">
-                    <img src="media/placeholder.png" class="card-img" alt="Immagine della carta">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title">Titolo della Carta 2</h5>
-                        <p class="card-text">Testo esempio per mostrare il contenuto.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card">
-                    <img src="media/groot.png" class="card-img" alt="Immagine della carta">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title">Titolo della Carta 3</h5>
-                        <p class="card-text">Testo esempio per mostrare il contenuto.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
     <!-- Bootstrap JS and custom script -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
