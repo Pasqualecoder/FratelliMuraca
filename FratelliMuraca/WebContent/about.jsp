@@ -87,7 +87,7 @@
             <!-- Centered Video -->
             <div class="container d-flex justify-content-center align-items-center">
                 <h1 class="font-weight-light font-italic text-light" style="margin-right: 50px">Un'azienda familiare, basata su un lavoro collettivo ricco di <strong>passione</strong></h1>
-                <video loop autoplay controls muted width="640" height="360" class="border">
+                <video loop autoplay muted width="640" height="360" >
                     <source src="media/video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>

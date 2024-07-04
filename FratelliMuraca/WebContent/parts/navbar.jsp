@@ -71,15 +71,9 @@
     .sidepanel .btn {
       margin: 10px 20px;
     }
-    .navbar-toggler {
-      border: 0;
-      background: none;
-    }
     
-    .navbar-toggler:focus {
-      border: 0;
-      background: none;
-    }
+    
+
     /* Badge styles */
     .badge {
       position: absolute;
@@ -139,14 +133,7 @@
 	   
 	}
 
-	.search-result {
-	    display: flex;
-	    align-items: center;
-	    padding: 10px;
-	    border-bottom: 1px solid #eee;
-	    cursor: pointer; /* Mostra il puntatore quando passi sopra il risultato di ricerca */
-	    transition: background-color 0.3s; /* Animazione di sfondo al passaggio del mouse */
-	}
+	
 
 	.search-result:hover {
 	    background-color: #f0f0f0; /* Cambia il colore di sfondo al passaggio del mouse */
@@ -189,15 +176,21 @@
 	}
 	
 	.user-dropdown {
-	    display: none; /* Initially hide the dropdown */
-	    position: absolute;
-	    background-color: #fff;
-	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	    z-index: 3000;
-	    top: 50px;
-	    right: 13%;
-	}
-	
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    top: 50px;
+    
+}
+
+@media screen and (max-width: 768px) {
+    .user-dropdown {
+        left: 265px; /* Adjust for smaller screens */
+    }
+}
+
+
 	.user-dropdown a {
 	    color: #000;
 	    padding: 12px 16px;
@@ -248,7 +241,30 @@
 	  color: #333;
 	}
 	
+	.user-icon {
+		positon: relative;
+	}
 	
+	.hamburger-button {
+		
+		background: transparent;
+    border: none;
+    color: white; /* Color of the hamburger icon */
+    
+    margin-right: 8px; /* Optional: Adjust margin if needed */
+    display: none; /* Hide initially */
+	}
+	
+	.hamburger-button {
+    
+}
+
+@media (max-width: 991.98px) {
+    /* Show hamburger button for smaller screens */
+    .hamburger-button {
+        display: block;
+    }
+}
   </style>
 </head>
 <% UserBean user1 = (UserBean)session.getAttribute("user"); %>
@@ -292,7 +308,7 @@
 
     
     <div class="nav-link ml-auto">
-        <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+        <i class="fa fa-user fa-lg user-icon" aria-hidden="true"></i>
         <div class="user-dropdown">
             <% if(user1 == null) { %>
                 <a href="login">Log In</a>
@@ -318,12 +334,9 @@
     
     <!-- Toggler Button for Side Panel -->
     
-    <button class="navbar-toggler" type="button" onclick="openCloseNav()">
-    <span class="navbar-toggler-icon">
-        <!-- Use your custom icon here if needed -->
-        <img src="https://img.icons8.com/ios-filled/24/ffffff/menu.png" alt="Menu">
-    </span>
-</button>
+    <button class="hamburger-button" type="button" onclick="openCloseNav()">
+    <i class="fa-solid fa-bars fa-xl"></i>
+	</button>
     
     
 </nav>
@@ -332,13 +345,13 @@
 <div id="mySidepanel" class="sidepanel">
     <a href="javascript:void(0)" class="closebtn" onclick="openCloseNav()">&times;</a>
     <!-- User Icon in Sidebar -->
-  
+  	
     <a class="nav-link" href="home">Home</a>
     <a class="nav-link" href="product">Prodotti</a>
     <a class="nav-link" href="home?page=about">About</a>
     <a class="nav-link" href="home?page=contacts">Contatti</a>
     <!-- Search Bar in Side Panel -->
-
+	
 </div>
 
 <!-- Bootstrap JS, Popper.js, and jQuery -->
