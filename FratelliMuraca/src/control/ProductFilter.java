@@ -44,18 +44,18 @@ public class ProductFilter extends HttpServlet {
         
         try { 
         	prodotti = (LinkedList)productModel.doRetrieveAllProductsFiltered(sort, priceMin, priceMax, productType);
-        	
         }
         catch(Exception e){
         	e.printStackTrace();
         }
         
-        for(int i = 0; i < prodotti.size(); i++) {
-        	productsJSON.append(prodotti.get(i).toJSONNoDesc());
-        	if( i != prodotti.size() - 1) {
-        		productsJSON.append(",");
-        	}
-        	
+        if (prodotti != null) {
+        	for(int i = 0; i < prodotti.size(); i++) {
+        		productsJSON.append(prodotti.get(i).toJSONNoDesc());
+        		if( i != prodotti.size() - 1) {
+        			productsJSON.append(",");
+        		}
+        	}        	
         }
         
         

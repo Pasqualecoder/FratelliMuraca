@@ -25,8 +25,8 @@ if (products == null || products.size() == 0) {%>
                         <label for="productType" class="form-label">Ordina Per</label>
                         <select class="form-select" id="sort" name="sort">
                             <option value="">Rilevanza</option>
-                            <option value="prezzo DESC">Prezzo Decrescente</option>
-                            <option value="prezzo ASC">Prezzo Crescente</option>
+                            <option value="DESC">Prezzo Decrescente</option>
+                            <option value="ASC">Prezzo Crescente</option>
                         </select>
                     </div>
                     <div class="mb-3">

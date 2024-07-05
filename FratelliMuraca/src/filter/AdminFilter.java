@@ -33,6 +33,7 @@ public class AdminFilter implements Filter {
 		pagineAdminVisibili.add("/admin/modifyAdmin");
 		pagineAdminVisibili.add("/admin/editOrderState");
 		pagineAdminVisibili.add("/admin/manageOrder");
+		pagineAdminVisibili.add("/admin/ordersFilter");
 	}
 	
 	private static final Set<String> pagineAdminHidden = new HashSet<String>();

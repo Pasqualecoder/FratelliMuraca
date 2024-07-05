@@ -319,23 +319,26 @@ public class ProductModelDS implements ProductModel {
 
 	    Collection<ProductBean> products = new LinkedList<ProductBean>();
 
-	    String selectSQL = "SELECT *, "
-	    		+ "ROUND(prezzo * (1 - IFNULL(sale_perc, 0) / 100) * (1 + iva_perc / 100), 2) AS prezzo_finale "
-	    		+ " FROM " + ProductModelDS.TABLE_NAME + " WHERE 1=1";
+	    // Costruzione della query SQL di base
+        String selectSQL = "SELECT *, "
+                + "ROUND(prezzo * (1 - IFNULL(sale_perc, 0) / 100) * (1 + IFNULL(iva_perc, 22) / 100), 2) AS prezzo_finale "
+                + "FROM " + TABLE_NAME + " WHERE 1=1";
 
-	    if (priceMin != null && !priceMin.isEmpty()) {
-	        selectSQL += " AND prezzo_finale >= ?";
-	    }
-	    if (priceMax != null && !priceMax.isEmpty()) {
-	        selectSQL += " AND prezzo_finale <= ?";
-	    }
-	    if (productType != null && !productType.isEmpty()) {
-	        selectSQL += " AND categoria = ?";
-	    }
-	    if (order != null && !order.isEmpty()) {
-	    	
-	        selectSQL += " ORDER BY " + order;
-	    }
+        // Aggiunta dinamica delle condizioni basate sui parametri
+        if (priceMin != null && !priceMin.isEmpty()) {
+            selectSQL += " AND ROUND(prezzo * (1 - IFNULL(sale_perc, 0) / 100) * (1 + IFNULL(iva_perc, 22) / 100), 2) >= ?";
+        }
+        if (priceMax != null && !priceMax.isEmpty()) {
+            selectSQL += " AND ROUND(prezzo * (1 - IFNULL(sale_perc, 0) / 100) * (1 + IFNULL(iva_perc, 22) / 100), 2) <= ?";
+        }
+        if (productType != null && !productType.isEmpty()) {
+            selectSQL += " AND categoria = ?";
+        }
+
+        // Verifica e aggiunta dell'ordinamento in modo sicuro
+        if (order != null && (order.equalsIgnoreCase("ASC") || order.equalsIgnoreCase("DESC"))) {
+            selectSQL += " ORDER BY prezzo_finale " + order;
+        }
 
 	    try {
 	        connection = ds.getConnection();
@@ -352,6 +355,7 @@ public class ProductModelDS implements ProductModel {
 	            preparedStatement.setString(paramIndex++, productType);
 	        }
 
+	        System.out.println(preparedStatement);
 	        ResultSet rs = preparedStatement.executeQuery();
 
 	        while (rs.next()) {
