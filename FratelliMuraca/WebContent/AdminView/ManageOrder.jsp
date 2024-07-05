@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*, model.*" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*, model.*, java.util.stream.Collectors" pageEncoding="UTF-8"%>
 
 <%
 // Assuming LinkedList<OrderBean> orderList is populated elsewhere in your servlet or JSP
@@ -32,13 +32,17 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
             <th>InfoProdotto</th>
             <th>ModificaStato</th>
         </tr>
-        <% if (orderList != null && !orderList.isEmpty()) {
-              for (OrderBean externalOrder : orderList) { %>
-        <tr>
+			<% if (orderList != null && !orderList.isEmpty()) {
+              for (OrderBean externalOrder : orderList) { 
+              LinkedList<ProductBean> products = externalOrder.getProdotti().retrieveProducts();
+              String productNames = products.stream()
+                                                .map(ProductBean::getNome)
+                                                .collect(Collectors.joining(", "));%>
+			<tr>
             <td><%= externalOrder.getId() %></td>
             <td><%= externalOrder.getId_cliente() %></td>
             <td><%= externalOrder.getDetails() %></td>
-            <td><%= externalOrder.getProdotti() %></td>
+            <td><%= productNames %></td>
             <td>
                 <select id="statoSelect" onchange="changeOrderState('<%= externalOrder.getId() %>')">
                     <% for (StatoOrdine stato : StatoOrdine.values()) { %>

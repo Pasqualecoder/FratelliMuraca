@@ -9,7 +9,7 @@
 <%@ include file="../parts/navbar.jsp" %>
 <body>
 <div class="container mt-5 mb-3">
-    <div class="card">
+    <div class="border">
         <div class="card-header text-white" style="background-color: #607244;">
             <h3>I tuoi dati</h3>
         </div>

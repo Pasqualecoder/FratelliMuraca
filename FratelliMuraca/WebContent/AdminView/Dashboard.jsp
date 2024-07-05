@@ -6,30 +6,33 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="./css/admin_style.css">
-<meta charset="UTF-8">
-<title>Dashboard Admin - Fratelli Muraca</title>
+    <meta charset="UTF-8">
+    <title>Dashboard Admin - Fratelli Muraca</title>
+    <!-- Include Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-<div class="central-container" id="dashboard-container">
-    <div class="page-title">
-        Benvenuto <%= admin.getUsername() %>
+<body style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div id="dashboard-container" class="col-md-8 col-lg-6 bg-white border rounded p-4">
+                <div class="text-center mb-4">
+                    Benvenuto <%= admin.getUsername() %>
+                </div>
+                <div id="action-section">
+                    <ul class="list-unstyled">
+                        <li class="mb-2 d-flex justify-content-start"><a href="./catalogo" class="btn btn-link text-left text-success">Gestione <strong>Catalogo</strong></a></li>
+                        <li class="mb-2 d-flex justify-content-start"><a href="./manageImages" class="btn btn-link text-left text-success">Gestione <strong>Immagini</strong></a></li>
+                        <% if (admin.getId() == 1) { %>
+                            <li class="mb-2 d-flex justify-content-start"><a href="./manageAdmin" class="btn btn-link text-left text-success">Gestione <strong>Admin</strong></a></li>
+                        <% } %>
+                        <li class="mb-2 d-flex justify-content-start"><a href="./manageUser" class="btn btn-link text-left text-success">Gestione <strong>Utenti</strong></a></li>
+                        <li class="mb-2 d-flex justify-content-start"><a href="./manageReview" class="btn btn-link text-left text-success">Gestione <strong>Recensioni</strong></a></li>
+                        <li class="mb-2 d-flex justify-content-start"><a href="./manageOrder" class="btn btn-link text-left text-success">Gestione <strong>Ordini</strong></a></li>
+                        <li class="d-flex justify-content-center"><a id="logout-button" href="/FratelliMuraca/logout" class="btn btn-danger text-left "><b>Logout</b></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="action-section">
-
-        <ul class="action-links">
-            <li><a href="./catalogo">Gestione <strong>Catalogo</strong></a></li>
-            <li><a href="./manageImages">Gestione <strong>Immagini</strong></a></li>
-            <% if (admin.getId() == 1) { %>
-                <li><a href="./manageAdmin">Gestione <strong>Admin</strong></a></li>
-            <% } %>
-            <li><a href="./manageUser">Gestione <strong>Utenti</strong></a></li>
-            <li><a href="./manageReview">Gestione <strong>Recensioni</strong></a></li>
-            <li><a href="./manageOrder">Gestione <strong>Ordini</strong></a></li>
-			<br><br>
-            <li><a href="/FratelliMuraca/logout"><b>Logout</b></a></li>
-        </ul>
-    </div>
-</div>
 </body>
 </html>

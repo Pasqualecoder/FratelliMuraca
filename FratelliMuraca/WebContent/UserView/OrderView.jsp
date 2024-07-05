@@ -107,7 +107,7 @@ if (ordini == null || ordini.size() <= 0) {
 			%>
 			
 			<tr>
-				<td><%= prodotto.getNome() %></td>
+				<td><a href="details?id=<%= prodotto.getId() %>"> <%= prodotto.getNome() %> </a> </td>
 				<td>&euro;<%= prodotto.getPrezzoNetto() %></td>
 				<td><%= prodotto.getIvaPerc() %>%</td>
 				<td><%= prodotto.getSalePerc() %>%</td>

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8"%>
 <%
 LinkedList<ProductBean> listaProdotti = (LinkedList<ProductBean>) request.getAttribute("listaProdotti");
 LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribute("listaImmagini");
@@ -10,6 +9,8 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
 <head>
 <meta charset="UTF-8">
 <title>Gestione Immagini Admin - Fratelli Muraca</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
   /* Aggiungi un po' di stile per l'area di drag-and-drop */
   #drop-area {
@@ -26,61 +27,69 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
   #drop-area.dragging {
     border-color: #000;
   }
-  #drop-area img {
-    max-width: 100px;
-    max-height: 100px;
-    display: none;
-    margin-top: 10px;
+  /* Stile per le immagini nella tabella */
+  .img-thumbnail {
+    max-width: 200px; /* Imposta la larghezza massima delle immagini */
+    max-height: 200px; /* Imposta l'altezza massima delle immagini */
   }
 </style>
 </head>
 <body>
+<a class="ml-5 btn btn-lg btn-warning go-back" href="dashboard">&#171; Dashboard</a>
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h1 class="mt-4 mb-4 font-weight-bold">Gestione Review</h1>
+        </div>
+    </div>
 
-<form action="manageImages" method="POST" enctype="multipart/form-data">
-  <label for="prodotti">ID PRODOTTO</label>
-  <select name="idProdotto" id="prodotti">
-    <%for (ProductBean prodotto : listaProdotti) {%>
-      <option value="<%= prodotto.getId() %>"><%= prodotto.getId() %>, <%= prodotto.getNome() %></option>
-    <%}%>
-  </select>
+<form action="manageImages" method="POST" enctype="multipart/form-data" class="container mt-4">
+  <div class="form-group">
+    <label for="prodotti">ID PRODOTTO</label>
+    <select name="idProdotto" id="prodotti" class="form-control">
+      <% for (ProductBean prodotto : listaProdotti) { %>
+        <option value="<%= prodotto.getId() %>"><%= prodotto.getId() %>, <%= prodotto.getNome() %></option>
+      <% } %>
+    </select>
+  </div>
 
-  <br><br>
-  
-  <label for="immagine">Inserisci immagine</label>
-  <input name="immagine" type="file" id="immagine" class="form-control-file" accept="image/png, image/gif, image/jpeg">
-  
-  <br><br>
+  <div class="form-group">
+    <label for="immagine">Inserisci immagine</label>
+    <input name="immagine" type="file" id="immagine" class="form-control-file" accept="image/png, image/gif, image/jpeg">
+  </div>
 
   <!-- Area per il drag-and-drop -->
-  <div id="drop-area">
+  <div id="drop-area" class="border rounded p-4">
     Trascina qui l'immagine
   </div>
 
-  <input type="submit" value="Carica">
+  <input type="submit" value="Carica" class="btn btn-success mt-3">
 </form>
 
-<br><br><br>
+<div class="container mt-4">
+  <table class="table">
+    <thead>
+      <tr class="font-weight-bold text-bold">
+        <th>ID Immagine</th>
+        <th>Immagine</th>
+        <th>ID Prodotto</th>
+        <th>Action</th>  
+      </tr>
+    </thead>
+    <tbody>
+      <% for (ImageBean immagine : listaImmagini) { %>
+      <tr>
+        <td><%= immagine.getId() %></td>    
+        <td><img src="/FratelliMuraca/imageServlet?img=<%= immagine.getId() %>" class="img-thumbnail"></td>
+        <td><%= immagine.getProductId() %></td>
+        <td><a href="./manageImages?id=<%= immagine.getId() %>" class="btn btn-sm btn-danger">Rimuovi</a></td>  
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>id_immagine</th>
-      <th>immagine</th>
-      <th>id_prodotto</th>
-      <th>action</th>  
-    </tr>
-  </thead>
-  <tbody>
-    <% for (ImageBean immagine : listaImmagini) {%>
-    <tr>
-      <td><%= immagine.getId() %></td>    
-      <td><img src="/FratelliMuraca/imageServlet?img=<%= immagine.getId() %>"></td>
-      <td><%= immagine.getProductId() %></td>
-      <td><a href="./manageImages?id=<%= immagine.getId() %>">Rimuovi</a></td>  
-    </tr>
-    <% } %>
-  </tbody>
-</table>
+<!-- Bootstrap JS (Optional for certain features like tooltips, modals, etc.) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
   // Gestione drag-and-drop
@@ -88,7 +97,7 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
   const fileInput = document.getElementById('immagine');
 
   // Prevenire l'azione di default per eventi di drag-and-drop
-  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropArea.addEventListener(eventName, preventDefaults, false)
     document.body.addEventListener(eventName, preventDefaults, false)
   });
@@ -99,11 +108,11 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
   }
 
   // Evidenzia area di drop quando un file viene trascinato sopra
-  ;['dragenter', 'dragover'].forEach(eventName => {
+  ['dragenter', 'dragover'].forEach(eventName => {
     dropArea.addEventListener(eventName, () => dropArea.classList.add('dragging'), false)
   });
 
-  ;['dragleave', 'drop'].forEach(eventName => {
+  ['dragleave', 'drop'].forEach(eventName => {
     dropArea.addEventListener(eventName, () => dropArea.classList.remove('dragging'), false)
   });
 
@@ -126,7 +135,7 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
       }
       dropArea.innerHTML = ''; // Rimuovi il testo "Trascina qui l'immagine"
       dropArea.appendChild(imgPreview); // Aggiungi l'anteprima dell'immagine
-      imgPreview.style.display = 'block'; // Mostra l'anteprima
+      imgPreview.classList.add('img-thumbnail'); // Aggiungi classe Bootstrap per le miniature delle immagini
     }
   }
 </script>
