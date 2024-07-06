@@ -6,8 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Admin - Fratelli Muraca</title>
-    <!-- Include Bootstrap CSS for styling -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <script>
         function validateForm() {
             var username = document.getElementById("username").value;
@@ -26,7 +27,7 @@
     <div class="container">
         <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
             <div id="login-container" class="col-md-6" style="background-color: #fff; border: 1px solid #ccc; padding: 20px;">
-                <div class="page-title text-center mb-4">Admin Login</div>
+                <h1 class="page-title text-center mb-4">Admin Login</h1>
                 <form action="login" method="POST" onsubmit="return validateForm()">
                     <div class="form-item">
                         <label for="username">Username:</label>

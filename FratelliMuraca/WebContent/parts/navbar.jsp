@@ -35,6 +35,7 @@
 
     /* Side panel styles */
     .sidepanel {
+      text-align: right;
       height: 100%; /* Full-height */
       width: 0; /* Initial width 0 */
       position: fixed; /* Fixed side panel */
@@ -55,8 +56,8 @@
       transition: 0.3s;
     }
     .sidepanel a:hover {
-      color: yellow;
-      text-decoration: underline;
+      color: #8eb027;
+      background-color: white;
     }
     .sidepanel .closebtn {
       position: absolute;
@@ -184,11 +185,13 @@
     
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     .user-dropdown {
         left: 265px; /* Adjust for smaller screens */
     }
 }
+
+
 
 
 	.user-dropdown a {
@@ -346,15 +349,24 @@
 
 <!-- Side Panel -->
 <div id="mySidepanel" class="sidepanel">
-    <a href="javascript:void(0)" class="closebtn" onclick="openCloseNav()">&times;</a>
-    <!-- User Icon in Sidebar -->
+    <a style="background-color: clear;" href="javascript:void(0)" class="closebtn" onclick="openCloseNav()">&times;</a>
+    
   	
-    <a class="nav-link" href="home">Home</a>
-    <a class="nav-link" href="product">Prodotti</a>
-    <a class="nav-link" href="home?page=ricette">Ricette</a>
-    <a class="nav-link" href="home?page=about">About</a>
-    <a class="nav-link" href="home?page=contacts">Contatti</a>
-    <!-- Search Bar in Side Panel -->
+    <ul style="list-style-type: none;">
+            
+            <li> 
+                <a class="nav-link" style="text-decoration:none;" href="product">Prodotti</a>
+            </li>
+            <li>
+                <a class="nav-link" style="text-decoration:none;" href="home?page=ricette">Ricette</a>
+            </li>
+            <li >
+                <a class="nav-link" style="text-decoration:none;"href="home?page=about">About</a>
+            </li>
+            <li >
+                <a class="nav-link" style="text-decoration:none;"href="home?page=contacts">Contatti</a>
+            </li>
+        </ul>
 	
 </div>
 
@@ -402,11 +414,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* Open the side panel */
 function openCloseNav() {
-    if(document.getElementById("mySidepanel").style.width == "250px"){
+    if(document.getElementById("mySidepanel").style.width == "200px"){
         document.getElementById("mySidepanel").style.width = "0px";
     }
     else {
-        document.getElementById("mySidepanel").style.width = "250px";
+        document.getElementById("mySidepanel").style.width = "200px";
     }
 }
 

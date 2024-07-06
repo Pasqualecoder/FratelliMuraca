@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*, model.*, java.util.stream.Collectors" pageEncoding="UTF-8"%>
 
 <%
-// Assuming LinkedList<OrderBean> orderList is populated elsewhere in your servlet or JSP
+
 LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("listaOrdini");
 %>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <!DOCTYPE html>
 <html lang="it">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordini</title>
@@ -24,22 +25,26 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
     </style>
 </head>
 <body>
-<div class="central-container" id="dashboard-container">
-    <a class="go-back" href="/FratelliMuraca/admin">&#171; Dashboard</a>
-    <h2>Gestione Ordini</h2>
+<div class="container">
+	<a class="mt-4 btn btn-lg btn-warning go-back" href="dashboard">&#171; Dashboard</a>
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h1 class="mt-4 mb-4 font-weight-bold">Gestione Ordini</h1>
+        </div>
+    </div>
     
     <!-- Form per il filtro degli ordini -->
     <form id="filterForm">
         <label for="clienteId">Id Cliente:</label>
-        <input type="number" name="clienteId" id="clienteId"><br>
+        <input type="number" class="ml-3 mb-3" name="clienteId" id="clienteId"><br>
 
         <label for="dataStart">Data Start:</label>
-        <input type="date" name="dataStart" id="dataStart"><br>
+        <input type="date" class="ml-3 mb-3" name="dataStart" id="dataStart"><br>
 
         <label for="dataEnd">Data End:</label>
-        <input type="date" name="dataEnd" id="dataEnd"><br>
+        <input type="date" class=" ml-3 mb-3" name="dataEnd" id="dataEnd"><br>
 
-        <button type="button" onclick="filterOrders()">Filtra</button>
+        <button type="button" class="ml-3 btn-success btn " onclick="filterOrders()">Filtra</button>
     </form>
 
     <table id="ordersTable" border="1">
@@ -49,14 +54,16 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
                 <th>IdCliente</th>
                 <th>Data</th>
                 <th>Destinatario</th>
-                <th>InfoProdotto</th>
+                <th>Prodotti</th>
+                <th>Totale</th>
                 <th>ModificaStato</th>
+                <th>Ricevuta</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
-
+	
     <script>
         var ordini;
 
@@ -118,6 +125,11 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
                                            shipping["address"]["admin_area_2"] + "\n" + 
                                            shipping["address"]["postal_code"] + "\n" + 
                                            shipping["address"]["country_code"];
+                        
+                        var totale = "€ " + ordine["details"]["purchase_units"][0]["amount"]["value"];
+                        
+                        
+                        
 
                         // Conversione della data dell'ordine in oggetto Date per il confronto
                         var orderDate = new Date(data);
@@ -159,10 +171,14 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
                             var cellData = document.createElement('td');
                             cellData.textContent = new Date(data).toLocaleString();
                             row.appendChild(cellData);
+                            
+                            
 
                             var cellDestinatario = document.createElement('td');
                             cellDestinatario.textContent = destinatario;
                             row.appendChild(cellDestinatario);
+                            
+                            
 
                             // Creazione della cella InfoProdotto con i prodotti separati da un a capo
                             var cellInfoProdotto = document.createElement('td');
@@ -181,10 +197,16 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
                                 }
                             });
                             row.appendChild(cellInfoProdotto);
+                            
+                            var cellTotale = document.createElement('td');
+                            cellTotale.textContent = totale;
+                            row.appendChild(cellTotale);
 
                             var cellModificaStato = document.createElement('td');
                             var select = document.createElement('select');
                             select.id = "statoSelect_" + idOrdine;
+                            select.className = 'form-select';
+                            
                             select.onchange = function() {
                                 changeOrderState(idOrdine);
                             };
@@ -200,6 +222,17 @@ LinkedList<OrderBean> orderList = (LinkedList<OrderBean>) request.getAttribute("
                             });
                             cellModificaStato.appendChild(select);
                             row.appendChild(cellModificaStato);
+                            
+                            var cellRicevuta = document.createElement('td');
+                            var anchor = document.createElement('a');
+                            anchor.href = '../receipt?id=' + idOrdine;
+                            anchor.className = 'btn btn-success';
+                            anchor.textContent = 'Ricevuta';
+                            cellRicevuta.appendChild(anchor);
+                            row.appendChild(cellRicevuta);
+								
+                        
+                         
 
                             // Aggiungi la riga dell'ordine al tbody
                             document.querySelector('#ordersTable tbody').appendChild(row);

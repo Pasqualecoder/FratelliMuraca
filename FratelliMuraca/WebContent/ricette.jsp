@@ -120,8 +120,8 @@ div.ricette-container > .recipe a:hover {
         </header>
         <section class="recipe">
             <img src="media/peperoni.jpg" alt="Bruschetta piccante alla calabrese">
-            <h2>Bruschetta piccante alla calabrese</h2>
-            <p>Piatto tipico della Calabria.</p>
+            <h2><i>Bruschetta piccante alla calabrese</i></h2>
+            <p><strong>Piatto tipico della Calabria.</strong></p>
             <ul>
                 <li>Filone di pane</li>
                 <li>Olio extravergine di oliva</li>
@@ -131,24 +131,28 @@ div.ricette-container > .recipe a:hover {
                 <li>Basilico, sale e pepe</li>
                 <li>Peperoncino a piacere</li>
             </ul>
-            <a href="https://www.giallozafferano.it" target="_blank">Giallo Zafferano</a>
+            <br>
+            <a href="https://blog.giallozafferano.it/lacucinadimara/bruschetta-piccante-alla-calabrese/" target="_blank">Giallo Zafferano</a>
         </section>
+        <hr style="width:100%;text-align:center;margin-left:0;background-color:black;">
         <section class="recipe">
         	<img src="media/baccala.jpg" alt="Baccala'">
-            <h2>Baccalà alla lucana con peperoni cruschi</h2>
-            <p>Piatto tipico della Basilicata.</p>
+            <h2><i>Baccalà alla lucana con peperoni cruschi</i></h2>
+            <p><strong>Piatto tipico della Basilicata.</strong></p>
             <ul>
                 <li>500 g Baccalà (già ammollato)</li>
                 <li>4 Peperoni cruschi</li>
                 <li>q.b. Olio extravergine d'oliva</li>
                 <li>1 ciuffo Prezzemolo</li>
             </ul>
-            <a href="https://www.giallozafferano.it" target="_blank">Giallo Zafferano</a>
+            <br>
+            <a href="https://blog.giallozafferano.it/peccatodigola/baccala-con-peperoni-cruschi/" target="_blank">Giallo Zafferano</a>
         </section>
+        <hr style="width:100%;text-align:center;margin-left:0;background-color:black;">
         <section class="recipe">
             <img src="media/pizza.jpg" alt="Pizza Margherita">
-            <h2>Pizza Margherita</h2>
-            <p>Piatto tipico della Campania.</p>
+            <h2><i>Pizza Margherita</i></h2>
+            <p><strong>Piatto tipico della Campania.</strong></p>
             <ul>
                 <li>Farina</li>
                 <li>Acqua</li>
@@ -159,7 +163,8 @@ div.ricette-container > .recipe a:hover {
                 <li>Grana Padano DOP</li>
                 <li>Basilico q.b</li>
             </ul>
-            <a href="https://www.giallozafferano.it" target="_blank">Giallo Zafferano</a>
+            <br>
+            <a href="https://ricette.giallozafferano.it/Pizza-Margherita.html" target="_blank">Giallo Zafferano</a>
         </section>
     </div>
 

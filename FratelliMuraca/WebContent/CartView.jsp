@@ -40,9 +40,9 @@
 				prezzoTotale = ProductBean.arrotondaDueDecimali(prezzoTotale);
 			%>
 			<tr>
-				<td><img src="imageServlet?img=<%= prodotto.getImmagini().getFirst() %>" alt="<%= prodotto.getNome() %>" style="max-width: 200px"></td>
+				<td><img src="imageServlet?img=<%= prodotto.getImmagini().getFirst() %>" alt="<%= prodotto.getNome() %>" style="max-width: 100px;max-height:100px"></td>
 				<td>
-					<h5><%= prodotto.getNome() %></h5>
+					<h5><a href="./details?id=<%= prodotto.getId() %>" style="color:black"><%= prodotto.getNome() %></a></h5>
 					<h6 class="text-muted font-italic"><%= prodotto.getCategoria() %></h6>
 					<h5 class="font-italic"><%= prodotto.getDimensione() %></h5>
 				</td>

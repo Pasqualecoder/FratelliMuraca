@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AdminBean;
 import model.OrderBean;
 import model.OrderModel;
 import model.OrderModelDS;
@@ -36,6 +37,7 @@ public class ReceiptControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserBean user = (UserBean) request.getSession().getAttribute("user");
+		AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
 		int idOrdine = 0;
 
 		// check sul parametro
@@ -56,7 +58,12 @@ public class ReceiptControl extends HttpServlet {
 		// controllo che l'ordine sia effettivamente associato all'utente richiedente (altrimenti chiunque potrebbe accedere alle ricevute di altre persone)
 		OrderBean order = null;
 		try {
-			order = orderModel.doRetrieveOrder(idOrdine, user.getId());
+			if(admin == null) {
+				order = orderModel.doRetrieveOrder(idOrdine, user.getId());
+			}
+			else {
+				order = orderModel.doRetrieveOrder(idOrdine);
+			}
 			if (order == null) {
 				throw new SQLException();
 			}

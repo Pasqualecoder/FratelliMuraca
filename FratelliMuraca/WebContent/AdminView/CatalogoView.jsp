@@ -10,14 +10,15 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
     <meta charset="UTF-8">
     <title>Modifica Catalogo Admin - Fratelli Muraca</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <style>
         .custom-container {
-            margin-left: 10px; /* Adjust the left margin as needed */
-            margin-right: 10px; /* Adjust the right margin as needed */
+            margin-left: 10px;
+            margin-right: 10px; 
         }
         .truncate-text {
-            max-width: 200px; /* Adjust the max-width as needed */
+            max-width: 200px; 
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -26,13 +27,16 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
 </head> 
 <body>
     
-	 <div class=" mt-4 ml-4">
-        <a href="dashboard" class="btn btn-warning mb-3 btn-lg">&lt;&lt; Dashboard</a>
-       
+	<div class="container">
+	<a class="mt-4 btn btn-lg btn-warning go-back" href="dashboard">&#171; Dashboard</a>
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h1 class="mt-4 mb-4 font-weight-bold">Gestione Catalogo</h1>
+        </div>
     </div>
+</div>
     
 
-    <div class="container custom-container"> <!-- New container for table with custom CSS -->
    
         <div class="product-table">
             <h3>Tabella Prodotti</h3>
@@ -97,7 +101,6 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
     </div>
 
 
-    <!-- Bootstrap JS (Optional for certain features like tooltips, modals, etc.) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
 </body>
 </html>

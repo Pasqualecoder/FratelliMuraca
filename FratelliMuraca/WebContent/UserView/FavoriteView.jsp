@@ -22,12 +22,11 @@
             </div>
         <% } else { %>
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table">
                     <thead>
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Nome Prodotto</th>
-                            <th scope="col">Descrizione</th>
                             <th scope="col">Prezzo</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Azione</th> <!-- Colonna per il link Rimuovi -->
@@ -42,7 +41,7 @@
                                 <td>
                                     <a href="details?id=<%= prodotto.getId() %>" class="text-decoration-none"><%= prodotto.getNome() %></a>
                                 </td>
-                                <td><%= prodotto.getDescrizione() %></td>
+                                
                                 <td>
                                     €<%= String.format("%.2f", prodotto.getPrezzoScontato()) %>
                                 </td>

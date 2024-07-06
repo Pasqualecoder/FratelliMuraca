@@ -93,14 +93,14 @@
 
     <section class="text-center">
     	<a href="./product">
-    		<h1 class="display-6 font-italic font-weight-bold" style="color: #607244">Vieni a scoprire tutti i nostri prodotti...</h1>
+
     	</a>
-    	<p class="font-weight-bold">Scopri il piacere della vera tradizione italiana</p>
+    	<h2 class="font-weight-bold mb-4 font-italic" style="color:	#5f720f;">Scopri il piacere della vera tradizione italiana!</h2>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-4 mb-4">
                     <a href="./product?categoria=aromatizzati">
-                        <div class="card">
+                        <div class="card border-0">
                             <img src="media/aromatizzati.jpg" class="card-img img-fluid" alt="aromatizzati">
                             <div class="card-img-overlay">
                                 <h5 class="card-title">Oli Aromatizzati</h5>
@@ -110,7 +110,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 mb-4">
-	                   <div class="card card-classici">
+	                   <div class="card card-classici border-0">
 		                    <a href="./product?categoria=classici">
 	                            <img src="media/classici.jpg" class="card-img img-fluid" alt="classici">
 	                            <div class="card-img-overlay">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <a href="./product?categoria=cosmetici">
-                        <div class="card">
+                        <div class="card border-0">
                             <img src="media/cosmetici.jpg" class="card-img img-fluid" alt="cosmetici">
                             <div class="card-img-overlay">
                                 <h5 class="card-title">Cosmetici</h5>
@@ -133,11 +133,16 @@
                 </div>
             </div>
         </div>
+        <a href="./product">
+			<h3 class="btn btn-success btn-lg font-weight-bold" >Vieni a scoprire tutti i nostri prodotti...</h3>
+    	</a>
+        
     </section>
     
+    <br><br><br>
     <section class="text-center">
     <div class="ricette-container">
-    	<a href=".?page=ricette">
+    	<a href=".?page=ricette" class="link-success">
     		<h1 class="display-6 font-italic font-weight-bold" style="color: #607244">Ricette</h1>
         </a>
         <p class="font-weight-bold">I benefici dell'olio EVO, non solo a crudo ma anche in cottura</p>

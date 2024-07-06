@@ -10,7 +10,7 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
 <meta charset="UTF-8">
 <title>Gestione Immagini Admin - Fratelli Muraca</title>
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <style>
   /* Aggiungi un po' di stile per l'area di drag-and-drop */
   #drop-area {
@@ -35,12 +35,14 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
 </style>
 </head>
 <body>
-<a class="ml-5 btn btn-lg btn-warning go-back" href="dashboard">&#171; Dashboard</a>
+<div class="container">
+	<a class="mt-4 btn btn-lg btn-warning go-back" href="dashboard">&#171; Dashboard</a>
     <div class="row justify-content-center">
         <div class="col-12 text-center">
-            <h1 class="mt-4 mb-4 font-weight-bold">Gestione Review</h1>
+            <h1 class="mt-4 mb-4 font-weight-bold">Gestione Immagini</h1>
         </div>
     </div>
+</div>
 
 <form action="manageImages" method="POST" enctype="multipart/form-data" class="container mt-4">
   <div class="form-group">
@@ -88,8 +90,7 @@ LinkedList<ImageBean> listaImmagini = (LinkedList<ImageBean>) request.getAttribu
   </table>
 </div>
 
-<!-- Bootstrap JS (Optional for certain features like tooltips, modals, etc.) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 <script>
   // Gestione drag-and-drop

@@ -60,7 +60,7 @@ if (products == null || products.size() == 0) {%>
                             <!-- CARD -->
                             <div class="col mb-3">
                                 <a href="details?id=<%=prodotto.getId()%>" class="text-decoration-none text-dark">
-                                    <div class="card h-100">
+                                    <div class="card ">
                                         <% if (prodotto.isOnSale()) { %>
                                             <!-- Sale badge-->
                                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
