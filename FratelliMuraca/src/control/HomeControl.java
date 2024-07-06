@@ -58,6 +58,9 @@ public class HomeControl extends HttpServlet {
 		else if (requestedPage.equals("contacts")) {
 			redirect = "/contacts.jsp";
 		}
+		else if (requestedPage.equals("ricette")) {
+			redirect = "/ricette.jsp";
+		}
 		else {
 			redirect = "/home.jsp";
 		}

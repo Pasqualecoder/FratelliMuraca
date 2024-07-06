@@ -6,6 +6,7 @@
     <title>Home - Fratelli Muraca</title>
     <link rel="stylesheet" href="css/home-style.css">
     <style type="text/css">
+    
     /* Stili per le immagini nelle card */
     .card-img {
         max-width: 100%;
@@ -34,6 +35,19 @@
         border: 2px solid #ffc107; /* Aggiunge un bordo dorato per farla risaltare */
         background-color: rgba(255, 193, 7, 0.1); /* Sfondo leggero giallo */
     }
+    
+    
+    div.ricette-container > .images {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+	}
+	
+	div.ricette-container > .images img {
+	    width: 30%;
+	    border-radius: 8px;
+	}
+    
 
     /* Regole specifiche per diversi schermi per migliorare la visualizzazione */
     @media (max-width: 992px) {
@@ -55,6 +69,9 @@
             flex: 1.7; /* La card diventa più grande su schermi più piccoli */
         }
     }
+    
+    
+    
     </style>
     <%@ include file="parts/head.jsp" %>
 </head>
@@ -72,9 +89,13 @@
         </div>
     </header>
 
-    <br><br><br>
+    <br>
 
     <section class="text-center">
+    	<a href="./product">
+    		<h1 class="display-6 font-italic font-weight-bold" style="color: #607244">Vieni a scoprire tutti i nostri prodotti...</h1>
+    	</a>
+    	<p class="font-weight-bold">Scopri il piacere della vera tradizione italiana</p>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-4 mb-4">
@@ -112,6 +133,22 @@
                 </div>
             </div>
         </div>
+    </section>
+    
+    <section class="text-center">
+    <div class="ricette-container">
+    	<a href=".?page=ricette">
+    		<h1 class="display-6 font-italic font-weight-bold" style="color: #607244">Ricette</h1>
+        </a>
+        <p class="font-weight-bold">I benefici dell'olio EVO, non solo a crudo ma anche in cottura</p>
+
+		
+	    <div class="images">
+            <img src="media/baccala.jpg" alt="Baccala'">
+            <img src="media/pizza.jpg" alt="Pizza">
+            <img src="media/peperoni.jpg" alt="Peperoni">
+        </div>
+    </div>
     </section>
 
     <!-- Bootstrap JS and custom script -->

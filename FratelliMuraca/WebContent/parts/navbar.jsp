@@ -283,6 +283,9 @@
                 <a class="nav-link" href="product">Prodotti</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="home?page=ricette">Ricette</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="home?page=about">About</a>
             </li>
             <li class="nav-item">
@@ -348,6 +351,7 @@
   	
     <a class="nav-link" href="home">Home</a>
     <a class="nav-link" href="product">Prodotti</a>
+    <a class="nav-link" href="home?page=ricette">Ricette</a>
     <a class="nav-link" href="home?page=about">About</a>
     <a class="nav-link" href="home?page=contacts">Contatti</a>
     <!-- Search Bar in Side Panel -->
