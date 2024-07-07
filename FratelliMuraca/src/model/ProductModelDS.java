@@ -355,7 +355,6 @@ public class ProductModelDS implements ProductModel {
 	            preparedStatement.setString(paramIndex++, productType);
 	        }
 
-	        System.out.println(preparedStatement);
 	        ResultSet rs = preparedStatement.executeQuery();
 
 	        while (rs.next()) {

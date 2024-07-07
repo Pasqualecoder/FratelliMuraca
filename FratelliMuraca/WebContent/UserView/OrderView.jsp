@@ -10,7 +10,7 @@
 <body>
 <%@ include file="../parts/navbar.jsp" %>
 
-<h1 class="font-italic text-center">Ultimi ordini</h1>
+<h1 class="font-italic text-center display-4">Ultimi ordini</h1>
 <%
 Boolean opStatus = (Boolean) request.getAttribute("opStatus");
 

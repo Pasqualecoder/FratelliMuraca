@@ -3,7 +3,7 @@
 <%@ include file="init/cartinit.jsp" %>
 <html>
 <head>
-    <title>Ricette - Fratelli Muraca</title>
+    <title>Crediti - Fratelli Muraca</title>
     
     <link rel="stylesheet" href="css/home-style.css">
     <%@ include file="parts/head.jsp" %>
@@ -27,6 +27,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h2>Crediti</h2>
+                <h6>Made with <i class="fa-solid fa-heart"></i> by</h6>
             </div>
         </div>
         <div class="row justify-content-center">
