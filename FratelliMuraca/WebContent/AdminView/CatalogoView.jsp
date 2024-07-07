@@ -38,7 +38,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
     
 
    
-        <div class="product-table">
+        <div class="product-table m-2" style="overflow-x:scroll;">
             <h3>Tabella Prodotti</h3>
             <table class="table table-bordered">
                 <thead ">
