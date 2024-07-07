@@ -226,7 +226,7 @@ function populateOrderDetails(orderDetails) {
     document.getElementById('payment-status').textContent = paymentStatus;
     document.getElementById('payment-method').textContent = paymentMethod;
     document.getElementById('payment-date').textContent = paymentDate;
-    // document.getElementById('payment-total').textContent = paymentTotal;
+    document.getElementById('payment-total').textContent = paymentTotal;
     document.getElementById('payer-email').textContent = payerEmail;
     document.getElementById('payer-name').textContent = payerName;
     document.getElementById('payee-email').textContent = payeeEmail;
