@@ -1,12 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="it">
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.util.*,model.*" pageEncoding="UTF-8" %>
 
 <%@ include file="init/cartinit.jsp" %>
 
 <head>
     <%@ include file="parts/head.jsp" %>
-    <title>Pagina 1 - Fratelli Muraca</title>
+    <title>Contatti - Fratelli Muraca</title>
     <link rel="stylesheet" href="css/home-style.css">
     <link rel="stylesheet" href="css/footer-style.css">
 <style>
