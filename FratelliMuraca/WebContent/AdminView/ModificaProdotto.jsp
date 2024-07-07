@@ -84,15 +84,15 @@ ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
                 <textarea name="ingredienti" class="form-control" rows="5" required><%= (prodotto != null) ? prodotto.getIngredienti() : "" %></textarea>
             </div>
 
-            <input type="submit" class="btn btn-success" value="Salva">
+            <input type="submit" class="btn btn-success btn-block" value="Salva">
         </form>
 
-        <% if (prodotto != null) { %>
+        <!-- <% if (prodotto != null) { %>
         <form action="modificaProdotto" method="POST">
             <input name="id" type="hidden" value="<%= prodotto.getId() %>">
             <input name="delete" type="hidden" value="true">
             <input type="submit" class="btn btn-danger mt-3" value="Elimina">
-        </form>
+        </form>  -->
         <% } %>
     </div>
 </div>

@@ -57,7 +57,7 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
                         <th>Categoria</th>
                         <th>Anno</th>
                         <th>Ingredienti</th>
-                        <th>Modifica</th>
+                        <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,7 +83,13 @@ LinkedList<ProductBean> prodotti = (LinkedList) request.getAttribute("prodotti")
                                 <td><%= product.getAnno() %></td>
                                 <td class="truncate-text"><%= product.getIngredienti() %></td>
                                 <td>
-                                    <a href="modificaProdotto?id=<%= product.getId() %>" class="btn btn-sm btn-success">Modifica</a>
+                                    <a href="modificaProdotto?id=<%= product.getId() %>" class="btn btn-sm mb-2 btn-success">Modifica</a>
+			                        <form action="modificaProdotto" method="POST">
+			            						<input name="id" type="hidden" value="<%= product.getId() %>">
+			            						<input name="delete" type="hidden" value="true">
+			            						<input type="submit" class="btn btn-sm btn-block btn-danger" value="Elimina">
+			        				</form> 
+                                     
                                 </td>
                             </tr>
                         <% }
