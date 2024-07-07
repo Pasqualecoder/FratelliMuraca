@@ -92,10 +92,9 @@
     <br>
 
     <section class="text-center">
-    	<a href="./product">
-
+    	<a href="./product" style="text-decoration-color: #607244;">
+	    	<h2 class="font-weight-bold mb-4 font-italic" style="color:	#607244;">Scopri il piacere della vera tradizione italiana!</h2>
     	</a>
-    	<h2 class="font-weight-bold mb-4 font-italic" style="color:	#5f720f;">Scopri il piacere della vera tradizione italiana!</h2>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-4 mb-4">

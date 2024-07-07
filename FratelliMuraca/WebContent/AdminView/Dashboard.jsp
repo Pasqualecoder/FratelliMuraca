@@ -17,7 +17,7 @@ AdminBean admin = (AdminBean) request.getSession().getAttribute("admin");
         <div class="d-flex justify-content-center align-items-center vh-100">
             <div id="dashboard-container" class="col-md-8 col-lg-6 bg-white border rounded p-4">
                 <div class="text-center mb-4">
-                    Benvenuto <%= admin.getUsername() %>
+                    Benvenuto <strong><%= admin.getUsername() %></strong>
                 </div>
                 <div id="action-section">
                     <ul class="list-unstyled">
