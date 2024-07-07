@@ -71,7 +71,7 @@
 
 <div class="w-50 container text-center pt-3 error-container">
     <a href="https://www.youtube.com/watch?v=xVWeRnStdSA" target="_blank">
-        <img class="mt-4 img-fluid" alt="huh?" src="https://i.kym-cdn.com/entries/icons/original/000/046/895/huh_cat.jpg" width="400px">
+        <img class="mt-4 img-float" alt="huh?" src="./media/cat-huh.gif" width="400px" height="200px">
     </a>
     <h1 class="text-danger display-3">Si è verificato un errore <i class="fa-regular fa-face-frown"></i></h1>
     <h1 class="mt-2 display-1"><%= statusCode %></h1>

@@ -40,7 +40,7 @@
                     <th >UserEmail</th>
                     <th >ProductID</th>
                     <th >ProductName</th>
-                    <th>ELIMINA RECENSIONE</th>
+                    <th>Azioni</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +56,14 @@
                     <td><%= externalReview.getUser().getEmail() %></td>
                     <td><%= externalReview.getProduct().getId() %></td>
                     <td><a href="../details?id=<%= externalReview.getProduct().getId() %>"> <%= externalReview.getProduct().getNome() %></a></td>
-                    <td><a href="./manageReview?delete=<%= externalReview.getId() %>" class="btn btn-sm btn-danger">Elimina</a></td>
+                    <td>
+						    <a href="javascript:void(0);" 
+						       onclick="if(confirm('Sei sicuro di voler eliminare la Recensione <%= externalReview.getId() %>')) { 
+						                   
+						                   window.location.href='manageReview?delete=<%= externalReview.getId() %>'; 
+						               }" 
+						       class="btn btn-sm btn-danger">Elimina</a>
+						</td>   
                 </tr>
                 <% } %>
                 <% } %>	 

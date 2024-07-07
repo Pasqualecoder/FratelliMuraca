@@ -54,8 +54,15 @@
                         <td><%= externalUser.getCognome() %></td>
                         <td><%= externalUser.getDdn() %></td>
                         <td><%= externalUser.getPhone() %></td>
-                        <td><a href="manageUser?delete=<%= externalUser.getId() %>" class="btn btn-sm btn-danger">Elimina</a></td>
-                    </tr>
+						<td>
+						    <a href="javascript:void(0);" 
+						       onclick="if(confirm('Sei sicuro di voler eliminare l'Utente <%= externalUser.getId() %>')) { 
+						                   
+						                   window.location.href='manageUser?delete=<%= externalUser.getId() %>'; 
+						               }" 
+						       class="btn btn-sm btn-danger">Elimina</a>
+						</td>                    
+						</tr>
                     <% } %>
                     <% } %>
                     <% } %>
@@ -63,6 +70,13 @@
             </table>
         </div>
     </div>
+    <script>
+    		delete_user(var id){
+    			
+    			
+    		}
+    
+    </script>
 </body>
 </html>
 

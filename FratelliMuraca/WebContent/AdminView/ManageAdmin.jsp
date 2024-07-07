@@ -66,7 +66,16 @@
             <tr>
                 <td><%= externalAdmin.getId() %></td>
                 <td><%= externalAdmin.getUsername() %></td>
-                <td><a href="./manageAdmin?id=<%= externalAdmin.getId() %>" class="btn btn-sm btn-danger">Rimuovi</a></td> 
+                <% if (externalAdmin.getId() != 1) { %>
+                <td>
+						    <a href="javascript:void(0);" 
+						       onclick="if(confirm('Sei sicuro di voler eliminare Admin <%= externalAdmin.getId() %>')){ 
+						                   
+						                   window.location.href='manageAdmin?id=<%= externalAdmin.getId() %>'; 
+						               }" 
+						       class="btn btn-sm btn-danger">Elimina</a>
+				</td> 
+				<% } %>
             </tr>
             <% }
             } %>
