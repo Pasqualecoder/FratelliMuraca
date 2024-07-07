@@ -60,6 +60,7 @@ public class ReceiptControl extends HttpServlet {
 		try {
 			if(admin == null) {
 				order = orderModel.doRetrieveOrder(idOrdine, user.getId());
+				order.setUser(user);
 			}
 			else {
 				order = orderModel.doRetrieveOrder(idOrdine);
@@ -68,7 +69,6 @@ public class ReceiptControl extends HttpServlet {
 				throw new SQLException();
 			}
 			
-			order.setUser(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_FORBIDDEN, "non e' una tua ricevuta!");
