@@ -1,7 +1,7 @@
 # Fratelli Muraca
 ## Olive Oil Store
 
-<img src="https://github.com/Pasqualecoder/FratelliMuraca/blob/main/miscellaneous/logo.png" width="500px">
+<img src="https://github.com/Pasqualecoder/FratelliMuraca/blob/main/FratelliMuraca/WebContent/media/logo-no-bg.png" width="500px">
 
 ### Studenti 
   - Pasquale Muraca - 05121/16807 - p.muraca@studenti.unisa.it
